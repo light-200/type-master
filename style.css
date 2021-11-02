@@ -1,0 +1,47 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --font-color: rgb(226, 226, 226);
+    --typed-font-color: #ff324d;
+    --background-color: rgb(34, 34, 34);
+}
+
+body{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background-color);
+    color: var(--font-color);
+}
+
+.container{
+    max-width: 500px;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-between;
+}
+
+.text{ position: relative}
+
+/* .text::before{
+    position: absolute;
+    content: "";
+    border:  solid white;
+    border-width: 0 2px 0 0;
+    animation: blink 1.5s steps(2) infinite;
+} */
+
+@keyframes blink {
+    0%{
+        opacity: 0;
+    }
+}
