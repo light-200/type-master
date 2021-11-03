@@ -34,7 +34,8 @@ body::before{
 }
 
 .container{
-    min-width: 700px;
+    min-width: 300px;
+    width: 700px;
     max-width: 65%;
 }
 
