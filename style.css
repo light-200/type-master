@@ -32,16 +32,14 @@ body{
 
 .text{ position: relative}
 
-/* .text::before{
-    position: absolute;
-    content: "";
+.blink{
     border:  solid white;
     border-width: 0 2px 0 0;
     animation: blink 1.5s steps(2) infinite;
-} */
+}
 
 @keyframes blink {
     0%{
-        opacity: 0;
+        border-color: transparent;
     }
 }

@@ -7,7 +7,7 @@ var text = "";
 const getText = async () => {
     //call the api here 
     const url = "https://api.quotable.io/random";
-    const data = await fetch(url).then(response => response.json()).then(data =>{ return data; } );
+    const data = await fetch(url).then(response => response.json()).then(data =>{ return data; } ).catch(error =>console.error(error));
     // console.log(data);
     text = textContainer.innerText = data.content;
     setWords();
@@ -63,7 +63,6 @@ const start = () => {
 
            
             Words[index].style.color = "#ffd549";
-            
             // console.log(tempText[0]);  gives the next word to type
             // console.log(Words[index]); gives the current element in html
             
