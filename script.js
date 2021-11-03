@@ -57,7 +57,7 @@ const start = () => {
     let Words = document.querySelectorAll(".text>span");
     document.addEventListener('keydown' , (e)=>{
         
-        if(e.key === tempText[0] || (e.key === '\'' && tempText[0]=== '‘')){
+        if(e.key === tempText[0]){
             if(firstCall){
               start =  new Date().getTime();
             //   console.log(start)
