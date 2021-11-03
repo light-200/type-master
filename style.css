@@ -25,6 +25,13 @@ body{
     color: var(--font-color);
     font-size: 2rem;
 }
+body::before{
+    content: "type-master";
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    opacity: .1;
+}
 
 .container{
     min-width: 700px;
