@@ -46,6 +46,16 @@ body::before{
 
 .text{ position: relative}
 
+footer{
+    position: absolute;
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+    bottom: 1rem;
+    left: 0;
+    opacity: .1;
+}
+
 .blink{
     border:  solid white;
     border-width: 0 2px 0 0;
