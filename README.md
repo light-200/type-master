@@ -1,3 +1,3 @@
 # type-master
-a typing platform
+a minmal typing platform inspired by monkeytype
 
