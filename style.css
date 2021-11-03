@@ -27,12 +27,14 @@ body{
 }
 
 .container{
-    max-width: 500px;
+    min-width: 700px;
+    max-width: 65%;
 }
 
 .stats {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 2rem;
 }
 
 .text{ position: relative}

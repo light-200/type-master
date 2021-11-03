@@ -22,6 +22,9 @@ const speedCalc = (totalWords, seconds) =>{
     speed.innerText = Math.floor(tempSpeed.toPrecision(3));
 
     // add a function to change the text here 
+    setTimeout(() => {
+        getText();
+    }, 500);
 }
 
 //wraps all words in a span tag
