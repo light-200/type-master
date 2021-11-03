@@ -55,7 +55,7 @@ const start = () => {
     let typedWords = 0;
     let start , end;
     let Words = document.querySelectorAll(".text>span");
-    document.addEventListener('keydown' , (e)=>{
+    document.addEventListener('keypress' , (e)=>{
         
         if(e.key === tempText[0]){
             if(firstCall){
