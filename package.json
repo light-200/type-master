@@ -1,0 +1,25 @@
+{
+  "name": "type-master",
+  "version": "1.0.0",
+  "description": "a minmal typing platform inspired by monkeytype",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/light-200/type-master.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/light-200/type-master/issues"
+  },
+  "homepage": "https://github.com/light-200/type-master#readme",
+  "devDependencies": {
+    "webpack": "^5.64.0",
+    "webpack-cli": "^4.9.1"
+  }
+}
