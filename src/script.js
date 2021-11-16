@@ -1,8 +1,13 @@
+import { initializeApp } from 'firebase/app';
+import firebaseConfig from './firebase/config';
 const textContainer = document.querySelector(".text");
 const words = document.querySelector(".words");
 const speed = document.querySelector(".speed");
 var totalWords = 0;
 var text = "";
+
+
+initializeApp(firebaseConfig);
 
 const getText = async () => {
     //call the api here 
