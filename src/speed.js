@@ -13,7 +13,7 @@ const speedCalc = (totalWords, seconds) =>{
     speedIndicator.innerText = speed;
 
     let user = getData()
-    if(speed>user.topSpeed){
+    if(user && speed>user.topSpeed){
         user = {...user,topSpeed: speed};
         setData(user)
     }
