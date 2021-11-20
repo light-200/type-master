@@ -35,6 +35,7 @@ const spanWrap = (textContainer) => {
 profileButton.addEventListener('click',()=>{
     profile.classList.toggle('hide')
     if(getData()){
+        handleStats()
         signupBtn.innerText = 'update'
     }
 })
