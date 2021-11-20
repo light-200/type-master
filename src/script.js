@@ -11,10 +11,10 @@ const stats = document.querySelector('.profile>.routs>.stats')
 //signupform form handler
 signupForm.addEventListener('submit',(e)=>{
     e.preventDefault();
-    let oldData = getData().topSpeed || 0;
+    let oldSpeed = (getData() && getData().topSpeed) || 0;
     let data = {
         userName : e.target.username.value,
-        topSpeed : oldData
+        topSpeed : oldSpeed
     }
     data = setData(data)
     handleStats(data)
