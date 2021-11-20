@@ -36,7 +36,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*****************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"getData\": () => (/* binding */ getData),\n/* harmony export */   \"setData\": () => (/* binding */ setData)\n/* harmony export */ });\nconst LOCAL_STORAGE_DATA = 'user.data';\r\nconst storage = window.localStorage;\r\n\r\nfunction getData() {\r\n      let data = JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA));\r\n      return  data || { };\r\n}\r\n\r\nfunction setData(data) {\r\n    localStorage.setItem(LOCAL_STORAGE_DATA, JSON.stringify(data));\r\n    return data;\r\n} \r\n\r\n\n\n//# sourceURL=webpack://type-master/./src/localstorage.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"getData\": () => (/* binding */ getData),\n/* harmony export */   \"setData\": () => (/* binding */ setData)\n/* harmony export */ });\nconst LOCAL_STORAGE_DATA = 'user.data';\r\nconst storage = window.localStorage;\r\n\r\nfunction getData() {\r\n      let data = JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA));\r\n      return  data ;\r\n}\r\n\r\nfunction setData(data) {\r\n    localStorage.setItem(LOCAL_STORAGE_DATA, JSON.stringify(data));\r\n    return data;\r\n} \r\n\r\n\n\n//# sourceURL=webpack://type-master/./src/localstorage.js?");
 
 /***/ }),
 

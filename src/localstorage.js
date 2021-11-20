@@ -3,7 +3,7 @@ const storage = window.localStorage;
 
 function getData() {
       let data = JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA));
-      return  data || { };
+      return  data ;
 }
 
 function setData(data) {
