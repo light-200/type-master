@@ -1,9 +1,12 @@
 import {text} from './getText';
+import handleProfile from './handleProfile';
+import { getData } from './localstorage';
 const words = document.querySelector(".words");
 const profile = document.querySelector(".profile")
 const dragProfile = document.querySelector('.profile>.top>.move')
 const profileButton = document.querySelector(".profileBtn")
 const stats = document.querySelector('.profile>.routs>.stats')
+const signupBtn = document.querySelector('.profile>.top>.options>.signupBtn')
 
 var totalWords;
 
@@ -30,6 +33,9 @@ const spanWrap = (textContainer) => {
 
 profileButton.addEventListener('click',()=>{
     profile.classList.toggle('hide')
+    if(handleStats(getData())){
+        signupBtn.innerText = 'update'
+    }
 })
 
 //event listener for close button on the profile window
@@ -48,16 +54,18 @@ dragProfile.addEventListener('dragend',(e)=>{
     moveElement(e,element);
 })
 
-const handleStats = (user,topSpeed) => {
+const handleStats = (user) => {
     stats.childNodes.forEach((element)=>{
         if(!element.classList){
             return
         } else if(element.classList.contains('name')){
-            element.innerText=user.displayName;
+            element.innerText = user.userName;
         } else if(element.classList.contains('topSpeed')){
-            element.innerText = topSpeed; 
+            element.innerText = 'topspeed: ' + user.topSpeed; 
         }
     })
+    handleProfile(stats)
+    return user;
 }
 
 const moveElement = (e,element)=>{
