@@ -1,12 +1,21 @@
-import { initializeApp } from 'firebase/app';
-import firebaseConfig from './firebase/config';  //make this module by yourself that exports your firebase config object 
 import getText from './getText';
+import handleProfile from './handleProfile';
+
+const signupForm = document.querySelector('.profile>.routs>.signUp')
+const signupBtn = document.querySelector('.profile>.top>.options>.signupBtn')
+const stats = document.querySelector('.profile>.routs>.stats')
+
+//signupform form handler
+signupForm.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    signUp(e.target);
+})
 
 
-
-
-initializeApp(firebaseConfig);
-
-
+signupBtn.addEventListener('click',()=>{
+    handleProfile(signupForm);
+})
 
 getText();
+
+export { signupForm, stats }
