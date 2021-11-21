@@ -1,5 +1,5 @@
 import getText from "./getText";
-import { getData, setData } from "./localstorage";
+import { getUserData, setUserData } from "./localstorage";
 
 const speedIndicator = document.querySelector(".speed");
 var speed;
@@ -12,10 +12,10 @@ const speedCalc = (totalWords, seconds) =>{
     speed = Math.floor(tempSpeed.toPrecision(3));
     speedIndicator.innerText = speed;
 
-    let user = getData()
+    let user = getUserData()
     if(user && speed>user.topSpeed){
         user = {...user,topSpeed: speed};
-        setData(user)
+        setUserData(user)
     }
 
     // add a function to change the text here 

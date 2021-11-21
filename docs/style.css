@@ -1,18 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
-
-
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-
-:root{
-    --font-color: rgb(226, 226, 226);
-    --typed-font-color: #ff324d;
-    --background-color: rgb(34, 34, 34);
-}
-
 body{
     overflow: hidden;
     font-family: 'Source Code Pro', monospace;
@@ -22,8 +7,8 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: var(--background-color);
-    color: var(--font-color);
+    background-color: var(--background-color-dark);
+    color: var(--font-color-dark);
     font-size: 2rem;
 }
 
@@ -49,6 +34,7 @@ input{
     display: flex;
     width: 100%;
     justify-content: space-between;
+    align-items: center;
 }
 
 .nav>header{
@@ -57,7 +43,12 @@ input{
 
 .nav>.icons>a{
     text-decoration: none;
-    /* filter: contrast(.8); */
+}
+
+.icons{
+    padding: .5rem;
+    border-radius: 10px;
+    border: solid .5px #ffffff7e;
 }
 
 .container{
@@ -93,7 +84,7 @@ footer{
 .btn{
     width: 100px;
     border-radius: 5px;
-    background-color: rgb(255, 221, 70);
+    background-color: var(--button-bg-color);
     font-size: 20px;
     color: black;
     padding: 2.5px 5px;
@@ -102,22 +93,22 @@ footer{
 
 .btn:active{
     transform: translateY(3px);
-    background-color: rgb(167, 145, 49);
+    filter: brightness(.7);
 }
 
 /* -----------------------------------------------PROFILE TAB */
-.profile{
+.profile , .settings{
     position: absolute;
     min-width: 500px;
     min-height: 200px;
     z-index: 2;
-    background-color:rgb(34, 34, 34);
-
+    background-color: inherit;
+    color: inherit;
     border-radius: 10px;
     border: solid .5px #ffffff7e;
 }
 
-.profile>.top{
+.windowTop{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -127,11 +118,15 @@ footer{
     font-size: 20px;
 }
 
-.profile>.top>.options{
+.windowTop>.options{
     display: flex;
     align-items: center;
 }
 
+.routs{
+    background-color: inherit;
+    color: inherit;
+}
 
 .stats{
     position: relative;
@@ -141,7 +136,8 @@ footer{
     align-items: center;
     flex-grow: 1;
     height: 200px;
-    background-color: rgb(34, 34, 34);
+    background-color: inherit;
+    color: inherit;
 }
 
 .stats::after{
@@ -173,6 +169,37 @@ footer{
 
 .saveStats{
     width: fit-content;
+}
+
+.theme{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    height: 100%;
+}
+
+.themeLight::before{
+    content: " ";
+    display: inline-block;
+    border: solid 2px white;
+    min-width: 1rem;
+    min-height: 1rem;
+    border-radius: 50%;
+    margin:  0 2rem;
+    background-color: var(--background-color-light);
+}
+
+.themeDark::before{
+    content: " ";
+    display: inline-block;
+    border: solid 2px white;
+    min-width: 1rem;
+    min-height: 1rem;
+    border-radius: 50%;
+    margin:  0 2rem;
+    background-color: var(--background-color-dark);
 }
 
 /* login module  */

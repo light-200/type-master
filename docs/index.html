@@ -5,11 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>type-master</title>
+    <link rel="stylesheet" href="base.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="profile hide">
-        <div class="top" >
+        <div class="windowTop" >
             <div class="move" draggable="true">📌</div>
             <div class="options">
                 <div class="signupBtn btn">sign up</div>
@@ -28,16 +29,31 @@
             </form>
         </div>
         <div class="footer">
-            <a class="saveStats btn">Save Stats</a>
+            <a class="saveStats btn hide">Save Stats</a>
         </div>
         
+    </div>
+    <div class="settings hide">
+        <div class="windowTop" >
+            <div class="move" draggable="true">📌</div>
+            <div class="options">
+                <div class="close">❌</div>
+            </div>
+        </div>
+        <div class="routs">
+            <div class="theme">
+                <h5>Theme</h5>
+                <a class="themeLight">light</a>
+                <a class="themeDark">dark</a>
+            </div>
+        </div>
     </div>
     <div class="nav">
         <header>type-master</header>
         <div class="icons">
             <a href="#" class="profileBtn">🙍‍♂️</a>
-            <!-- <a href="#" class="settingsBtn">⚙️</a>
-            <a href="#" class="leaderBoardBtn">📊</a> -->
+            <a href="#" class="settingsBtn">⚙️</a>
+            <!-- <a href="#" class="leaderBoardBtn">📊</a> -->
         </div>
     </div>
     <div class="container">

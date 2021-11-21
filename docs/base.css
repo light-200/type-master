@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --font-color-dark: rgb(218, 216, 216);
+    --wrong-font-color: #ff324d;
+    --background-color-dark: rgb(34, 34, 34);
+    --button-bg-color: rgb(255, 221, 70);
+    --font-color-light: black;
+    --background-color-light: rgb(179, 179, 179);
+}
+
+.light{
+    background-color: var(--background-color-light);
+    color: var(--font-color-light);
+}
+
+.dark{
+    background-color: var(--background-color-dark);
+    color: var(--font-color-dark)
+}
