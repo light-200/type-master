@@ -11,6 +11,7 @@ export default (text) => {
     let typedWords = 0;
     let start , end;
     let Words = document.querySelectorAll(".text>span");
+    Words[index].classList.add('blink')
     document.addEventListener('keypress' , (e)=>{
         
         if(e.key === tempText[0]){
@@ -23,6 +24,12 @@ export default (text) => {
 
            
             Words[index].style.color = "#ffd549";
+            
+            Words[index].classList.remove('blink')
+            
+            if(index<text.length - 1){
+                Words[index+1].classList.add('blink')
+            }
             // console.log(tempText[0]);  gives the next word to type
             // console.log(Words[index]); gives the current element in html
             
@@ -38,7 +45,7 @@ export default (text) => {
             
             index++;
         } else {
-            if(Words[index + 1] != null){
+            if(Words[index] != null){
                 Words[index].style.color = "#ff324d";
             }
         }

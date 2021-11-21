@@ -91,7 +91,6 @@ const handleStats = (user) => {
 
 
 settingsBtn.addEventListener('click',()=>{
-    console.log('it works');
     settings.classList.toggle('hide');
 })
 

@@ -24,6 +24,11 @@ input{
     font-size: 20px;
 }
 
+span{
+    border: solid;
+    border-color: transparent;
+    border-width: 0 0 3px 0 ;
+}
 
 .nav{
     position:absolute;
@@ -76,9 +81,8 @@ footer{
 }
 
 .blink{
-    border:  solid white;
-    border-width: 0 2px 0 0;
-    animation: blink 1.5s steps(2) infinite;
+    border-color: inherit ;
+    animation: blink .7s steps(2) infinite;
 }
 
 .btn{
@@ -212,7 +216,7 @@ footer{
 }
 
 @keyframes blink {
-    0%{
+    50%{
         border-color: transparent;
     }
 }
