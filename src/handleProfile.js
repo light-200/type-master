@@ -1,4 +1,5 @@
 const routs = document.querySelector('.profile>.routs')
+const saveStatsBtn = document.querySelector('.saveStats')
 
 const handleProfile = (element)=>{
     routs.childNodes.forEach(e => {
@@ -7,6 +8,11 @@ const handleProfile = (element)=>{
         }
         if(e == element){
             e.classList.remove('hide')
+            if(e.classList.contains('stats')){
+                saveStatsBtn.classList.remove('hide')
+            }else{
+                saveStatsBtn.classList.add('hide')
+            }
         } else{
             !e.classList.contains('hide') && e.classList.add('hide');
         }

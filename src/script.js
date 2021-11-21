@@ -2,10 +2,17 @@ import getText from './getText';
 import handleProfile from './handleProfile';
 import {  getData, setData } from './localstorage';
 import { handleStats } from './mainUi';
+import saveStats from './saveStats.js'
 
 const signupForm = document.querySelector('.profile>.routs>.signUp')
 const signupBtn = document.querySelector('.profile>.top>.options>.signupBtn')
 const stats = document.querySelector('.profile>.routs>.stats')
+const saveStatsBtn = document.querySelector('.saveStats');
+
+
+saveStatsBtn.addEventListener('click',()=>{
+    saveStats();
+})
 
 
 //signupform form handler
