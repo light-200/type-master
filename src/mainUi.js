@@ -2,22 +2,12 @@ import {text} from './getText';
 import handleProfile from './handleProfile';
 import { getUserData, setUserData } from './localstorage';
 import { signupForm } from './script';
-const words = document.querySelector(".words");
-const profile = document.querySelector(".profile")
-const drag = document.querySelectorAll('.windowTop>.move')
-const profileButton = document.querySelector(".profileBtn")
-const stats = document.querySelector('.profile>.routs>.stats')
-const signupBtn = document.querySelector('.windowTop>.options>.signupBtn')
-const settingsBtn = document.querySelector('.settingsBtn');
-const settings = document.querySelector('.settings');
-const closeWinBtn = document.querySelectorAll('.options>.close') 
-const theme = document.querySelector('.theme');
-const body = document.querySelector('body')
 
 var totalWords;
 
-
 //sets total word value
+const words = document.querySelector(".words");
+
 const setWords = (typedWords = 0) => {
     let whitespace = / /g,result,indices = [];
     while(result = whitespace.exec(text)){
@@ -35,8 +25,16 @@ const spanWrap = (textContainer) => {
     };
     let newText = newArr.join('');
     textContainer.innerHTML = newText;
-    
 }
+
+
+
+// to show and hide profile window 
+
+const profileButton = document.querySelector(".profileBtn")
+const profile = document.querySelector(".profile")
+const signupBtn = document.querySelector('.windowTop>.options>.signupBtn')
+
 
 profileButton.addEventListener('click',()=>{
     profile.classList.toggle('hide')
@@ -47,13 +45,20 @@ profileButton.addEventListener('click',()=>{
     }
 })
 
-//event listener for close button on the profile window
+//for close button on the floating window
+
+const closeWinBtn = document.querySelectorAll('.options>.close') 
+
 closeWinBtn.forEach((b)=>{
     b.addEventListener('click',(e)=> {
       let element = e.target.parentElement.parentElement.parentElement;
         element.classList.toggle('hide');
     })
 })
+
+// for dragging elements 
+
+const drag = document.querySelectorAll('.windowTop>.move')
 
 drag.forEach((d)=>{
     d.addEventListener('drag',(e)=>{
@@ -70,6 +75,17 @@ drag.forEach((d)=>{
     })
 }
 )
+
+
+const moveElement = (e,element)=>{
+    element.style.left =  (e.pageX - 20) +'px';
+    element.style.top =  (e.pageY - 20)+'px';
+}
+
+
+// for stats 
+
+const stats = document.querySelector('.profile>.routs>.stats')
 
 const handleStats = (user) => {
     if (user){
@@ -90,14 +106,21 @@ const handleStats = (user) => {
 }
 
 
+// to show and hide settings window  
+
+const settingsBtn = document.querySelector('.settingsBtn');
+const settings = document.querySelector('.settings');
+
 settingsBtn.addEventListener('click',()=>{
     settings.classList.toggle('hide');
 })
 
-const moveElement = (e,element)=>{
-    element.style.left =  (e.pageX - 20) +'px';
-    element.style.top =  (e.pageY - 20)+'px';
-}
+
+
+// for theme 
+
+const theme = document.querySelector('.theme');
+const body = document.querySelector('body')
 
 theme.addEventListener('click',(e)=>{
     let user = getUserData()

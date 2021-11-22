@@ -1,7 +1,5 @@
 const LOCAL_STORAGE_USER_DATA = 'user.data';
 
-const storage = window.localStorage;
-
 function getUserData() {
       let data = JSON.parse(localStorage.getItem(LOCAL_STORAGE_USER_DATA));
       return  data;
