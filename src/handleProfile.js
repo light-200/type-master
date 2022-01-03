@@ -1,21 +1,20 @@
 import { getUserData } from "./localstorage"
-const routs = document.querySelector('.profile>.routs')
-const saveStatsBtn = document.querySelector('.saveStats')
+import { routs, saveStatsBtn } from './ui'
 
-const handleProfile = (element)=>{
+const handleProfile = (element) => {
     let user = getUserData();
     routs.childNodes.forEach(e => {
-        if(!e.classList){
+        if (!e.classList) {
             return
         }
-        if(e == element){
+        if (e == element) {
             e.classList.remove('hide')
-            if(e.classList.contains('stats') && user){
+            if (e.classList.contains('stats') && user) {
                 saveStatsBtn.classList.remove('hide')
-            }else{
+            } else {
                 saveStatsBtn.classList.add('hide')
             }
-        } else{
+        } else {
             !e.classList.contains('hide') && e.classList.add('hide');
         }
     })

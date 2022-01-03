@@ -20,13 +20,13 @@
   "homepage": "https://github.com/light-200/type-master#readme",
   "devDependencies": {
     "css-loader": "^6.5.1",
+    "dotenv": "^10.0.0",
     "style-loader": "^3.3.1",
     "webpack": "^5.64.0",
     "webpack-cli": "^4.9.1"
   },
   "dependencies": {
     "dom-to-image": "^2.6.0",
-    "dotenv": "^10.0.0",
     "file-saver": "^2.0.5"
   }
 }

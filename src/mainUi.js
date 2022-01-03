@@ -1,7 +1,7 @@
-import {text} from './getText';
+import { text } from './getText';
 import handleProfile from './handleProfile';
 import { getUserData, setUserData } from './localstorage';
-import { signupForm } from './script';
+import { body, theme, signupForm, profileButton, profile, signupBtn, settings, settingsBtn, closeWinBtn, drag, stats } from './ui';
 
 var totalWords;
 
@@ -9,8 +9,8 @@ var totalWords;
 const words = document.querySelector(".words");
 
 const setWords = (typedWords = 0) => {
-    let whitespace = / /g,result,indices = [];
-    while(result = whitespace.exec(text)){
+    let whitespace = / /g, result, indices = [];
+    while (result = whitespace.exec(text)) {
         indices.push(result.index);
     }
     totalWords = indices.length + 1;
@@ -20,7 +20,7 @@ const setWords = (typedWords = 0) => {
 //wraps all words in a span tag
 const spanWrap = (textContainer) => {
     let newArr = [];
-    for(let i=0; i<text.length; i++){
+    for (let i = 0; i < text.length; i++) {
         newArr.push(`<span>${text[i]}</span>`);
     };
     let newText = newArr.join('');
@@ -31,15 +31,10 @@ const spanWrap = (textContainer) => {
 
 // to show and hide profile window 
 
-const profileButton = document.querySelector(".profileBtn")
-const profile = document.querySelector(".profile")
-const signupBtn = document.querySelector('.windowTop>.options>.signupBtn')
-
-
-profileButton.addEventListener('click',()=>{
+profileButton.addEventListener('click', () => {
     profile.classList.toggle('hide')
     let user = getUserData()
-    if(user){
+    if (user) {
         handleStats(user)
         signupBtn.innerText = 'update'
     }
@@ -47,55 +42,49 @@ profileButton.addEventListener('click',()=>{
 
 //for close button on the floating window
 
-const closeWinBtn = document.querySelectorAll('.options>.close') 
-
-closeWinBtn.forEach((b)=>{
-    b.addEventListener('click',(e)=> {
-      let element = e.target.parentElement.parentElement.parentElement;
+closeWinBtn.forEach((b) => {
+    b.addEventListener('click', (e) => {
+        let element = e.target.parentElement.parentElement.parentElement;
         element.classList.toggle('hide');
     })
 })
 
 // for dragging elements 
 
-const drag = document.querySelectorAll('.windowTop>.move')
-
-drag.forEach((d)=>{
-    d.addEventListener('drag',(e)=>{
-        let element =  e.target.parentElement.parentElement;
+drag.forEach((d) => {
+    d.addEventListener('drag', (e) => {
+        let element = e.target.parentElement.parentElement;
         element.style.filter = 'brightness(.7)';
     })
 })
 
-drag.forEach((d)=>{
-    d.addEventListener('dragend',(e)=>{
-        let element =  e.target.parentElement.parentElement;
+drag.forEach((d) => {
+    d.addEventListener('dragend', (e) => {
+        let element = e.target.parentElement.parentElement;
         element.style.filter = 'brightness(1)';
-        moveElement(e,element);
+        moveElement(e, element);
     })
 }
 )
 
 
-const moveElement = (e,element)=>{
-    element.style.left =  (e.pageX - 20) +'px';
-    element.style.top =  (e.pageY - 20)+'px';
+const moveElement = (e, element) => {
+    element.style.left = (e.pageX - 20) + 'px';
+    element.style.top = (e.pageY - 20) + 'px';
 }
 
 
 // for stats 
 
-const stats = document.querySelector('.profile>.routs>.stats')
-
 const handleStats = (user) => {
-    if (user){
-        stats.childNodes.forEach((element)=>{
-            if(!element.classList){
+    if (user) {
+        stats.childNodes.forEach((element) => {
+            if (!element.classList) {
                 return
-            } else if(element.classList.contains('name')){
-                element.innerText = user.userName ;
-            } else if(element.classList.contains('topSpeed')){
-                element.innerText = 'topspeed: ' + user.topSpeed; 
+            } else if (element.classList.contains('name')) {
+                element.innerText = user.userName;
+            } else if (element.classList.contains('topSpeed')) {
+                element.innerText = 'topspeed: ' + user.topSpeed;
             }
         })
         handleProfile(stats)
@@ -108,10 +97,7 @@ const handleStats = (user) => {
 
 // to show and hide settings window  
 
-const settingsBtn = document.querySelector('.settingsBtn');
-const settings = document.querySelector('.settings');
-
-settingsBtn.addEventListener('click',()=>{
+settingsBtn.addEventListener('click', () => {
     settings.classList.toggle('hide');
 })
 
@@ -119,31 +105,29 @@ settingsBtn.addEventListener('click',()=>{
 
 // for theme 
 
-const theme = document.querySelector('.theme');
-const body = document.querySelector('body')
 
-theme.addEventListener('click',(e)=>{
+theme.addEventListener('click', (e) => {
     let user = getUserData()
-    if(e.target.classList.contains('themeLight')){
-        if(body.classList.contains('light')) {
+    if (e.target.classList.contains('themeLight')) {
+        if (body.classList.contains('light')) {
             return
-        }else{
+        } else {
             body.classList.remove('dark')
             body.classList.toggle('light')
-            setUserData({...user,theme: 'light'})
+            setUserData({ ...user, theme: 'light' })
         }
-    }else if(e.target.classList.contains('themeDark')){
-        if(body.classList.contains('dark')) {
+    } else if (e.target.classList.contains('themeDark')) {
+        if (body.classList.contains('dark')) {
             return
-        }else{
+        } else {
             body.classList.remove('light')
             body.classList.toggle('dark')
-            setUserData({...user,theme: 'dark'})
+            setUserData({ ...user, theme: 'dark' })
         }
     }
 })
 
 
 export default setWords;
-export {spanWrap , totalWords ,handleStats};
+export { spanWrap, totalWords, handleStats };
 

@@ -1,11 +1,11 @@
 import getText from "./getText";
 import { getUserData, setUserData } from "./localstorage";
+import { speedIndicator } from "./ui";
 
-const speedIndicator = document.querySelector(".speed");
 var speed;
 
 // this function is responsible for calculating the speed 
-const speedCalc = (totalWords, seconds) =>{
+const speedCalc = (totalWords, seconds) => {
     var minutes = seconds.toPrecision(2) / 60;
     // console.log( totalWords , " " , minutes.toPrecision(2))
     let tempSpeed = totalWords / minutes;
@@ -13,8 +13,8 @@ const speedCalc = (totalWords, seconds) =>{
     speedIndicator.innerText = speed;
 
     let user = getUserData()
-    if(user && speed>user.topSpeed){
-        user = {...user,topSpeed: speed};
+    if (user && speed > user.topSpeed) {
+        user = { ...user, topSpeed: speed };
         setUserData(user)
     }
 
@@ -25,4 +25,4 @@ const speedCalc = (totalWords, seconds) =>{
 }
 
 export default speedCalc;
-export {speed};
+export { speed };
