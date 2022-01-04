@@ -1,7 +1,8 @@
-import { text } from './getText';
-import handleProfile from './handleProfile';
-import { getUserData, setUserData } from './localstorage';
-import { body, theme, signupForm, profileButton, profile, signupBtn, settings, settingsBtn, closeWinBtn, drag, stats } from './ui';
+import { text } from '../functions/getText';
+import handleProfile from '../functions/handleProfile';
+import { getUserData, setUserData } from '../storage/localstorage';
+import { body, theme, signupForm, profileButton, profile, saveStatsBtn, signupBtn, settings, settingsBtn, closeWinBtn, drag, stats } from './uiElements';
+import saveStats from '../functions/saveStats';
 
 var totalWords;
 
@@ -126,6 +127,33 @@ theme.addEventListener('click', (e) => {
         }
     }
 })
+
+
+// save stats 
+saveStatsBtn.addEventListener('click', () => {
+    saveStats();
+})
+
+
+//signupform form handler
+signupForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let oldSpeed = (getUserData() && getUserData().topSpeed) || 0;
+    let data = {
+        userName: e.target.username.value,
+        topSpeed: oldSpeed,
+        theme: 'dark'
+    }
+    data = setUserData(data)
+    handleStats(data)
+})
+
+
+// to show signup window 
+signupBtn.addEventListener('click', () => {
+    handleProfile(signupForm);
+})
+
 
 
 export default setWords;

@@ -1,5 +1,5 @@
-import { getUserData } from "./localstorage"
-import { routs, saveStatsBtn } from './ui'
+import { getUserData } from "../storage/localstorage"
+import { routs, saveStatsBtn } from '../ui/uiElements'
 
 const handleProfile = (element) => {
     let user = getUserData();

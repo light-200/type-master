@@ -1,6 +1,6 @@
 import { saveAs } from 'file-saver';
 import domtoimage from 'dom-to-image';
-import { stats } from './ui'
+import { stats } from '../ui/uiElements'
 
 function saveStats() {
     domtoimage.toBlob(stats).then((blob) => {

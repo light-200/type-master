@@ -1,6 +1,6 @@
 import getText from "./getText";
-import { getUserData, setUserData } from "./localstorage";
-import { speedIndicator } from "./ui";
+import { getUserData, setUserData } from "../storage/localstorage";
+import { speedIndicator } from "../ui/uiElements";
 
 var speed;
 

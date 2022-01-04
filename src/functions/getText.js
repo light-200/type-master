@@ -1,6 +1,6 @@
-import setWords, { spanWrap } from './mainUi';
+import setWords, { spanWrap } from '../ui/uiListeners';
 import start from './start';
-import { textContainer } from './ui';
+import { textContainer } from '../ui/uiElements';
 
 
 var text;
