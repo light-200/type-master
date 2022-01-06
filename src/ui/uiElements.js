@@ -44,3 +44,23 @@ export const stats = document.querySelector('.stats');
 
 //for speed
 export const speedIndicator = document.querySelector(".speed");
+
+//login
+export const loginBtn = document.querySelector('.loginBtn');
+export const signinForm = document.querySelector('.profile>.routs>.signIn')
+export const updateBtn = document.querySelector('.updateBtn')
+
+//logout
+export const logoutBtn = document.querySelector('.logoutBtn')
+
+//signup info
+export const signUpinfo = document.querySelector('.info')
+export const loader = document.querySelector('.loader')
+
+
+export const options = document.querySelector('.options');
+
+
+// for leaderBoard
+// export const leaderBoard = document.querySelector('.leaderBoard')
+// export const leaderBoardBtn = document.querySelector('.leaderBoardBtn')

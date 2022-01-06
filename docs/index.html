@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,33 +9,49 @@
     <link rel="stylesheet" href="base.css">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
     <div class="profile hide">
-        <div class="windowTop" >
+        <div class="windowTop">
             <div class="move" draggable="true">📌</div>
             <div class="options">
-                <div class="signupBtn btn">sign up</div>
+                <div class="signupBtn btn ">Sign up</div>
+                <div class="updateBtn btn ">Update</div>
+                <div class="loginBtn btn ">Login</div>
+                <div class="logoutBtn btn ">Logout</div>
                 <div class="close">❌</div>
             </div>
         </div>
-        <div class="routs">     
+        <div class="routs">
             <div class="stats hide">
                 <div class="name">Light</div>
                 <div class="topSpeed">topspeed: <span>53</span> </div>
-            </div>       
-        
+            </div>
+
             <form class="signUp hide">
-                <input type="text" name="username" placeholder="username">
-                <input type="submit" name="submit" value="submit" class="btn">
+                <input type="text" name="username" placeholder="username" />
+                <input type="email" name="email" placeholder="email" />
+                <input type="password" name="password" placeholder="password" />
+                <input type="submit" name="submit" value="submit" class="btn" />
             </form>
+            <form class="signIn hide">
+                <input type="email" name="email" placeholder="email" />
+                <input type="password" name="password" placeholder="password" />
+                <input type="submit" name="submit" value="submit" class="btn" />
+            </form>
+            <div class="loader hide">...</div>
+            <div class="info hide">
+                sign up or log in to save your score
+            </div>
         </div>
         <div class="footer">
             <a class="saveStats btn hide">Save Stats</a>
         </div>
-        
+
     </div>
     <div class="settings hide">
-        <div class="windowTop" >
+        <div class="windowTop">
             <div class="move" draggable="true">📌</div>
             <div class="options">
                 <div class="close">❌</div>
@@ -48,24 +65,29 @@
             </div>
         </div>
     </div>
-    <div class="nav">
-        <header>type-master</header>
-        <div class="icons">
-            <a href="#" class="profileBtn">🙍‍♂️</a>
-            <a href="#" class="settingsBtn">⚙️</a>
-            <!-- <a href="#" class="leaderBoardBtn">📊</a> -->
+    <div class="mainBody">
+        <div class="nav">
+            <header>type-master</header>
+            <div class="icons">
+                <a href="#" class="profileBtn">🙍‍♂️</a>
+                <a href="#" class="settingsBtn">⚙️</a>
+                <!-- <a href="#leaderBoard" class="leaderBoardBtn">📊</a> -->
+            </div>
+        </div>
+        <div class="container">
+            <div class="containerStats">
+                <div class="words">11/0</div>
+                <div class="speed">0</div>
+            </div>
+            <div class="text">
+                loading...
+            </div>
         </div>
     </div>
-    <div class="container">
-        <div class="containerStats">
-            <div class="words">11/0</div>
-            <div class="speed">0</div>
-        </div>
-        <div class="text">
-            loading...
-        </div>
+    <div class="leaderBoard hide" id="leaderBoard">
+
     </div>
-    <!-- <footer>inspired by monkeytype</footer> -->
     <script src="bundle.js"></script>
 </body>
+
 </html>

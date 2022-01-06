@@ -1,8 +1,9 @@
 import { text } from '../functions/getText';
-import handleProfile from '../functions/handleProfile';
-import { getUserData, setUserData } from '../storage/localstorage';
-import { body, theme, signupForm, profileButton, profile, saveStatsBtn, signupBtn, settings, settingsBtn, closeWinBtn, drag, stats } from './uiElements';
+import handleProfile, { handleMenu } from '../functions/handleHiding';
+import { getUserData, setUserData, setUserTheme } from '../storage/localstorage';
+import { body, theme, signupForm, profileButton, profile, saveStatsBtn, signupBtn, settings, settingsBtn, closeWinBtn, drag, stats, loginBtn, signinForm, logoutBtn, updateBtn, signUpinfo, loader, leaderBoardBtn } from './uiElements';
 import saveStats from '../functions/saveStats';
+import { logout, signIn, signUp } from '../firebase/auth';
 
 var totalWords;
 
@@ -32,12 +33,20 @@ const spanWrap = (textContainer) => {
 
 // to show and hide profile window 
 
-profileButton.addEventListener('click', () => {
-    profile.classList.toggle('hide')
-    let user = getUserData()
-    if (user) {
-        handleStats(user)
-        signupBtn.innerText = 'update'
+profileButton.addEventListener('click', async () => {
+    if (profile.classList.contains('hide')) {
+        profile.classList.toggle('hide')
+        let user = await getUserData();
+        handleMenu(user);
+        if (user && !(Object.entries(user).length === 0 && user.constructor === Object)) {
+            handleStats(user);
+            updateBtn.classList.remove('hide');
+            signupBtn.classList.add('hide');
+        } else {
+            handleProfile(signUpinfo)
+        }
+    } else {
+        profile.classList.add('hide')
     }
 })
 
@@ -46,6 +55,7 @@ profileButton.addEventListener('click', () => {
 closeWinBtn.forEach((b) => {
     b.addEventListener('click', (e) => {
         let element = e.target.parentElement.parentElement.parentElement;
+        handleProfile(loader);
         element.classList.toggle('hide');
     })
 })
@@ -78,7 +88,8 @@ const moveElement = (e, element) => {
 // for stats 
 
 const handleStats = (user) => {
-    if (user) {
+    // console.log(user)
+    if (user && !(Object.entries(user).length === 0 && user.constructor === Object)) {
         stats.childNodes.forEach((element) => {
             if (!element.classList) {
                 return
@@ -88,9 +99,9 @@ const handleStats = (user) => {
                 element.innerText = 'topspeed: ' + user.topSpeed;
             }
         })
-        handleProfile(stats)
+        handleProfile(stats, user)
     } else {
-        handleProfile(signupForm)
+        handleProfile(signUpinfo)
     }
     return user;
 }
@@ -107,15 +118,15 @@ settingsBtn.addEventListener('click', () => {
 // for theme 
 
 
-theme.addEventListener('click', (e) => {
-    let user = getUserData()
+theme.addEventListener('click', async (e) => {
+    let user = await getUserData()
     if (e.target.classList.contains('themeLight')) {
         if (body.classList.contains('light')) {
             return
         } else {
             body.classList.remove('dark')
             body.classList.toggle('light')
-            setUserData({ ...user, theme: 'light' })
+            user ? setUserData({ ...user, theme: 'light' }) : setUserTheme({ theme: 'light' })
         }
     } else if (e.target.classList.contains('themeDark')) {
         if (body.classList.contains('dark')) {
@@ -123,7 +134,7 @@ theme.addEventListener('click', (e) => {
         } else {
             body.classList.remove('light')
             body.classList.toggle('dark')
-            setUserData({ ...user, theme: 'dark' })
+            user ? setUserData({ ...user, theme: 'dark' }) : setUserTheme({ theme: 'dark' })
         }
     }
 })
@@ -135,26 +146,44 @@ saveStatsBtn.addEventListener('click', () => {
 })
 
 
-//signupform form handler
+//signupform and signIn form handler
 signupForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    let oldSpeed = (getUserData() && getUserData().topSpeed) || 0;
-    let data = {
-        userName: e.target.username.value,
-        topSpeed: oldSpeed,
-        theme: 'dark'
-    }
-    data = setUserData(data)
-    handleStats(data)
+    signUp({ email: e.target.email.value, username: e.target.username.value, password: e.target.password.value })
+    handleProfile(loader);
+})
+
+signinForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    signIn({ email: e.target.email.value, password: e.target.password.value })
+    handleProfile(loader);
 })
 
 
-// to show signup window 
+// to show signup and login window 
 signupBtn.addEventListener('click', () => {
     handleProfile(signupForm);
 })
 
+loginBtn.addEventListener('click', () => {
+    handleProfile(signinForm);
+})
 
+//for logging out
+logoutBtn.addEventListener('click', () => {
+    logout();
+})
+
+updateBtn.addEventListener('click', () => {
+    console.log('update btn clicked')
+})
+
+
+//handle leaderBoard
+
+// leaderBoardBtn.addEventListener('click', () => {
+//     leaderBoard.classList.toggle('hide');
+// })
 
 export default setWords;
 export { spanWrap, totalWords, handleStats };
