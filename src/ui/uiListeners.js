@@ -1,7 +1,7 @@
 import { text } from '../functions/getText';
 import handleProfile, { handleMenu } from '../functions/handleHiding';
 import { getUserData, setUserData, setUserTheme } from '../storage/localstorage';
-import { body, theme, signupForm, profileButton, profile, saveStatsBtn, signupBtn, settings, settingsBtn, closeWinBtn, drag, stats, loginBtn, signinForm, logoutBtn, updateBtn, signUpinfo, loader, leaderBoardBtn } from './uiElements';
+import { body, theme, signupForm, profileButton, profile, saveStatsBtn, signupBtn, settings, settingsBtn, closeWinBtn, drag, stats, loginBtn, signinForm, logoutBtn, updateBtn, signUpinfo, loader, leaderBoardBtn, leaderBoard } from './uiElements';
 import saveStats from '../functions/saveStats';
 import { logout, signIn, signUp } from '../firebase/auth';
 
@@ -181,9 +181,19 @@ updateBtn.addEventListener('click', () => {
 
 //handle leaderBoard
 
-// leaderBoardBtn.addEventListener('click', () => {
-//     leaderBoard.classList.toggle('hide');
-// })
+leaderBoardBtn.addEventListener('click', () => {
+    if (leaderBoard.parentElement.classList.contains('hide')) {
+        leaderBoard.parentElement.classList.toggle('hide');
+        setTimeout(() => {
+            leaderBoard.parentElement.classList.toggle('fadeOut');
+        }, 200)
+    } else {
+        leaderBoard.parentElement.classList.toggle('fadeOut');
+        setTimeout(() => {
+            leaderBoard.parentElement.classList.toggle('hide');
+        }, 500)
+    }
+})
 
 export default setWords;
 export { spanWrap, totalWords, handleStats };
