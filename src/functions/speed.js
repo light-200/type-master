@@ -1,7 +1,6 @@
 import getText from "./getText";
 import { getUserData, setUserData, setUserTheme } from "../storage/localstorage";
 import { speedIndicator } from "../ui/uiElements";
-import { getData } from "../firebase/firestore";
 
 
 

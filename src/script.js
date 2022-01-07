@@ -1,5 +1,6 @@
 
 import { authState } from './firebase/auth';
+import { listenData } from './firebase/firestore';
 import getText from './functions/getText';
 import { setSpeed } from './functions/speed';
 
@@ -16,8 +17,10 @@ window.onload = () => {
         body.classList.add(getUserTheme().theme)
         setSpeed(getUserTheme().lastSpeed)
     };
+
 }
 
 getText();
 authState();
+listenData();
 

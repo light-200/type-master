@@ -62,5 +62,5 @@ export const options = document.querySelector('.options');
 
 
 // for leaderBoard
-// export const leaderBoard = document.querySelector('.leaderBoard')
-// export const leaderBoardBtn = document.querySelector('.leaderBoardBtn')
+export const leaderBoard = document.querySelector('.leaderBoard>.content')
+export const leaderBoardBtn = document.querySelector('.leaderBoardBtn')

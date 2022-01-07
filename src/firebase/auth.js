@@ -12,9 +12,8 @@ export const signIn = async ({ email, password }) => {
     try {
         const userCred = await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
-        console.error("i got an error: ", error)
+        alert(error.code)
     }
-
 }
 
 export const signUp = async ({ email, password, username }) => {
