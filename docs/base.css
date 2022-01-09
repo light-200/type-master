@@ -13,16 +13,39 @@
     --wrong-font-color: #ff324d;
     --background-color-dark: rgb(34, 34, 34);
     --button-bg-color: rgb(255, 221, 70);
-    --font-color-light: black;
-    --background-color-light: rgb(179, 179, 179);
+    --font-color-light: rgb(17, 17, 17);
+    --background-color-light: rgb(230, 216, 216);
+    --font-size-normal: 1.5rem;
+    --font-size-heading: 2rem;
+    --user-name-limit: 20ch;
+    --wrong-word: rgb(255, 50, 77);
 }
 
 .light{
+    --logo-color: rgba(0, 0, 0, 0.658);
     background-color: var(--background-color-light);
     color: var(--font-color-light);
+    --lb-header-bg-color: rgb(29, 29, 29);
+    --lb-header-color: rgb(255, 237, 234);
+    --lb-list-item-bg-color: var(--lb-header-color);
+    --lb-list-item-color: var(--lb-header-bg-color);
+    --correct-word: rgb(206, 158, 1);
 }
 
 .dark{
+    --correct-word: rgb(255, 213, 73);
+    --logo-color: rgb(22, 20, 20);
+    --lb-header-bg-color: rgb(255, 243, 230);
+    --lb-header-color: rgb(24, 25, 26);
+    --lb-list-item-bg-color: var(--lb-header-color);
+    --lb-list-item-color: var(--lb-header-bg-color);
     background-color: var(--background-color-dark);
     color: var(--font-color-dark)
+}
+
+@media only screen and ( max-width: 500px) {
+    :root{
+        --font-size-normal: .9rem;
+        --font-size-heading: 1.5rem;
+    }
 }
