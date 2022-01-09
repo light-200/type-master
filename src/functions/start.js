@@ -23,7 +23,7 @@ export default (text) => {
             tempText = tempText.substr(1);
 
 
-            Words[index].style.color = "#ffd549";
+            Words[index].classList.add('correctWord');
 
             Words[index].classList.remove('blink')
 
@@ -46,7 +46,7 @@ export default (text) => {
             index++;
         } else {
             if (Words[index] != null) {
-                Words[index].style.color = "#ff324d";
+                Words[index].classList.add('wrongWord');
             }
         }
     })
