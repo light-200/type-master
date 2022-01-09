@@ -28,4 +28,11 @@ function setUserData(data) {
     return data;
 }
 
-export { getUserData, setUserData, getUserTheme, setUserTheme };
+function updateUserData(data) {
+    setData(data)
+    let userLocal = getUserTheme(); // to get the data from the local storage
+    localStorage.setItem(LOCAL_STORAGE_USER_DATA, JSON.stringify({ ...userLocal, userName: data.username }));
+    return data;
+}
+
+export { getUserData, setUserData, getUserTheme, setUserTheme, updateUserData };

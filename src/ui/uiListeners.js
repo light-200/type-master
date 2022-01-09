@@ -1,9 +1,9 @@
 import { text } from '../functions/getText';
 import handleProfile, { handleMenu } from '../functions/handleHiding';
 import { getUserData, setUserData, setUserTheme } from '../storage/localstorage';
-import { body, theme, signupForm, profileButton, profile, saveStatsBtn, signupBtn, settings, settingsBtn, closeWinBtn, drag, stats, loginBtn, signinForm, logoutBtn, updateBtn, signUpinfo, loader, leaderBoardBtn, leaderBoard } from './uiElements';
+import { body, theme, signupForm, profileButton, profile, saveStatsBtn, signupBtn, settings, settingsBtn, closeWinBtn, drag, stats, loginBtn, signinForm, logoutBtn, updateBtn, signUpinfo, loader, leaderBoardBtn, leaderBoard, updateForm } from './uiElements';
 import saveStats from '../functions/saveStats';
-import { logout, signIn, signUp } from '../firebase/auth';
+import { logout, signIn, signUp, updateUser } from '../firebase/auth';
 
 var totalWords;
 
@@ -87,7 +87,7 @@ const moveElement = (e, element) => {
 
 // for stats 
 
-const handleStats = (user) => {
+const handleStats = async (user) => {
     // console.log(user)
     if (user && !(Object.entries(user).length === 0 && user.constructor === Object)) {
         stats.childNodes.forEach((element) => {
@@ -175,7 +175,16 @@ logoutBtn.addEventListener('click', () => {
 })
 
 updateBtn.addEventListener('click', () => {
-    console.log('update btn clicked')
+    // console.log('update btn clicked')
+    handleProfile(updateForm);
+})
+
+updateForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let username = e.target.username.value;
+    if (username && username[0] != ' ' && username.length > 0) { updateUser(username) } else {
+        console.log('enter username', username)
+    };
 })
 
 

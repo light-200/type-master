@@ -10,14 +10,21 @@ body{
     transition: 200ms ease-in-out;
 }
 
+a{
+    text-decoration: none;
+    color: var(--correct-word);
+}
+
 .mainBody{
     overflow: hidden;
     width: 100%;
+    max-width: 1200px;
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 
 input{
@@ -28,7 +35,7 @@ input{
     border: none;
     background-color: #ffffff;
     max-width: 300px;
-    font-size: 20px;
+    font-size: var(--font-size-normal);
 }
 
 span{
@@ -52,6 +59,7 @@ span{
 .nav>header{
     color: var(--logo-color);
     font-size: var(--font-size-heading);
+    cursor: pointer;
 }
 
 .nav>.icons>a{
@@ -65,11 +73,43 @@ span{
     border-color: invert;
 }
 
+.footer{
+    position:absolute;
+    bottom: 0px;
+    left: 0px;
+    padding: 2rem;
+
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+/* floating username  */
+.username,.links{
+    opacity: .7;
+    padding: .5rem;
+}
+
+.links{
+    cursor: pointer;
+    font-size: var(--font-size-small);
+}
+
 .container{
-    transform: translateY(-3rem);
+    position: absolute;
+    top: 40vh;    transform: translateY(-3rem);
     min-width: 300px;
     width: 700px;
     max-width: 65%;
+}
+
+.container>.text{
+    min-height: 160px;
+}
+.container>.info{
+    opacity: .6;
+    transition: 500ms ease-in-out;
+    text-align: center;
 }
 
 .containerStats {
@@ -235,7 +275,7 @@ footer{
 }
 
 /* login module  */
-.signUp , .signIn{
+.signUp , .signIn , .update{
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -249,6 +289,13 @@ footer{
     align-items: center;
     font-size: smaller;
     height: 200px;
+}
+
+.loader{
+    background-image: url('https://media0.giphy.com/media/WVTW6vYXZCQWvUhm0N/giphy.gif?cid=790b76110673f2c92124ae1cd66d7411155b5e55ccf21ffe&rid=giphy.gif&ct=s');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 60px;
 }
 
 /* leaderboard */
@@ -358,7 +405,7 @@ footer{
 }
 
 .fadeOut{
-    opacity: 0;
+    opacity: 0 !important;
 }
 
 .hide{

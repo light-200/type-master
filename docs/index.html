@@ -30,17 +30,22 @@
             </div>
 
             <form class="signUp hide">
-                <input type="text" name="username" placeholder="username" />
-                <input type="email" name="email" placeholder="email" />
-                <input type="password" name="password" placeholder="password" />
+                <input type="text" name="username" placeholder="username" required />
+                <input type="email" name="email" placeholder="email" required />
+                <input type="password" name="password" placeholder="password" required />
+                <input type="submit" name="submit" value="submit" class="btn" />
+            </form>
+            <form class="update hide">
+                <input type="text" name="username" placeholder="username" required />
                 <input type="submit" name="submit" value="submit" class="btn" />
             </form>
             <form class="signIn hide">
-                <input type="email" name="email" placeholder="email" />
-                <input type="password" name="password" placeholder="password" />
+                <input type="email" name="email" placeholder="email" required />
+                <input type="password" name="password" placeholder="password" required />
                 <input type="submit" name="submit" value="submit" class="btn" />
             </form>
-            <div class="loader hide">...</div>
+            <div class="loader hide">
+            </div>
             <div class="info hide">
                 sign up or log in to save your score
             </div>
@@ -74,6 +79,7 @@
                 <a href="#leaderBoard" class="leaderBoardBtn">📊</a>
             </div>
         </div>
+
         <div class="container">
             <div class="containerStats">
                 <div class="words">11/0</div>
@@ -82,6 +88,18 @@
 
             <div class="text">
                 loading...
+            </div>
+
+            <div class="info hide fadeOut">
+                next in 5ms
+            </div>
+        </div>
+        <div class="footer">
+            <a class="links" href="https://github.com/light-200/type-master">
+                github
+            </a>
+
+            <div class="username">
             </div>
         </div>
     </div>

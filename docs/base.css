@@ -16,6 +16,7 @@
     --font-color-light: rgb(17, 17, 17);
     --background-color-light: rgb(230, 216, 216);
     --font-size-normal: 1.5rem;
+    --font-size-small: 1rem;
     --font-size-heading: 2rem;
     --user-name-limit: 20ch;
     --wrong-word: rgb(255, 50, 77);
@@ -34,7 +35,7 @@
 
 .dark{
     --correct-word: rgb(255, 213, 73);
-    --logo-color: rgb(22, 20, 20);
+    --logo-color: rgba(255, 213, 73, 0.616);
     --lb-header-bg-color: rgb(255, 243, 230);
     --lb-header-color: rgb(24, 25, 26);
     --lb-list-item-bg-color: var(--lb-header-color);
@@ -46,6 +47,7 @@
 @media only screen and ( max-width: 500px) {
     :root{
         --font-size-normal: .9rem;
+        --font-size-small: .7rem;
         --font-size-heading: 1.5rem;
     }
 }

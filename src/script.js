@@ -17,7 +17,6 @@ window.onload = () => {
         body.classList.add(getUserTheme().theme)
         setSpeed(getUserTheme().lastSpeed)
     };
-
 }
 
 getText();
