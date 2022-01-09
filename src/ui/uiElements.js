@@ -49,6 +49,7 @@ export const speedIndicator = document.querySelector(".speed");
 export const loginBtn = document.querySelector('.loginBtn');
 export const signinForm = document.querySelector('.profile>.routs>.signIn')
 export const updateBtn = document.querySelector('.updateBtn')
+export const updateForm = document.querySelector('.profile>.routs>.update')
 
 //logout
 export const logoutBtn = document.querySelector('.logoutBtn')
@@ -64,3 +65,8 @@ export const options = document.querySelector('.options');
 // for leaderBoard
 export const leaderBoard = document.querySelector('.leaderBoard>.content')
 export const leaderBoardBtn = document.querySelector('.leaderBoardBtn')
+
+//for info 
+export const containerInfo = document.querySelector('.container>.info')
+
+export const username = document.querySelector('.username')

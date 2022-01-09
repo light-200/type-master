@@ -1,6 +1,6 @@
 import getText from "./getText";
 import { getUserData, setUserData, setUserTheme } from "../storage/localstorage";
-import { speedIndicator } from "../ui/uiElements";
+import { containerInfo, speedIndicator } from "../ui/uiElements";
 
 
 
@@ -24,9 +24,16 @@ const speedCalc = async (totalWords, seconds) => {
         setUserTheme({ ...user, lastSpeed: speed })
     }
 
+
     // add a function to change the text here 
+    containerInfo.classList.toggle('hide')
+    containerInfo.classList.toggle('fadeOut')
     setTimeout(() => {
         getText();
+        containerInfo.classList.toggle('fadeOut')
+        setTimeout(() => {
+            containerInfo.classList.toggle('hide')
+        }, 500)
     }, 500);
 }
 
