@@ -9,6 +9,8 @@
 }
 
 :root{
+    --font-color: rgb(218, 216, 216);
+    --background-color: rgb(34, 34, 34);
     --wrong-font-color: #ff324d;
     --button-bg-color: rgb(255, 221, 70);
     --font-size-normal: 1.5rem;

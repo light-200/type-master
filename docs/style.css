@@ -4,8 +4,8 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: var(--background-color-dark);
-    color: var(--font-color-dark);
+    background-color: var(--background-color);
+    color: var(--font-color);
     font-size: var(--font-size-normal);
     transition: 200ms ease-in-out;
     z-index: 0;
