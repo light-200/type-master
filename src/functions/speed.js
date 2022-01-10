@@ -38,7 +38,7 @@ const speedCalc = async (totalWords, seconds) => {
 }
 
 function setSpeed(speed) {
-    // console.log(speed)
+    // console.log(speed, speedIndicator)
     speed ? speedIndicator.innerText = speed : speed;
     // console.log("set speed called with ", speed);
 }

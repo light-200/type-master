@@ -43,7 +43,7 @@ export const textContainer = document.querySelector(".text");
 export const stats = document.querySelector('.stats');
 
 //for speed
-export const speedIndicator = document.querySelector(".speed");
+export const speedIndicator = document.querySelector(".containerStats>.speed");
 
 //login
 export const loginBtn = document.querySelector('.loginBtn');
