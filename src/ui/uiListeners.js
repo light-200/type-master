@@ -90,13 +90,24 @@ const moveElement = (e, element) => {
 const handleStats = async (user) => {
     // console.log(user)
     if (user && !(Object.entries(user).length === 0 && user.constructor === Object)) {
-        stats.childNodes.forEach((element) => {
+        stats.lastElementChild.lastElementChild.childNodes.forEach((element) => {
             if (!element.classList) {
                 return
             } else if (element.classList.contains('name')) {
-                element.innerText = user.userName;
-            } else if (element.classList.contains('topSpeed')) {
-                element.innerText = 'topspeed: ' + user.topSpeed;
+                if (user.userName.length > 10) {
+                    element.style.fontSize = 20;
+                } else if (
+                    user.userName.length > 20
+                ) {
+                    element.style.fontSize = 15;
+
+                }
+                element.innerHTML = user.userName;
+            } else if (element.classList.contains('speed')) {
+                if (user.userName.length > 10) {
+                    element.style.fontSize = 30;
+                }
+                element.innerHTML = user.topSpeed;
             }
         })
         handleProfile(stats, user)
