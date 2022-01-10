@@ -9,12 +9,8 @@
 }
 
 :root{
-    --font-color-dark: rgb(218, 216, 216);
     --wrong-font-color: #ff324d;
-    --background-color-dark: rgb(34, 34, 34);
     --button-bg-color: rgb(255, 221, 70);
-    --font-color-light: rgb(17, 17, 17);
-    --background-color-light: rgb(230, 216, 216);
     --font-size-normal: 1.5rem;
     --font-size-small: 1rem;
     --font-size-heading: 2rem;
@@ -23,9 +19,11 @@
 }
 
 .light{
+    --font-color: rgb(17, 17, 17);
+    --background-color: rgb(230, 216, 216);
     --logo-color: rgba(0, 0, 0, 0.658);
-    background-color: var(--background-color-light);
-    color: var(--font-color-light);
+    background-color: var(--background-color);
+    color: var(--font-color);
     --lb-header-bg-color: rgb(29, 29, 29);
     --lb-header-color: rgb(255, 237, 234);
     --lb-list-item-bg-color: var(--lb-header-color);
@@ -34,14 +32,16 @@
 }
 
 .dark{
+    --font-color: rgb(218, 216, 216);
+    --background-color: rgb(34, 34, 34);
     --correct-word: rgb(255, 213, 73);
     --logo-color: rgba(255, 213, 73, 0.616);
     --lb-header-bg-color: rgb(255, 243, 230);
     --lb-header-color: rgb(24, 25, 26);
     --lb-list-item-bg-color: var(--lb-header-color);
     --lb-list-item-color: var(--lb-header-bg-color);
-    background-color: var(--background-color-dark);
-    color: var(--font-color-dark)
+    background-color: var(--background-color);
+    color: var(--font-color)
 }
 
 @media only screen and ( max-width: 500px) {

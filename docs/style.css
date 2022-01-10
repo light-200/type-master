@@ -8,6 +8,8 @@ body{
     color: var(--font-color-dark);
     font-size: var(--font-size-normal);
     transition: 200ms ease-in-out;
+    z-index: 0;
+    overflow: hidden;
 }
 
 a{
@@ -116,6 +118,7 @@ span{
     display: flex;
     justify-content: space-between;
     margin-bottom: 2rem;
+    
 }
 
 .text{ position: relative}
@@ -164,7 +167,7 @@ footer{
     border-radius: 10px;
     border: solid .5px ;
     border-color: invert;
-
+    padding: 0;
 }
 
 .windowTop{
@@ -196,38 +199,33 @@ footer{
 }
 
 .stats{
-    
-    
     position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
     height: 250px;
     background-color: inherit;
     color: inherit;
 }
 
-.stats::after{
-    content: 'type-master';
+.stats .bg{
+    width: 100%;
     position: absolute;
-    bottom: .2rem;
-    right: .5rem;
-    font-size: 20px;
-    opacity: .3;
+    z-index: 0;
 }
 
-.stats>.name{
-    text-align: center;
-    width: 100%;
-    padding: .5rem 1rem;
+.statsText{
+    display: block;
+    text-transform: capitalize;
+    font-size: 36px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.stats>.topSpeed{
+.stats .bg .name{
+    fill: #E8C23F;
+}
+
+.stats .bg .speed{
+    fill: #222222;
     text-align: center;
-    width: 100%;
-    padding: .5rem 1rem;
+    font-weight: 700;
 }
 
 .profile>.footer{
@@ -239,9 +237,12 @@ footer{
 .saveStats{
     width: fit-content;
 }
+
+
 .saveStats:hover{
     cursor: pointer;
 }
+
 
 .theme{
     display: flex;
@@ -252,27 +253,11 @@ footer{
     width: 100%;
     height: 250px;
 }
-.themeLight::after{
-    content: " ";
-    display: inline-block;
-    border: solid 2px white;
-    min-width: 1rem;
-    min-height: 1rem;
-    border-radius: 50%;
-    margin:  0 2rem;
-    background-color: var(--background-color-light);
+
+.themeLight,.themeDark{
+    color: var(--font-color);
 }
 
-.themeDark::after{
-    content: " ";
-    display: inline-block;
-    border: solid 2px white;
-    min-width: 1rem;
-    min-height: 1rem;
-    border-radius: 50%;
-    margin:  0 2rem;
-    background-color: var(--background-color-dark);
-}
 
 /* login module  */
 .signUp , .signIn , .update{
