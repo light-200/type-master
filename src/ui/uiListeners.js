@@ -1,6 +1,6 @@
 import { text } from '../functions/getText';
 import handleProfile, { handleMenu } from '../functions/handleHiding';
-import { getUserData, setUserData, setUserTheme } from '../storage/localstorage';
+import { getUserData, setLocalData, setUserData, setUserTheme } from '../storage/localstorage';
 import { body, themeSelector, signupForm, profileButton, profile, saveStatsBtn, signupBtn, settings, settingsBtn, closeWinBtn, drag, stats, loginBtn, signinForm, logoutBtn, updateBtn, signUpinfo, loader, leaderBoardBtn, leaderBoard, updateForm } from './uiElements';
 import saveStats from '../functions/saveStats';
 import { logout, signIn, signUp, updateUser } from '../firebase/auth';
@@ -137,7 +137,7 @@ themeSelector.addEventListener("change", async (e) => {
         } else {
             body.classList.remove('dark')
             body.classList.add('light')
-            user ? setUserData({ ...user, theme: 'light' }) : setUserTheme({ theme: 'light' })
+            user ? setUserData({ ...user, theme: 'light' }) : setLocalData({ theme: 'light' })
         }
     } else if (e.target.options.dark.selected) {
         if (body.classList.contains('dark')) {
@@ -145,7 +145,7 @@ themeSelector.addEventListener("change", async (e) => {
         } else {
             body.classList.remove('light')
             body.classList.add('dark')
-            user ? setUserData({ ...user, theme: 'dark' }) : setUserTheme({ theme: 'dark' })
+            user ? setUserData({ ...user, theme: 'dark' }) : setLocalData({ theme: 'dark' })
         }
     }
 })

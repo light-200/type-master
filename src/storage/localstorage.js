@@ -10,14 +10,14 @@ async function getUserData() {
 
 //theme functions actually save data locally
 
-function getUserTheme() {
+function getLocalData() {
     let data = JSON.parse(localStorage.getItem(LOCAL_STORAGE_USER_DATA));
     return data;
 }
 
 
 
-function setUserTheme(data) {
+function setLocalData(data) {
     localStorage.setItem(LOCAL_STORAGE_USER_DATA, JSON.stringify(data));
     return data;
 }
@@ -35,4 +35,4 @@ function updateUserData(data) {
     return data;
 }
 
-export { getUserData, setUserData, getUserTheme, setUserTheme, updateUserData };
+export { getUserData, setUserData, getLocalData, setLocalData, updateUserData };
