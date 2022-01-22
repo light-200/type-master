@@ -146,6 +146,7 @@ footer{
     color: black;
     padding: 2.5px 5px;
     margin-right: 5px;
+    text-align: center;
 }
 
 .btn:active{
@@ -311,9 +312,10 @@ footer{
 .signUp , .signIn , .update{
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: 100%;
-    gap: 1rem;
-    padding: 1rem;
+    gap: 1.6rem;
+    padding: 2rem;
 }
 
 .info, .loader{
