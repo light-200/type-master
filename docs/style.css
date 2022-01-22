@@ -244,7 +244,7 @@ footer{
 }
 
 
-.theme{
+.settingOptions{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -257,10 +257,20 @@ footer{
     gap: 1rem;
 }
 
+.themeOptions{
+    text-align: center;
+    border: 1px solid;
+    border-color: invert;
+    width: 100%;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 5px;
+}
+
 .themeSelector{
     width: 200px;
     padding: .5rem;
-    font-size: var(--font-size-normal);
+    font-size: var(--font-size-small);
     border-radius: 5px;
     background-color: var(--background-color);
     color: var(--font-color);
@@ -271,6 +281,31 @@ footer{
     background-color: var(--background-color);
 }
 
+
+.textOptions{
+    display: flex;
+    font-size: var(--font-size-small);
+    justify-content: space-around;
+    width: 100%;
+    border: 1px solid;
+    border-color: initial;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 5px;
+    text-align: center;
+
+}
+
+.punctuation, .smallCase{
+    opacity: 0.3;
+    flex: 1;
+    cursor: pointer;
+    transition: opacity 50ms ease-out;
+}
+
+.textOptions>div:hover{
+    opacity: .7;
+}
 
 /* login module  */
 .signUp , .signIn , .update{
@@ -408,6 +443,10 @@ footer{
 
 .hide{
     display: none !important;
+}
+
+.active{
+    opacity: 1 !important;
 }
 
 /* have a nice day  */
