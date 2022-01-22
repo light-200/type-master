@@ -1,7 +1,7 @@
 import { text } from '../functions/getText';
 import handleProfile, { handleMenu } from '../functions/handleHiding';
 import { getUserData, setUserData, setUserTheme } from '../storage/localstorage';
-import { body, theme, signupForm, profileButton, profile, saveStatsBtn, signupBtn, settings, settingsBtn, closeWinBtn, drag, stats, loginBtn, signinForm, logoutBtn, updateBtn, signUpinfo, loader, leaderBoardBtn, leaderBoard, updateForm } from './uiElements';
+import { body, themeSelector, signupForm, profileButton, profile, saveStatsBtn, signupBtn, settings, settingsBtn, closeWinBtn, drag, stats, loginBtn, signinForm, logoutBtn, updateBtn, signUpinfo, loader, leaderBoardBtn, leaderBoard, updateForm } from './uiElements';
 import saveStats from '../functions/saveStats';
 import { logout, signIn, signUp, updateUser } from '../firebase/auth';
 
@@ -129,22 +129,22 @@ settingsBtn.addEventListener('click', () => {
 // for theme 
 
 
-theme.addEventListener('click', async (e) => {
+themeSelector.addEventListener("change", async (e) => {
     let user = await getUserData()
-    if (e.target.classList.contains('themeLight')) {
+    if (e.target.options.light.selected) {
         if (body.classList.contains('light')) {
             return
         } else {
             body.classList.remove('dark')
-            body.classList.toggle('light')
+            body.classList.add('light')
             user ? setUserData({ ...user, theme: 'light' }) : setUserTheme({ theme: 'light' })
         }
-    } else if (e.target.classList.contains('themeDark')) {
+    } else if (e.target.options.dark.selected) {
         if (body.classList.contains('dark')) {
             return
         } else {
             body.classList.remove('light')
-            body.classList.toggle('dark')
+            body.classList.add('dark')
             user ? setUserData({ ...user, theme: 'dark' }) : setUserTheme({ theme: 'dark' })
         }
     }

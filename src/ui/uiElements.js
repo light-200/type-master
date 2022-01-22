@@ -30,7 +30,7 @@ export const settings = document.querySelector('.settings');
 
 // theme toggle 
 
-export const theme = document.querySelector('.theme');
+export const themeSelector = document.querySelector('.themeSelector');
 
 
 // for handleprofile 

@@ -6,7 +6,7 @@ import { setSpeed } from './functions/speed';
 
 import { getUserTheme } from './storage/localstorage';
 
-import { body } from './ui/uiElements';
+import { body, themeSelector } from './ui/uiElements';
 
 export default function userLoggedIn(isLoggedin) {
     return isLoggedin;
@@ -14,7 +14,13 @@ export default function userLoggedIn(isLoggedin) {
 
 window.onload = () => {
     if (getUserTheme()) {
-        body.classList.add(getUserTheme().theme)
+        let theme = getUserTheme().theme;
+        if(theme!="dark") {
+            body.classList.remove("dark")
+            body.classList.add(theme)
+        }
+        // console.log(theme,themeSelector.options[theme])
+        themeSelector.options[theme].selected = true
         setSpeed(getUserTheme().lastSpeed)
     };
 }

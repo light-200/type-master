@@ -262,6 +262,8 @@ footer{
     padding: .5rem;
     font-size: var(--font-size-normal);
     border-radius: 5px;
+    background-color: var(--background-color);
+    color: var(--font-color);
 }
 
 .themeLight,.themeDark{
