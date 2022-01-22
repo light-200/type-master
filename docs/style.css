@@ -252,10 +252,21 @@ footer{
     flex-grow: 1;
     width: 100%;
     height: 250px;
+    padding: 2rem;
+    font-size: var(--font-size-heading);
+    gap: 1rem;
+}
+
+.themeSelector{
+    width: 200px;
+    padding: .5rem;
+    font-size: var(--font-size-normal);
+    border-radius: 5px;
 }
 
 .themeLight,.themeDark{
     color: var(--font-color);
+    background-color: var(--background-color);
 }
 
 
