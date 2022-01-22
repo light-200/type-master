@@ -70,3 +70,6 @@ export const leaderBoardBtn = document.querySelector('.leaderBoardBtn')
 export const containerInfo = document.querySelector('.container>.info')
 
 export const username = document.querySelector('.username')
+
+//text options
+export const textOptions = document.querySelector('.textOptions')

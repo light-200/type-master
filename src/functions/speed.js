@@ -1,5 +1,5 @@
 import getText from "./getText";
-import { getUserData, setUserData, setUserTheme } from "../storage/localstorage";
+import { getUserData, setUserData, setLocalData } from "../storage/localstorage";
 import { containerInfo, speedIndicator } from "../ui/uiElements";
 
 
@@ -21,7 +21,7 @@ const speedCalc = async (totalWords, seconds) => {
         console.log('setUserData called');
         setUserData(user)
     } else if (user) {
-        setUserTheme({ ...user, lastSpeed: speed })
+        setLocalData({ ...user, lastSpeed: speed })
     }
 
 

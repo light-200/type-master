@@ -1,9 +1,10 @@
 import { text } from '../functions/getText';
 import handleProfile, { handleMenu } from '../functions/handleHiding';
-import { getUserData, setUserData, setUserTheme } from '../storage/localstorage';
-import { body, themeSelector, signupForm, profileButton, profile, saveStatsBtn, signupBtn, settings, settingsBtn, closeWinBtn, drag, stats, loginBtn, signinForm, logoutBtn, updateBtn, signUpinfo, loader, leaderBoardBtn, leaderBoard, updateForm } from './uiElements';
+import { getLocalData, getUserData, setLocalData, setUserData } from '../storage/localstorage';
+import { body, themeSelector, signupForm, profileButton, profile, saveStatsBtn, signupBtn, settings, settingsBtn, closeWinBtn, drag, stats, loginBtn, signinForm, logoutBtn, updateBtn, signUpinfo, loader, leaderBoardBtn, leaderBoard, updateForm, textOptions } from './uiElements';
 import saveStats from '../functions/saveStats';
 import { logout, signIn, signUp, updateUser } from '../firebase/auth';
+import { punctuationMode,smallCaseMode } from '../functions/userDefault';
 
 var totalWords;
 
@@ -137,7 +138,12 @@ themeSelector.addEventListener("change", async (e) => {
         } else {
             body.classList.remove('dark')
             body.classList.add('light')
-            user ? setUserData({ ...user, theme: 'light' }) : setUserTheme({ theme: 'light' })
+            if(user){ 
+                setUserData({ ...user, theme: 'light' })
+            } else {
+                user = getLocalData()
+                setLocalData({ ...user, theme: 'light' })
+            }
         }
     } else if (e.target.options.dark.selected) {
         if (body.classList.contains('dark')) {
@@ -145,7 +151,12 @@ themeSelector.addEventListener("change", async (e) => {
         } else {
             body.classList.remove('light')
             body.classList.add('dark')
-            user ? setUserData({ ...user, theme: 'dark' }) : setUserTheme({ theme: 'dark' })
+            if(user){ 
+                setUserData({ ...user, theme: 'dark' })
+            } else {
+                user = getLocalData()
+                setLocalData({ ...user, theme: 'dark' })
+            }
         }
     }
 })
@@ -212,6 +223,41 @@ leaderBoardBtn.addEventListener('click', () => {
         setTimeout(() => {
             leaderBoard.parentElement.classList.toggle('hide');
         }, 500)
+    }
+})
+
+//handle text options
+textOptions.addEventListener('click',async (e)=>{
+    let user = await getUserData()
+    if(e.target.classList.contains("smallCase")){
+        if(e.target.classList.contains('active')){
+            smallCaseMode = false;
+            e.target.classList.remove('active')
+        }else{
+            smallCaseMode = true;
+            e.target.classList.add('active')
+        }
+        if(user){ 
+            setUserData({ ...user, smallCaseMode })
+        } else {
+            user = getLocalData()
+            setLocalData({ ...user, smallCaseMode })
+        }
+    }
+    else if(e.target.classList.contains("punctuation")  ){
+        if(e.target.classList.contains('active')){
+            punctuationMode = false;
+            e.target.classList.remove('active')
+        }else{
+            punctuationMode = true;
+            e.target.classList.add('active')
+        }
+        if(user){ 
+            setUserData({ ...user, punctuationMode })
+        } else {
+            user = getLocalData()
+            setLocalData({ ...user, punctuationMode })
+        }
     }
 })
 

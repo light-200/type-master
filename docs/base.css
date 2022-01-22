@@ -13,9 +13,9 @@
     --background-color: rgb(34, 34, 34);
     --wrong-font-color: #ff324d;
     --button-bg-color: rgb(255, 221, 70);
-    --font-size-normal: 1.5rem;
-    --font-size-small: 1rem;
-    --font-size-heading: 2rem;
+    --font-size-normal: 25px;
+    --font-size-small: 20px;
+    --font-size-heading: 31.25px;
     --user-name-limit: 20ch;
     --wrong-word: rgb(255, 50, 77);
 }
