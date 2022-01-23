@@ -1,23 +1,43 @@
-# Welcome to type-master
+## type-master
 
 This project is a typing practice web-app, that helps you improve your speed by typing quotes and keeping a track of your speed.
 
-# Tech stack
+## Tech stack
 
- - HTML, CSS, Javascript  
- - Webpack 
+ - HTML, CSS, Javascript, firebase
 
-# How to contribute
+## How to contribute
 
-Check the issues in the issues section and see if you can work on any of them, you can also create new issues if you feel like something is missing or can be updated.
+- Check the issues to work or create new issue.
+- fork the repo make changes
+- make pull request
+> For now changes in the html and css files are allowed only.
+> For more info join discord (link below)
 
-# Project structure 
+## Project structure 
+```bash
+├── docs
+│   ├── *.css
+│   ├── index.html
+│   └── bundle.js
+├── src
+│   ├── firebase
+│   │   └── *.js
+│   ├── functions
+│   │   └── *.js
+│   ├── storage
+│   │   └── *.js
+│   ├── ui
+│   │   └── *.js
+│   └── script.js
+├── node_modules
+├── firebase.*
+├── README.md
+├── package.json
+├── webpack.config.js
+└── .gitignore
+```
 
-docs- (it contains the final js file and the html and css file)
-src- (here you'll find all the js modules) 
+## Discussions 
 
-> the root directory contains readme.md and all the config files
-
-## discussions 
-
-If you have any queries about the project feel free to join the [discord server](https://discord.gg/CxDUUrSWQC) 😄
+- [discord server](https://discord.gg/CxDUUrSWQC) ✉️
