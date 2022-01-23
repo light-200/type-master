@@ -98,6 +98,10 @@ span {
   font-size: var(--font-size-small);
 }
 
+.footer > .links {
+  color:var(--github-color)
+}
+
 .container {
   display: flex;
   flex-direction: column;
