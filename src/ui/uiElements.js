@@ -70,3 +70,6 @@ export const username = document.querySelector(".username");
 
 //text options
 export const textOptions = document.querySelector(".textOptions");
+
+//next btn
+export const nextBtn = document.querySelector(".nextBtn");
