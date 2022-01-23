@@ -192,6 +192,7 @@ span {
 
 .text {
   position: relative;
+  width: 100%;
 }
 
 footer {
