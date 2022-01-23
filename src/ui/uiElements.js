@@ -63,6 +63,7 @@ export const options = document.querySelector('.options');
 
 
 // for leaderBoard
+export const leaderBoardContainer = document.querySelector('.leaderBoard')
 export const leaderBoard = document.querySelector('.leaderBoard>.content')
 export const leaderBoardBtn = document.querySelector('.leaderBoardBtn')
 

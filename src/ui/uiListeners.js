@@ -1,7 +1,7 @@
 import { text } from '../functions/getText';
 import handleProfile, { handleMenu } from '../functions/handleHiding';
 import { getLocalData, getUserData, setLocalData, setUserData } from '../storage/localstorage';
-import { body, themeSelector, signupForm, profileButton, profile, saveStatsBtn, signupBtn, settings, settingsBtn, closeWinBtn, drag, stats, loginBtn, signinForm, logoutBtn, updateBtn, signUpinfo, loader, leaderBoardBtn, leaderBoard, updateForm, textOptions } from './uiElements';
+import { body, themeSelector, signupForm, profileButton, profile, saveStatsBtn, signupBtn, settings, settingsBtn, closeWinBtn, drag, stats, loginBtn, signinForm, logoutBtn, updateBtn, signUpinfo, loader, leaderBoardBtn, leaderBoard, updateForm, textOptions, leaderBoardContainer } from './uiElements';
 import saveStats from '../functions/saveStats';
 import { logout, signIn, signUp, updateUser } from '../firebase/auth';
 import { punctuationMode,smallCaseMode } from '../functions/userDefault';
@@ -223,6 +223,15 @@ leaderBoardBtn.addEventListener('click', () => {
         setTimeout(() => {
             leaderBoard.parentElement.classList.toggle('hide');
         }, 500)
+    }
+})
+
+leaderBoardContainer.addEventListener('click',(e)=>{
+    if(e.target.classList.contains('leaderBoard')){
+        leaderBoardContainer.classList.toggle('fadeOut');
+        setTimeout(() => {
+            leaderBoardContainer.classList.toggle('hide');
+        }, 200)
     }
 })
 
