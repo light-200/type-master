@@ -1,4 +1,4 @@
-import { text } from "../functions/getText";
+import getText, { text } from "../functions/getText";
 import handleProfile, { handleMenu } from "../functions/handleHiding";
 import {
   getLocalData,
@@ -30,6 +30,7 @@ import {
   updateForm,
   textOptions,
   leaderBoardContainer,
+  nextBtn,
 } from "./uiElements";
 import saveStats from "../functions/saveStats";
 import { logout, signIn, signUp, updateUser } from "../firebase/auth";
@@ -294,6 +295,11 @@ textOptions.addEventListener("click", async (e) => {
       setLocalData({ ...user, punctuationMode });
     }
   }
+});
+
+//handling next btn
+nextBtn.addEventListener("click", () => {
+  getText();
 });
 
 export default setWords;

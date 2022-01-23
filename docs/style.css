@@ -99,12 +99,16 @@ span {
 }
 
 .container {
+  display: flex;
+  flex-direction: column;
   position: absolute;
   top: 40vh;
   transform: translateY(-3rem);
   min-width: 300px;
   width: 700px;
   max-width: 65%;
+  align-items: center;
+  gap: 1.5rem;
 }
 
 .container > .text {
@@ -114,12 +118,76 @@ span {
   opacity: 0.6;
   transition: 500ms ease-in-out;
   text-align: center;
+  height: fit-content;
+}
+
+.nextBtn {
+  display: grid;
+  place-content: center;
+  width: 30px;
+  height: 30px;
+  border: 2px solid;
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+  opacity: 0.5;
+  font-size: var(--font-size-small);
+  position: relative;
+}
+
+/* tool tip  */
+
+.nextBtn::after {
+  content: "next text";
+  visibility: hidden;
+  width: max-content;
+  background-color: var(--background-color);
+  color: var(--font-color);
+  text-align: center;
+  padding: 0.2rem;
+  border: 1px solid;
+  border-radius: 5px;
+
+  position: absolute;
+  top: 100%;
+  right: 50%;
+  margin-top: 1rem;
+  transform: translate(50%);
+  z-index: 1;
+}
+
+.nextBtn::before {
+  content: "";
+  visibility: hidden;
+  position: absolute;
+  margin-top: 0.5rem;
+  top: 100%;
+  right: 50%;
+  transform: translate(50%);
+  z-index: 1;
+  border: 5px solid;
+  border-color: transparent;
+  border-bottom-color: initial;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.nextBtn:hover::after,
+.nextBtn:hover::before {
+  visibility: visible;
+}
+
+.nextBtn:hover {
+  opacity: 1;
+}
+
+.nextBtn:active {
+  transform: translate(-0.5px, 1px);
 }
 
 .containerStats {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 2rem;
+  width: 100%;
 }
 
 .text {
