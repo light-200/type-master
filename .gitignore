@@ -1,7 +1,6 @@
 node_modules
 .env
 Notes
-firebase.js
 firebase-debug.log
 firestore-debug.log
 ui-debug.log
