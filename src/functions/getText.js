@@ -1,13 +1,21 @@
 import setWords, { spanWrap } from "../ui/uiListeners";
 import start from "./start";
 import { textContainer } from "../ui/uiElements";
-import { getLocalData } from "../storage/localstorage";
+import { getLocalData, getUserData } from "../storage/localstorage";
+import handlePopup from "./handlePopup";
 
 var text;
+let callsCount = 0;
 
-// this function is responsible for fetching the text from api
 const getText = async () => {
-  //call the api here
+  const user = await getUserData();
+  if (!user) {
+    callsCount++;
+    if (callsCount == 5 || callsCount == 15) {
+      handlePopup("Login to save data 🙂", 10000);
+    }
+  }
+
   const url = "https://api.quotable.io/random";
   let data = await fetch(url)
     .then((response) => response.json())
@@ -18,7 +26,6 @@ const getText = async () => {
       console.error(error.message);
       textContainer.innerText = "check your network connection";
     });
-  // console.log(data,'before');
 
   //for no punctuation mode
   let userPreferences = getLocalData();
@@ -29,7 +36,7 @@ const getText = async () => {
   if (userPreferences.smallCaseMode) {
     data = data.toLowerCase();
   }
-  // console.log(data,'after');
+
   text = textContainer.innerText = data;
   setWords();
   spanWrap(textContainer);

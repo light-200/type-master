@@ -73,3 +73,6 @@ export const textOptions = document.querySelector(".textOptions");
 
 //next btn
 export const nextBtn = document.querySelector(".nextBtn");
+
+//alert popup
+export const infoPopup = document.querySelector(".infoPopup");
