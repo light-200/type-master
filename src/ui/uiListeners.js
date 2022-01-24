@@ -35,6 +35,7 @@ import {
 import saveStats from "../functions/saveStats";
 import { logout, signIn, signUp, updateUser } from "../firebase/auth";
 import { punctuationMode, smallCaseMode } from "../functions/userDefault";
+import handlePopup from "../functions/handlePopup";
 
 var totalWords;
 
@@ -300,6 +301,15 @@ textOptions.addEventListener("click", async (e) => {
 //handling next btn
 nextBtn.addEventListener("click", () => {
   getText();
+});
+
+let firstTime = true;
+// for caps lock
+document.addEventListener("keypress", (e) => {
+  if (e.getModifierState("CapsLock")) {
+    firstTime && handlePopup("CapsLock", 2000);
+  }
+  firstTime = false;
 });
 
 export default setWords;

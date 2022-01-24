@@ -99,7 +99,25 @@ span {
 }
 
 .footer > .links {
-  color:var(--github-color)
+  color: var(--github-color);
+}
+
+/* floating info */
+
+.infoPopup {
+  position: absolute;
+  display: block;
+  padding: 0.5rem;
+  font-size: var(--font-size-normal);
+  color: var(--correct-word);
+  background-color: var(--background-color);
+  border: 2px solid;
+  border-color: var(--infoPopup-border-color);
+  border-radius: 5px;
+  z-index: 1;
+  top: 20vh;
+  animation: blink 0.7s steps(2) infinite;
+  transition: opacity 200ms ease-in-out;
 }
 
 .container {
@@ -425,6 +443,7 @@ footer {
   place-items: center;
   gap: 1rem;
   transition: all 200ms ease-in-out;
+  z-index: 3;
 }
 
 .content {

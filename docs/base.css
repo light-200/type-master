@@ -31,6 +31,7 @@
   --lb-list-item-bg-color: var(--lb-header-color);
   --lb-list-item-color: var(--lb-header-bg-color);
   --correct-word: rgb(206, 158, 1);
+  --infoPopup-border-color: rgb(206, 158, 1);
 }
 
 .dark {
@@ -45,6 +46,7 @@
   --lb-list-item-color: var(--lb-header-bg-color);
   background-color: var(--background-color);
   color: var(--font-color);
+  --infoPopup-border-color: rgb(206, 158, 1);
 }
 
 @media only screen and (max-width: 500px) {
