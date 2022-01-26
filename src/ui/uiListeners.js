@@ -50,7 +50,7 @@ const setWords = (typedWords = 0) => {
     indices.push(result.index);
   }
   totalWords = indices.length + 1;
-  words.innerText = `${typedWords}/${totalWords}`;
+  words.innerText = `${totalWords}/${typedWords}`;
 };
 
 //wraps all words in a span tag
