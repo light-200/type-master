@@ -99,7 +99,7 @@ span {
 }
 
 .footer > .links {
-  color: var(--github-color);
+  color: var (--github-color);
 }
 
 /* floating info */
