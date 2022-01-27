@@ -9,6 +9,7 @@ body {
   transition: 200ms ease-in-out;
   z-index: 0;
   overflow: hidden;
+  position: relative;
 }
 
 a {
@@ -147,13 +148,31 @@ input {
 .mpContainer {
   display: flex;
   flex-direction: column;
-  max-width: 400px;
   align-items: center;
   height: 100vh;
+  width: 300px;
+  min-width: 300px;
   text-align: center;
-  padding: 2rem;
   font-size: var(--font-size-small);
+  padding-top: 5rem;
   border-left: 1px solid;
+  transition: 200ms;
+  right: 0;
+  position: relative;
+}
+
+.mpContainerHeader {
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: var(--lb-header-bg-color);
+  color: var(--lb-header-color);
+  box-shadow: 2px 2px 5px rgb(11, 12, 12);
+  font-size: var(--font-size-normal);
+  width: 300px;
+  text-transform: uppercase;
 }
 
 .joinRoom {
@@ -165,6 +184,18 @@ input {
   padding: 1rem;
   height: max-content;
   border-bottom: 1px solid;
+  width: 100%;
+  min-width: 300px;
+}
+
+.joinRoom span {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+.joinRoom .roomId {
+  flex: 1;
+  width: 8ch;
 }
 
 .roomHeader {
@@ -175,6 +206,7 @@ input {
   height: max-content;
   border-bottom: 1px solid;
   width: 100%;
+  min-width: 300px;
 }
 
 .roomId {
@@ -222,7 +254,7 @@ input {
   gap: 1rem;
   height: 100%;
   width: 100%;
-  padding-top: 1rem;
+  padding: 1rem 0.5rem;
 }
 
 .player {
@@ -231,6 +263,7 @@ input {
   padding: 5px;
   gap: 5px;
   align-items: baseline;
+  border-radius: 5px;
 }
 
 .player .playerName {
@@ -649,4 +682,10 @@ footer {
   opacity: 1 !important;
 }
 
+.scale0 {
+  overflow-x: hidden;
+  min-width: 0;
+  width: 0;
+  border: 0 solid transparent;
+}
 /* have a nice day  */

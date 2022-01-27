@@ -149,7 +149,8 @@
         <div class="icons">
           <a href="#" class="profileBtn">🙍‍♂️</a>
           <a href="#" class="settingsBtn">⚙️</a>
-          <a href="#leaderBoard" class="leaderBoardBtn">📊</a>
+          <a href="#" class="leaderBoardBtn">📊</a>
+          <a href="#" class="mpBtn">🏆</a>
         </div>
       </div>
 
@@ -172,25 +173,27 @@
         <div class="username"></div>
       </div>
     </div>
-    <div class="mpContainer">
+    <div class="mpContainer hide scale0">
+      <div class="mpContainerHeader">Multiplayer Lobby</div>
       <form class="joinRoom">
         <div class="btn createRoom">Create Room</div>
         <p>or</p>
-        <input type="text" class="roomId" name="roomId" placeholder="room id" />
-        <input type="submit" value="Join Room" class="btn" />
+        <span>
+          <input
+            type="text"
+            class="roomId"
+            name="roomId"
+            placeholder="room id"
+          />
+          <input type="submit" value="Join" class="btn" />
+        </span>
       </form>
-      <div class="roomHeader">
+      <div class="roomHeader hide">
         <span class="roomHeaderText">Room:</span>
         <span class="roomId">roomid</span>
         <span class="copyRoomId"> copy </span>
       </div>
-      <div class="playArea">
-        <span class="player">
-          <div class="playerName">light</div>
-          <progress class="playerProgress" value="32" max="100">32%</progress>
-          <div class="playerSpeed">24</div>
-        </span>
-      </div>
+      <div class="playArea hide"></div>
     </div>
     <div class="leaderBoard hide fadeOut" id="leaderBoard">
       <div class="content"></div>

@@ -31,10 +31,15 @@ import {
   textOptions,
   leaderBoardContainer,
   nextBtn,
+  multiplayerBtn,
+  mpContainer,
+  createRoomBtn,
+  joinRoomForm,
 } from "./uiElements";
 import saveStats from "../functions/saveStats";
 import { logout, signIn, signUp, updateUser } from "../firebase/auth";
 import { punctuationMode, smallCaseMode } from "../functions/userDefault";
+import { createRoom } from "../functions/roomHandling";
 import handlePopup from "../functions/handlePopup";
 
 var totalWords;
@@ -310,6 +315,35 @@ document.addEventListener("keypress", (e) => {
     firstTime && handlePopup("CapsLock", 2000);
   }
   firstTime = false;
+});
+
+//handle multiplayer
+multiplayerBtn.addEventListener("click", (e) => {
+  if (mpContainer.classList.contains("hide")) {
+    mpContainer.classList.remove("hide");
+    mpContainer.classList.remove("scale0");
+    mpContainer.classList.remove("fadeOut");
+  } else {
+    mpContainer.classList.add("scale0");
+    mpContainer.classList.add("fadeOut");
+    setTimeout(() => {
+      mpContainer.classList.add("hide");
+    }, 500);
+  }
+});
+
+//create room
+createRoomBtn.addEventListener("click", (e) => {
+  createRoom();
+});
+
+//join room
+joinRoomForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  if (!e.target.roomId.value || e.target.roomId.value == " ") {
+    return;
+  }
+  console.log(e.target.roomId.value);
 });
 
 export default setWords;
