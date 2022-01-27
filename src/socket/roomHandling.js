@@ -1,9 +1,10 @@
+import socket from "./socket";
 import { playArea } from "../ui/uiElements";
+import { getUserData } from "../storage/localstorage";
 
-export function createRoom() {
-  clearPlayerArea();
-  renderPlayers();
-  playArea.classList.remove("hide");
+export async function createRoom() {
+  let user = await getUserData();
+  socket.emit("createRoom", JSON.stringify(user), socket.id);
 }
 
 export function renderPlayers() {

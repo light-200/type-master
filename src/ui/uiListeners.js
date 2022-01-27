@@ -35,11 +35,13 @@ import {
   mpContainer,
   createRoomBtn,
   joinRoomForm,
+  copyRoomId,
+  roomId,
 } from "./uiElements";
 import saveStats from "../functions/saveStats";
 import { logout, signIn, signUp, updateUser } from "../firebase/auth";
 import { punctuationMode, smallCaseMode } from "../functions/userDefault";
-import { createRoom } from "../functions/roomHandling";
+import { createRoom } from "../socket/roomHandling";
 import handlePopup from "../functions/handlePopup";
 
 var totalWords;
@@ -344,6 +346,14 @@ joinRoomForm.addEventListener("submit", (e) => {
     return;
   }
   console.log(e.target.roomId.value);
+});
+
+//copy room id
+copyRoomId.addEventListener("click", () => {
+  navigator.clipboard.writeText(roomId.innerHTML).then(() => {
+    copyRoomId.innerText = "✅";
+    copyRoomId.classList.add("active");
+  });
 });
 
 export default setWords;

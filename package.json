@@ -28,6 +28,7 @@
   "dependencies": {
     "dom-to-image": "^2.6.0",
     "file-saver": "^2.0.5",
-    "firebase": "^9.6.1"
+    "firebase": "^9.6.1",
+    "socket.io-client": "^4.4.1"
   }
 }

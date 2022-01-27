@@ -40,7 +40,7 @@ input {
   font-size: var(--font-size-normal);
 }
 
-.container span {
+span {
   border: solid;
   border-color: transparent;
   border-width: 0 0 3px 0;
