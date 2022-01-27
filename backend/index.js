@@ -1,7 +1,8 @@
-import express, { json } from "express";
+import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import cors from "cors";
+import getText from "./getText.js";
 const app = express();
 app.use(cors());
 const httpServer = createServer(app);
@@ -25,4 +26,8 @@ function createRoom(user, room, socket) {
   socket.join(roomId);
   user = JSON.parse(user);
   socket.emit("roomId", roomId);
+  let text;
+  socket.on("getText", () => {
+    getText(io, roomId);
+  });
 }
