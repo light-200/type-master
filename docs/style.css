@@ -154,7 +154,7 @@ span {
   min-width: 300px;
   text-align: center;
   font-size: var(--font-size-small);
-  padding-top: 5rem;
+  padding-top: 2rem;
   border-left: 1px solid;
   transition: 200ms;
   right: 0;
@@ -202,7 +202,7 @@ span {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 1rem 0;
+  padding: 1rem;
   height: max-content;
   border-bottom: 1px solid;
   width: 100%;
@@ -224,12 +224,11 @@ span {
   place-content: center;
   width: fit-content;
   height: fit-content;
-  border: 2px solid;
   padding: 5px;
   border-radius: 5px;
   cursor: pointer;
   user-select: none;
-  opacity: 0.5;
+  opacity: 0.65;
   font-size: var(--font-size-small);
   position: relative;
 }

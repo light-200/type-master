@@ -1,4 +1,4 @@
-import getText, { text } from "../functions/getText";
+import getText, { getTextSocket, text } from "../functions/getText";
 import handleProfile, { handleMenu } from "../functions/handleHiding";
 import {
   getLocalData,
@@ -43,6 +43,7 @@ import { logout, signIn, signUp, updateUser } from "../firebase/auth";
 import { punctuationMode, smallCaseMode } from "../functions/userDefault";
 import { createRoom } from "../socket/roomHandling";
 import handlePopup from "../functions/handlePopup";
+import { multiplayerMode } from "../functions/userDefault";
 
 var totalWords;
 
@@ -57,7 +58,7 @@ const setWords = (typedWords = 0) => {
     indices.push(result.index);
   }
   totalWords = indices.length + 1;
-  words.innerText = `${typedWords}/${totalWords}`;
+  words.innerText = `${totalWords}/${typedWords}`;
 };
 
 //wraps all words in a span tag
@@ -307,7 +308,7 @@ textOptions.addEventListener("click", async (e) => {
 
 //handling next btn
 nextBtn.addEventListener("click", () => {
-  getText();
+  multiplayerMode ? getTextSocket() : getText();
 });
 
 let firstTime = true;
