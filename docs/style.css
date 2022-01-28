@@ -160,6 +160,42 @@ span {
 
 /* tool tip  */
 
+.words::after {
+  content: "Total Words/Typed Words";
+  font-size: 0.75em;
+  visibility: hidden;
+  width: max-content;
+  background-color: var(--background-color);
+  color: var(--font-color);
+  padding: 0.2rem;
+  border: 1px solid;
+  border-radius: 5px;
+  position: absolute;
+  bottom: 100%;
+  right: 95%;
+  margin-bottom: 0.2em;
+  transform: translate(50%);
+  z-index: 1;
+}
+
+.speed::after {
+  content: "Words Per Minute";
+  font-size: 0.75em;
+  visibility: hidden;
+  width: max-content;
+  background-color: var(--background-color);
+  color: var(--font-color);
+  padding: 0.2rem;
+  border: 1px solid;
+  border-radius: 5px;
+  position: absolute;
+  bottom: 100%;
+  right: 0%;
+  margin-bottom: 0.2em;
+  transform: translate(50%);
+  z-index: 1;
+}
+
 .nextBtn::after {
   content: "next text";
   visibility: hidden;
@@ -194,8 +230,11 @@ span {
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
+.words:hover::after,
+.speed:hover::after,
 .nextBtn:hover::after,
-.nextBtn:hover::before {
+.nextBtn:hover::before 
+ {
   visibility: visible;
 }
 
