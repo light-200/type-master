@@ -4,6 +4,7 @@ import { textContainer } from "../ui/uiElements";
 import { getLocalData, getUserData } from "../storage/localstorage";
 import handlePopup from "./handlePopup";
 import socket from "../socket/socket";
+import { isHost } from "./userDefault";
 
 var text;
 let callsCount = 0;
@@ -45,7 +46,7 @@ const getText = async () => {
 };
 
 export async function getTextSocket() {
-  socket.emit("getText");
+  isHost && socket.emit("getText");
   socket.on("newText", (data) => {
     text = textContainer.innerText = data;
     setWords();

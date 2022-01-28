@@ -41,7 +41,7 @@ import {
 import saveStats from "../functions/saveStats";
 import { logout, signIn, signUp, updateUser } from "../firebase/auth";
 import { punctuationMode, smallCaseMode } from "../functions/userDefault";
-import { createRoom } from "../socket/roomHandling";
+import { createRoom, joinRoom } from "../socket/roomHandling";
 import handlePopup from "../functions/handlePopup";
 import { multiplayerMode } from "../functions/userDefault";
 
@@ -346,7 +346,7 @@ joinRoomForm.addEventListener("submit", (e) => {
   if (!e.target.roomId.value || e.target.roomId.value == " ") {
     return;
   }
-  console.log(e.target.roomId.value);
+  joinRoom(e.target.roomId.value);
 });
 
 //copy room id

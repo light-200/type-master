@@ -4,7 +4,6 @@ export default async function getText(io, room) {
   try {
     const res = await axios.get("https://api.quotable.io/random");
     io.to(room).emit("newText", res.data.content);
-    console.log("got text");
   } catch (error) {
     console.error(`Error: ${error}`);
   }

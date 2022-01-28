@@ -1,12 +1,14 @@
 import socket from "./socket";
 import { playArea } from "../ui/uiElements";
 import { getUserData } from "../storage/localstorage";
-import { multiplayerMode } from "../functions/userDefault";
+import { multiplayerMode, isHost } from "../functions/userDefault";
+import { getTextSocket } from "../functions/getText";
 
 export async function createRoom() {
   let user = await getUserData();
   socket.emit("createRoom", JSON.stringify(user), socket.id);
-  multiplayerMode = true;
+  isHost = multiplayerMode = true;
+  getTextSocket();
 }
 
 export function renderPlayers(playerList) {
@@ -19,6 +21,11 @@ export function renderPlayers(playerList) {
     newPlayer.classList.add("player");
     playArea.appendChild(newPlayer);
   });
+}
+
+export async function joinRoom(room) {
+  let user = await getUserData();
+  socket.emit("joinRoom", JSON.stringify(user), room);
 }
 
 function clearPlayerArea() {
