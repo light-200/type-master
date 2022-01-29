@@ -1,4 +1,4 @@
-import getText, { getTextSocket } from "./getText";
+import getText, { getTextSocket, setTextSocket } from "./getText";
 import {
   getUserData,
   setUserData,
@@ -26,16 +26,18 @@ const speedCalc = async (totalWords, seconds) => {
     setLocalData({ ...user, lastSpeed: speed });
   }
 
-  // add a function to change the text here
-  containerInfo.classList.toggle("hide");
-  containerInfo.classList.toggle("fadeOut");
-  setTimeout(() => {
-    multiplayerMode ? isHost && getTextSocket() : getText();
+  if (!multiplayerMode && !isHost) {
+    // add a function to change the text here
+    containerInfo.classList.toggle("hide");
     containerInfo.classList.toggle("fadeOut");
     setTimeout(() => {
-      containerInfo.classList.toggle("hide");
+      getText();
+      containerInfo.classList.toggle("fadeOut");
+      setTimeout(() => {
+        containerInfo.classList.toggle("hide");
+      }, 500);
     }, 500);
-  }, 500);
+  }
 };
 
 function setSpeed(speed) {

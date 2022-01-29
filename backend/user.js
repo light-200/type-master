@@ -1,22 +1,33 @@
-const users = [];
+const users = new Map();
 
 const addUser = ({ id, name, progress, speed, room }) => {
   const user = { id, name, room, progress, speed };
 
-  users.push(user);
+  users.set(id, user);
   return { user };
 };
 
 const removeUser = (id) => {
-  const index = users.findIndex((user) => user.id === id);
-
-  if (index !== -1) {
-    return users.splice(index, 1)[0];
-  }
+  let user = users.get(id);
+  users.delete(id);
+  if (user) return user.value;
 };
 
-const getUser = (id) => users.find((user) => user.id === id);
+const getUser = (id) => {
+  return users.get(id);
+};
 
-const getUsersInRoom = (room) => users.filter((user) => user.room === room);
+const setUser = (id, speed, progress) => {
+  let user = users.get(id);
+  users.set(id, { ...user, speed, progress });
+};
 
-export { addUser, removeUser, getUser, getUsersInRoom };
+const getUsersInRoom = (room) => {
+  let usersInRoom = new Array();
+  users.forEach((user) => {
+    if (user.room == room) usersInRoom.push(user);
+  });
+  return usersInRoom;
+};
+
+export { addUser, removeUser, getUser, getUsersInRoom, setUser };

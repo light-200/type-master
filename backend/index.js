@@ -32,10 +32,10 @@ io.on("connection", (socket) => {
     addUser(tempUser);
     const playerList = getUsersInRoom(roomId);
     io.to(roomId).emit("playerList", playerList);
-    socket.on("getText", () => {
-      getText(io, roomId);
-    });
   }
+  socket.on("getText", (room) => {
+    getText(io, room);
+  });
 
   function joinRoom(user, roomName) {
     const room = io.sockets.adapter.rooms.get(roomName);
@@ -74,7 +74,7 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     const user = removeUser(socket.id);
-    io.to(user.room).emit("playerList", getUsersInRoom(user.room));
+    user && io.to(user.room).emit("playerList", getUsersInRoom(user.room));
   });
 });
 

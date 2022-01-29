@@ -1,8 +1,8 @@
 import { io } from "socket.io-client";
 import handlePopup from "../functions/handlePopup";
-import { joinRoomForm, roomHeader } from "../ui/uiElements";
-import { multiplayerMode } from "../functions/userDefault";
-import { getTextSocket } from "../functions/getText";
+import { joinRoomForm, roomHeader, textContainer } from "../ui/uiElements";
+import { isHost, multiplayerMode } from "../functions/userDefault";
+import { getTextSocket, setTextSocket } from "../functions/getText";
 import { renderPlayers } from "./roomHandling";
 
 const socket = io("http://localhost:3000");
@@ -20,7 +20,7 @@ socket.on("roomId", (roomId) => {
   roomHeader.classList.remove("hide");
   roomHeader.children[1].innerText = roomId;
   multiplayerMode = true;
-  getTextSocket();
+  textContainer.innerText = "...";
 });
 
 socket.on("unknownCode", () => {
@@ -31,7 +31,25 @@ socket.on("tooManyPlayers", () => {
 });
 
 socket.on("playerList", (playerList) => {
+  if (playerList.length > 1 && isHost) {
+    let count = 5;
+    let showTimer = setInterval(() => {
+      handlePopup(`text in ${count--} seconds`, 500);
+    }, 1000);
+    setTimeout(() => {
+      getTextSocket();
+      clearInterval(showTimer);
+    }, 5000);
+  }
+  let index = playerList.findIndex((user) => user.id === socket.id);
+  if (index !== -1) {
+    let you = playerList.slice(index, 1)[0];
+  }
   renderPlayers(playerList);
+});
+
+socket.on("newText", (data) => {
+  setTextSocket(data);
 });
 
 export default socket;
