@@ -30,20 +30,11 @@ socket.on("tooManyPlayers", () => {
   handlePopup("room is full 😞", 1000);
 });
 
+let you;
 socket.on("playerList", (playerList) => {
-  if (playerList.length > 1 && isHost) {
-    let count = 5;
-    let showTimer = setInterval(() => {
-      handlePopup(`text in ${count--} seconds`, 500);
-    }, 1000);
-    setTimeout(() => {
-      getTextSocket();
-      clearInterval(showTimer);
-    }, 5000);
-  }
-  let index = playerList.findIndex((user) => user.id === socket.id);
+  let index = playerList.findIndex((user) => user.id == socket.id);
   if (index !== -1) {
-    let you = playerList.slice(index, 1)[0];
+    you = playerList[index];
   }
   renderPlayers(playerList);
 });
@@ -51,5 +42,23 @@ socket.on("playerList", (playerList) => {
 socket.on("newText", (data) => {
   setTextSocket(data);
 });
+
+socket.on("textTimer", () => {
+  let count = 5;
+  let showTimer = setInterval(() => {
+    handlePopup(`text in ${count--} seconds`, 500);
+  }, 1000);
+  setTimeout(() => {
+    isHost && getTextSocket();
+    clearInterval(showTimer);
+  }, 5000);
+});
+
+export function typing(progress, speed) {
+  if (speed < 150) socket.emit("typing", { ...you, progress, speed });
+  else {
+    socket.emit("typing", { ...you, progress, speed: "😱" });
+  }
+}
 
 export default socket;

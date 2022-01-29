@@ -1,5 +1,7 @@
+import { typing } from "../socket/socket";
 import setWords, { totalWords } from "../ui/uiListeners";
 import speedCalc from "./speed";
+import { multiplayerMode } from "./userDefault";
 
 // listents to the keyboard
 export default (text) => {
@@ -15,9 +17,9 @@ export default (text) => {
     if (e.key === tempText[0]) {
       if (firstCall) {
         start = new Date().getTime();
-        //   console.log(start)
         firstCall = false;
       }
+
       tempText = tempText.substr(1);
 
       Words[index].classList.add("correctWord");
@@ -27,12 +29,21 @@ export default (text) => {
       if (index < text.length - 1) {
         Words[index + 1].classList.add("blink");
       }
+
       // console.log(tempText[0]);  gives the next word to type
       // console.log(Words[index]); gives the current element in html
 
       if (tempText[0] == " " || tempText[0] == null) {
         ++typedWords;
         setWords(typedWords);
+
+        let progress = Math.ceil((typedWords / totalWords) * 100);
+        let seconds = new Date().getTime();
+        seconds = (seconds - start) / 1000;
+        var minutes = seconds.toPrecision(2) / 60;
+        let tempSpeed = totalWords / minutes;
+        let speed = Math.floor(tempSpeed.toPrecision(3));
+        multiplayerMode && typing(progress, speed);
       }
 
       if (index == text.length - 1) {

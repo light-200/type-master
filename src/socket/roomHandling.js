@@ -6,7 +6,7 @@ import { getTextSocket } from "../functions/getText";
 
 export async function createRoom() {
   let user = await getUserData();
-  socket.emit("createRoom", JSON.stringify(user), socket.id);
+  socket.emit("createRoom", user, socket.id);
   isHost = true;
 }
 
@@ -26,7 +26,7 @@ export function renderPlayers(playerList) {
 
 export async function joinRoom(room) {
   let user = await getUserData();
-  socket.emit("joinRoom", JSON.stringify(user), room);
+  socket.emit("joinRoom", user, room);
 }
 
 function clearPlayerArea() {

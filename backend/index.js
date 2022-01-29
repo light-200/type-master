@@ -3,7 +3,7 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import cors from "cors";
 import getText from "./getText.js";
-import { addUser, getUsersInRoom, removeUser } from "./user.js";
+import { addUser, getUsersInRoom, removeUser, setUser } from "./user.js";
 const app = express();
 app.use(cors());
 const httpServer = createServer(app);
@@ -17,7 +17,17 @@ io.on("connection", (socket) => {
   socket.on("createRoom", (user, room) => createRoom(user, room));
   socket.on("joinRoom", (user, room) => joinRoom(user, room));
 
+  socket.on("typing", (user) => {
+    setUser(user);
+    const playerList = getUsersInRoom(user.room);
+    io.to(user.room).emit("playerList", playerList);
+  });
+
   function createRoom(user, room) {
+    if (!room) {
+      return;
+    }
+
     let roomId = room.slice(0, 6);
     socket.join(roomId);
     user = JSON.parse(user);
@@ -56,7 +66,6 @@ io.on("connection", (socket) => {
       socket.emit("tooManyPlayers");
       return;
     }
-
     socket.join(roomName);
     user = JSON.parse(user);
     socket.emit("roomId", roomName);
@@ -70,6 +79,10 @@ io.on("connection", (socket) => {
     addUser(tempUser);
     const playerList = getUsersInRoom(roomName);
     io.to(roomName).emit("playerList", playerList);
+
+    if (numClients === 1) {
+      io.to(roomName).emit("textTimer");
+    }
   }
 
   socket.on("disconnect", () => {

@@ -17,9 +17,8 @@ const getUser = (id) => {
   return users.get(id);
 };
 
-const setUser = (id, speed, progress) => {
-  let user = users.get(id);
-  users.set(id, { ...user, speed, progress });
+const setUser = (user) => {
+  users.set(user.id, user);
 };
 
 const getUsersInRoom = (room) => {
