@@ -3,12 +3,13 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import cors from "cors";
 import getText from "./getText.js";
+import { addUser, getUsersInRoom, removeUser } from "./user.js";
 const app = express();
 app.use(cors());
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://127.0.0.1:5500",
+    origin: ["http://127.0.0.1:5500", "http://localhost:5500"],
   },
 });
 
@@ -21,6 +22,16 @@ io.on("connection", (socket) => {
     socket.join(roomId);
     user = JSON.parse(user);
     socket.emit("roomId", roomId);
+    let tempUser = {
+      id: socket.id,
+      name: `guest0`,
+      progress: 0,
+      speed: 0,
+      room: roomId,
+    };
+    addUser(tempUser);
+    const playerList = getUsersInRoom(roomId);
+    io.to(roomId).emit("playerList", playerList);
     socket.on("getText", () => {
       getText(io, roomId);
     });
@@ -28,7 +39,6 @@ io.on("connection", (socket) => {
 
   function joinRoom(user, roomName) {
     const room = io.sockets.adapter.rooms.get(roomName);
-
     let allUsers;
     if (room) {
       allUsers = Array.from(room);
@@ -37,7 +47,6 @@ io.on("connection", (socket) => {
     let numClients = 0;
     if (allUsers) {
       numClients = allUsers.length;
-      console.log(numClients);
     }
 
     if (numClients === 0) {
@@ -51,7 +60,22 @@ io.on("connection", (socket) => {
     socket.join(roomName);
     user = JSON.parse(user);
     socket.emit("roomId", roomName);
+    let tempUser = {
+      id: socket.id,
+      name: `guest${numClients}`,
+      progress: 0,
+      speed: 0,
+      room: roomName,
+    };
+    addUser(tempUser);
+    const playerList = getUsersInRoom(roomName);
+    io.to(roomName).emit("playerList", playerList);
   }
+
+  socket.on("disconnect", () => {
+    const user = removeUser(socket.id);
+    io.to(user.room).emit("playerList", getUsersInRoom(user.room));
+  });
 });
 
 httpServer.listen(process.env.PORT || 3000, () => {

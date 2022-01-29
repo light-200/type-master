@@ -5,7 +5,7 @@ import {
   setLocalData,
 } from "../storage/localstorage";
 import { containerInfo, speedIndicator } from "../ui/uiElements";
-import { isHost } from "./userDefault";
+import { isHost, multiplayerMode } from "./userDefault";
 var speed;
 
 // this function is responsible for calculating the speed
@@ -30,7 +30,7 @@ const speedCalc = async (totalWords, seconds) => {
   containerInfo.classList.toggle("hide");
   containerInfo.classList.toggle("fadeOut");
   setTimeout(() => {
-    isHost ? getTextSocket() : getText();
+    multiplayerMode ? isHost && getTextSocket() : getText();
     containerInfo.classList.toggle("fadeOut");
     setTimeout(() => {
       containerInfo.classList.toggle("hide");

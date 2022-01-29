@@ -150,7 +150,7 @@ span {
   flex-direction: column;
   align-items: center;
   height: 100vh;
-  width: 300px;
+  width: 400px;
   min-width: 300px;
   text-align: center;
   font-size: var(--font-size-small);
@@ -171,7 +171,7 @@ span {
   color: var(--lb-header-color);
   box-shadow: 2px 2px 5px rgb(11, 12, 12);
   font-size: var(--font-size-normal);
-  width: 300px;
+  width: 100%;
   text-transform: uppercase;
 }
 
@@ -266,7 +266,7 @@ span {
 }
 
 .player .playerName {
-  width: 5ch;
+  width: 150px;
 }
 
 .player .playerProgress {

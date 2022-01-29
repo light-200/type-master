@@ -12,6 +12,7 @@ export async function createRoom() {
 }
 
 export function renderPlayers(playerList) {
+  clearPlayerArea();
   playerList.forEach((player) => {
     let template = `<div class="playerName">${player.name}</div>
           <progress class="playerProgress" value="${player.progress}" max="100"></progress>
@@ -20,7 +21,9 @@ export function renderPlayers(playerList) {
     newPlayer.innerHTML = template;
     newPlayer.classList.add("player");
     playArea.appendChild(newPlayer);
+    console.log(player);
   });
+  playArea.classList.remove("hide");
 }
 
 export async function joinRoom(room) {

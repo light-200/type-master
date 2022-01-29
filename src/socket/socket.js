@@ -3,6 +3,7 @@ import handlePopup from "../functions/handlePopup";
 import { joinRoomForm, roomHeader } from "../ui/uiElements";
 import { multiplayerMode } from "../functions/userDefault";
 import { getTextSocket } from "../functions/getText";
+import { renderPlayers } from "./roomHandling";
 
 const socket = io("http://localhost:3000");
 
@@ -27,6 +28,10 @@ socket.on("unknownCode", () => {
 });
 socket.on("tooManyPlayers", () => {
   handlePopup("room is full 😞", 1000);
+});
+
+socket.on("playerList", (playerList) => {
+  renderPlayers(playerList);
 });
 
 export default socket;
