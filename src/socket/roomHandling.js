@@ -12,6 +12,7 @@ export async function createRoom() {
 
 export function renderPlayers(playerList) {
   clearPlayerArea();
+  if (!playerList) return;
   playerList.forEach((player) => {
     let template = `<div class="playerName">${player.name}</div>
           <progress class="playerProgress" value="${player.progress}" max="100"></progress>

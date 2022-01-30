@@ -3,7 +3,13 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import cors from "cors";
 import getText from "./getText.js";
-import { addUser, getUsersInRoom, removeUser, setUser } from "./user.js";
+import {
+  addUser,
+  getUsersInRoom,
+  removeUser,
+  resetUser,
+  setUser,
+} from "./user.js";
 const app = express();
 app.use(cors());
 const httpServer = createServer(app);
@@ -45,6 +51,8 @@ io.on("connection", (socket) => {
   }
   socket.on("getText", (room) => {
     getText(io, room);
+    const playerList = resetUser(room);
+    io.to(room).emit("playerList", playerList);
   });
 
   function joinRoom(user, roomName) {

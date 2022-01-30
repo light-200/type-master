@@ -29,4 +29,22 @@ const getUsersInRoom = (room) => {
   return usersInRoom;
 };
 
-export { addUser, removeUser, getUser, getUsersInRoom, setUser };
+const resetUser = (room) => {
+  let usersInRoom = new Array();
+  users.forEach((user) => {
+    if (user.room == room) {
+      let tempUser = {
+        id: user.id,
+        name: user.name,
+        room: user.room,
+        progress: 0,
+        speed: 0,
+      };
+      setUser(tempUser);
+      usersInRoom.push(tempUser);
+    }
+  });
+  return usersInRoom;
+};
+
+export { addUser, removeUser, getUser, getUsersInRoom, setUser, resetUser };
