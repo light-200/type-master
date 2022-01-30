@@ -20,8 +20,8 @@ const io = new Server(httpServer, {
 });
 
 io.on("connection", (socket) => {
-  socket.on("createRoom", (user, room) => createRoom(user, room));
-  socket.on("joinRoom", (user, room) => joinRoom(user, room));
+  socket.on("createRoom", (userName, room) => createRoom(userName, room));
+  socket.on("joinRoom", (userName, room) => joinRoom(userName, room));
 
   socket.on("typing", (user) => {
     setUser(user);
@@ -29,22 +29,21 @@ io.on("connection", (socket) => {
     io.to(user.room).emit("playerList", playerList);
   });
 
-  function createRoom(user, room) {
+  function createRoom(userName, room) {
     if (!room) {
       return;
     }
-
     let roomId = room.slice(0, 6);
     socket.join(roomId);
-    user = JSON.parse(user);
     socket.emit("roomId", roomId);
     let tempUser = {
       id: socket.id,
-      name: `guest0`,
+      name: userName || `guest`,
       progress: 0,
       speed: 0,
       room: roomId,
     };
+
     addUser(tempUser);
     const playerList = getUsersInRoom(roomId);
     io.to(roomId).emit("playerList", playerList);
@@ -55,7 +54,7 @@ io.on("connection", (socket) => {
     io.to(room).emit("playerList", playerList);
   });
 
-  function joinRoom(user, roomName) {
+  function joinRoom(userName, roomName) {
     const room = io.sockets.adapter.rooms.get(roomName);
     let allUsers;
     if (room) {
@@ -75,11 +74,10 @@ io.on("connection", (socket) => {
       return;
     }
     socket.join(roomName);
-    user = JSON.parse(user);
     socket.emit("roomId", roomName);
     let tempUser = {
       id: socket.id,
-      name: `guest${numClients}`,
+      name: userName || `guest${numClients}`,
       progress: 0,
       speed: 0,
       room: roomName,
