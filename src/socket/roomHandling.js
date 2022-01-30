@@ -5,7 +5,7 @@ import { isHost } from "../functions/userDefault";
 
 export async function createRoom() {
   let user = await getUserData();
-  socket.emit("createRoom", user.userName, socket.id);
+  socket.emit("createRoom", user ? user.userName : null, socket.id);
   isHost = true;
 }
 
@@ -26,7 +26,7 @@ export function renderPlayers(playerList) {
 
 export async function joinRoom(room) {
   let user = await getUserData();
-  socket.emit("joinRoom", user.userName, room);
+  socket.emit("joinRoom", user ? user.userName: null, room);
 }
 
 function clearPlayerArea() {
