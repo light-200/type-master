@@ -15,7 +15,7 @@ app.use(cors());
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: ["http://127.0.0.1:5500", "http://localhost:5500", "https://light-200.github.io/type-master/"],
+    origin: ["http://127.0.0.1:5500", "http://localhost:5500", "https://light-200.github.io"],
   },
 });
 
