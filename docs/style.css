@@ -32,12 +32,13 @@ a {
 input {
   display: block;
   padding: 5px;
-  border-radius: 3px;
+  border-radius: 5px;
   outline: none;
-  border: none;
-  background-color: #ffffff;
+  border: 1px solid var(--input-border-color);
+  background-color:transparent;
+  color: var(--font-color);
   max-width: 300px;
-  font-size: var(--font-size-normal);
+  font-size: var(--font-size-small);
 }
 
 span {
@@ -68,11 +69,13 @@ span {
   text-decoration: none;
 }
 
+
 .icons {
   padding: 0.5rem;
   border-radius: 10px;
   border: solid 0.5px;
   border-color: invert;
+  position: relative;
 }
 
 .footer {
@@ -294,9 +297,13 @@ span {
 
 /* tool tip  */
 
+.words,.speed{
+  position: relative;
+}
+
 .words::after {
   content: "Total Words/Typed Words";
-  font-size: 0.75em;
+  font-size: var(--font-size-small);
   visibility: hidden;
   width: max-content;
   background-color: var(--background-color);
@@ -312,9 +319,23 @@ span {
   z-index: 1;
 }
 
+.words::before,.speed::before {
+  content: "";
+  visibility: hidden;
+  position: absolute;
+  margin-top: 0.5rem;
+  bottom: 80%;
+  right: 50%;
+  transform: translate(50%);
+  z-index: 1;
+  border: 5px solid;
+  border-color: transparent;
+  border-top-color: initial;
+}
+
 .speed::after {
   content: "Words Per Minute";
-  font-size: 0.75em;
+  font-size: var(--font-size-small);
   visibility: hidden;
   width: max-content;
   background-color: var(--background-color);
@@ -340,6 +361,7 @@ span {
   padding: 0.2rem;
   border: 1px solid;
   border-radius: 5px;
+  font-size: var(--font-size-small);
 
   position: absolute;
   top: 100%;
@@ -365,7 +387,9 @@ span {
 
 /* Show the tooltip text when you mouse over the tooltip container */
 .words:hover::after,
+.words:hover::before,
 .speed:hover::after,
+.speed:hover::before,
 .nextBtn:hover::after,
 .nextBtn:hover::before 
  {
@@ -378,6 +402,10 @@ span {
 
 .nextBtn:active {
   transform: translate(-0.5px, 1px);
+}
+.nextBtn:active::before,
+.nextBtn:active::after {
+  visibility: hidden;
 }
 
 .containerStats {
@@ -406,20 +434,22 @@ footer {
   animation: blink 0.7s steps(2) infinite;
 }
 
+
 .btn {
-  width: 100px;
   min-width: fit-content;
   border-radius: 5px;
+  border: none;
   background-color: var(--button-bg-color);
   font-size: var(--font-size-small);
   color: black;
-  padding: 2.5px 5px;
+  padding:  5px;
   margin-right: 5px;
   text-align: center;
+  position: relative;
 }
 
 .btn:active {
-  transform: translateY(3px);
+  transform: translateY(2px);
   filter: brightness(0.7);
 }
 
@@ -635,7 +665,7 @@ footer {
   background-color: var(--lb-header-bg-color);
   color: var(--lb-header-color);
   box-shadow: 2px 2px 5px rgb(11, 12, 12);
-  font-size: 30px;
+  font-size: var(--font-size-heading);
   text-transform: uppercase;
 }
 
@@ -724,6 +754,7 @@ footer {
   overflow-x: hidden;
   min-width: 0;
   width: 0;
+  transform: translateX(200px);
   border: 0 solid transparent;
 }
 /* have a nice day  */

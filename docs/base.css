@@ -12,11 +12,12 @@
   --background-color: rgb(34, 34, 34);
   --wrong-font-color: #ff324d;
   --button-bg-color: rgb(255, 221, 70);
-  --font-size-normal: 25px;
-  --font-size-small: 20px;
-  --font-size-heading: 31.25px;
+  --font-size-normal: 20px;
+  --font-size-small: 15px;
+  --font-size-heading: 25px;
   --user-name-limit: 20ch;
   --wrong-word: rgb(255, 50, 77);
+  --input-border-color: white;
 }
 
 .light {
@@ -32,6 +33,7 @@
   --lb-list-item-color: var(--lb-header-bg-color);
   --correct-word: rgb(206, 158, 1);
   --infoPopup-border-color: rgb(206, 158, 1);
+  --input-border-color: black;
 }
 
 .dark {
@@ -47,6 +49,7 @@
   background-color: var(--background-color);
   color: var(--font-color);
   --infoPopup-border-color: rgb(206, 158, 1);
+  --input-border-color: white;
 }
 
 @media only screen and (max-width: 500px) {
