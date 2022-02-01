@@ -313,7 +313,7 @@ span {
   border-radius: 5px;
   position: absolute;
   bottom: 100%;
-  right: 95%;
+  right: 50%;
   margin-bottom: 0.2em;
   transform: translate(50%);
   z-index: 1;
@@ -637,7 +637,7 @@ footer {
 
 /* leaderboard */
 .leaderBoard {
-  background: inherit;
+  background: var(--background-color);
   position: absolute;
   margin-top: 4.5rem;
   min-height: 80vh;
