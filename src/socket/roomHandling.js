@@ -13,11 +13,13 @@ export function renderPlayers(playerList) {
   clearPlayerArea();
   if (!playerList) return;
   playerList.forEach((player) => {
-    let template = `<div class="playerName">${player.name}</div>
-          <progress class="playerProgress" value="${player.progress}" max="100"></progress>
+    let template = `<div class="playerProgress"><div class="playerName">${player.name}</div></div>
           <div class="playerSpeed">${player.speed}</div>`;
     let newPlayer = document.createElement("span");
     newPlayer.innerHTML = template;
+    newPlayer.children[0].firstChild.style.left = player.progress + "%";
+    newPlayer.children[0].firstChild.style.transform =
+      "translateX(-" + player.progress + "%)";
     newPlayer.classList.add("player");
     playArea.appendChild(newPlayer);
   });
@@ -26,7 +28,7 @@ export function renderPlayers(playerList) {
 
 export async function joinRoom(room) {
   let user = await getUserData();
-  socket.emit("joinRoom", user ? user.userName: null, room);
+  socket.emit("joinRoom", user ? user.userName : null, room);
 }
 
 function clearPlayerArea() {

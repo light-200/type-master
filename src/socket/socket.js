@@ -1,6 +1,11 @@
 import { io } from "socket.io-client";
 import handlePopup from "../functions/handlePopup";
-import { joinRoomForm, roomHeader, textContainer } from "../ui/uiElements";
+import {
+  joinRoomForm,
+  mpContainer,
+  roomHeader,
+  textContainer,
+} from "../ui/uiElements";
 import { isHost, multiplayerMode } from "../functions/userDefault";
 import { getTextSocket, setTextSocket } from "../functions/getText";
 import { renderPlayers } from "./roomHandling";
@@ -21,6 +26,7 @@ socket.on("roomId", (roomId) => {
   roomHeader.children[1].innerText = roomId;
   multiplayerMode = true;
   textContainer.innerText = "...";
+  !isHost && closeMpArea();
 });
 
 socket.on("unknownCode", () => {
@@ -59,6 +65,14 @@ export function typing(progress, speed) {
   else {
     socket.emit("typing", { ...you, progress, speed: "😱" });
   }
+}
+
+function closeMpArea() {
+  mpContainer.classList.add("scale0");
+  mpContainer.classList.add("fadeOut");
+  setTimeout(() => {
+    mpContainer.classList.add("hide");
+  }, 500);
 }
 
 export default socket;
