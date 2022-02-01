@@ -4,7 +4,6 @@ on: [push, pull_request]
 
 jobs:
   build:
-
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -12,7 +11,7 @@ jobs:
         os: [ubuntu-latest, macOS-latest, windows-latest]
 
     steps:
-      uses: actions/setup-ruby@v1
+      - uses: actions/setup-ruby@v1
       - name: Send Webhook Notification
         if: always()
         env:
