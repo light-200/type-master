@@ -17,19 +17,16 @@ import {
   handleLeaderBoard,
   prepareLeaderboard,
 } from "../functions/handleLeaderBoard";
-// import { handleLeaderBoard } from "../functions/handleLeaderBoard";
+
 const firestore = getFirestore(app);
-// connectFirestoreEmulator(firestore, 'localhost', 8888);
+// connectFirestoreEmulator(firestore, "localhost", 8888);
 
 export const getData = async () => {
   let auth = getAuth();
   let userId = auth.currentUser && auth.currentUser.uid;
-  // console.log(auth.currentUser);
-  // console.log("getData got userId ", userId);
   if (userId) {
     const scores = doc(firestore, `scores/${userId}`);
     let data = scores && (await getDoc(scores));
-    // console.log('getDoc called 👩‍🚒');
     if (data.exists()) {
       return data.data();
     } else return null;

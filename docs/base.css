@@ -12,11 +12,12 @@
   --background-color: rgb(34, 34, 34);
   --wrong-font-color: #ff324d;
   --button-bg-color: rgb(255, 221, 70);
-  --font-size-normal: 25px;
-  --font-size-small: 20px;
-  --font-size-heading: 31.25px;
+  --font-size-normal: 20px;
+  --font-size-small: 15px;
+  --font-size-heading: 25px;
   --user-name-limit: 20ch;
   --wrong-word: rgb(255, 50, 77);
+  --input-border-color: white;
 }
 
 .light {
@@ -32,6 +33,7 @@
   --lb-list-item-color: var(--lb-header-bg-color);
   --correct-word: rgb(206, 158, 1);
   --infoPopup-border-color: rgb(206, 158, 1);
+  --input-border-color: black;
 }
 
 .dark {
@@ -40,13 +42,14 @@
   --correct-word: rgb(255, 213, 73);
   --logo-color: rgba(255, 213, 73, 0.616);
   --github-color: rgb(255, 213, 73);
-  --lb-header-bg-color: rgb(255, 243, 230);
+  --lb-header-bg-color: rgb(253, 253, 253);
   --lb-header-color: rgb(24, 25, 26);
   --lb-list-item-bg-color: var(--lb-header-color);
   --lb-list-item-color: var(--lb-header-bg-color);
   background-color: var(--background-color);
   color: var(--font-color);
   --infoPopup-border-color: rgb(206, 158, 1);
+  --input-border-color: white;
 }
 
 @media only screen and (max-width: 500px) {

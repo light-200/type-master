@@ -1,7 +1,6 @@
 body {
   font-family: "Source Code Pro", monospace;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: var(--background-color);
@@ -10,6 +9,7 @@ body {
   transition: 200ms ease-in-out;
   z-index: 0;
   overflow: hidden;
+  position: relative;
 }
 
 a {
@@ -32,12 +32,13 @@ a {
 input {
   display: block;
   padding: 5px;
-  border-radius: 3px;
+  border-radius: 5px;
   outline: none;
-  border: none;
-  background-color: #ffffff;
+  border: 1px solid var(--input-border-color);
+  background-color: transparent;
+  color: var(--font-color);
   max-width: 300px;
-  font-size: var(--font-size-normal);
+  font-size: var(--font-size-small);
 }
 
 span {
@@ -73,6 +74,7 @@ span {
   border-radius: 10px;
   border: solid 0.5px;
   border-color: invert;
+  position: relative;
 }
 
 .footer {
@@ -99,7 +101,7 @@ span {
 }
 
 .footer > .links {
-  color: var (--github-color);
+  color: var(--github-color);
 }
 
 /* floating info */
@@ -125,23 +127,166 @@ span {
   flex-direction: column;
   position: absolute;
   top: 40vh;
+  gap: 1rem;
   transform: translateY(-3rem);
   min-width: 300px;
   width: 700px;
   max-width: 65%;
+  height: 60vh;
   align-items: center;
-  gap: 1.5rem;
   user-select: none;
+  font-size: var(--font-size-normal);
 }
 
 .container > .text {
-  min-height: 160px;
+  min-height: 100px;
 }
 .container > .info {
   opacity: 0.6;
   transition: 500ms ease-in-out;
   text-align: center;
   height: fit-content;
+}
+
+/* multiplayer layout */
+.mpContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 400px;
+  min-width: 300px;
+  text-align: center;
+  font-size: var(--font-size-small);
+  padding-top: 2rem;
+  border-left: 1px solid;
+  transition: 200ms;
+  right: 0;
+  position: relative;
+}
+
+.mpContainerHeader {
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: var(--lb-header-bg-color);
+  color: var(--lb-header-color);
+  box-shadow: 2px 2px 5px rgb(11, 12, 12);
+  font-size: var(--font-size-normal);
+  width: 100%;
+  text-transform: uppercase;
+}
+
+.joinRoom {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  height: max-content;
+  border-bottom: 1px solid;
+  width: 100%;
+  min-width: 300px;
+}
+
+.joinRoom span {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+.joinRoom .roomId {
+  flex: 1;
+  width: 8ch;
+}
+
+.roomHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  height: max-content;
+  border-bottom: 1px solid;
+  width: 100%;
+  min-width: 300px;
+}
+
+.roomId {
+  display: block;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  color: initial;
+  width: 100%;
+  font-size: var(--font-size-small);
+}
+
+.copyRoomId {
+  display: grid;
+  place-content: center;
+  width: fit-content;
+  height: fit-content;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+  opacity: 0.65;
+  font-size: var(--font-size-small);
+  position: relative;
+}
+
+.copyRoomId:hover::after,
+.copyRoomId:hover::before {
+  visibility: visible;
+}
+
+.copyRoomId:hover {
+  opacity: 1;
+}
+
+.copyRoomId:active {
+  transform: translate(-0.5px, 1px);
+}
+
+.playArea {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 5px;
+  max-height: 250px;
+}
+
+.player {
+  display: flex;
+  gap: 5px;
+  height: 32px;
+  text-align: center;
+  align-items: center;
+  width: 100%;
+}
+
+.player .playerName {
+  font-size: var(--font-size-small);
+  max-width: 150px;
+  width: fit-content;
+  height: 100%;
+  display: flex;
+  align-content: center;
+  align-items: flex-end;
+  position: absolute;
+}
+
+.player .playerProgress {
+  width: 100%;
+  height: 100%;
+  border-bottom: 1px solid;
+  position: relative;
+}
+
+.player .playerSpeed {
+  width: 3ch;
 }
 
 .nextBtn {
@@ -160,9 +305,14 @@ span {
 
 /* tool tip  */
 
+.words,
+.speed {
+  position: relative;
+}
+
 .words::after {
   content: "Total Words/Typed Words";
-  font-size: 0.75em;
+  font-size: var(--font-size-small);
   visibility: hidden;
   width: max-content;
   background-color: var(--background-color);
@@ -172,15 +322,30 @@ span {
   border-radius: 5px;
   position: absolute;
   bottom: 100%;
-  right: 95%;
+  right: 50%;
   margin-bottom: 0.2em;
   transform: translate(50%);
   z-index: 1;
 }
 
+.words::before,
+.speed::before {
+  content: "";
+  visibility: hidden;
+  position: absolute;
+  margin-top: 0.5rem;
+  bottom: 80%;
+  right: 50%;
+  transform: translate(50%);
+  z-index: 1;
+  border: 5px solid;
+  border-color: transparent;
+  border-top-color: initial;
+}
+
 .speed::after {
   content: "Words Per Minute";
-  font-size: 0.75em;
+  font-size: var(--font-size-small);
   visibility: hidden;
   width: max-content;
   background-color: var(--background-color);
@@ -206,6 +371,7 @@ span {
   padding: 0.2rem;
   border: 1px solid;
   border-radius: 5px;
+  font-size: var(--font-size-small);
 
   position: absolute;
   top: 100%;
@@ -231,10 +397,11 @@ span {
 
 /* Show the tooltip text when you mouse over the tooltip container */
 .words:hover::after,
+.words:hover::before,
 .speed:hover::after,
+.speed:hover::before,
 .nextBtn:hover::after,
-.nextBtn:hover::before 
- {
+.nextBtn:hover::before {
   visibility: visible;
 }
 
@@ -244,6 +411,10 @@ span {
 
 .nextBtn:active {
   transform: translate(-0.5px, 1px);
+}
+.nextBtn:active::before,
+.nextBtn:active::after {
+  visibility: hidden;
 }
 
 .containerStats {
@@ -273,18 +444,20 @@ footer {
 }
 
 .btn {
-  width: 100px;
+  min-width: fit-content;
   border-radius: 5px;
+  border: none;
   background-color: var(--button-bg-color);
-  font-size: 20px;
+  font-size: var(--font-size-small);
   color: black;
-  padding: 2.5px 5px;
+  padding: 5px;
   margin-right: 5px;
   text-align: center;
+  position: relative;
 }
 
 .btn:active {
-  transform: translateY(3px);
+  transform: translateY(2px);
   filter: brightness(0.7);
 }
 
@@ -472,7 +645,7 @@ footer {
 
 /* leaderboard */
 .leaderBoard {
-  background: inherit;
+  background: var(--background-color);
   position: absolute;
   margin-top: 4.5rem;
   min-height: 80vh;
@@ -500,7 +673,7 @@ footer {
   background-color: var(--lb-header-bg-color);
   color: var(--lb-header-color);
   box-shadow: 2px 2px 5px rgb(11, 12, 12);
-  font-size: 30px;
+  font-size: var(--font-size-heading);
   text-transform: uppercase;
 }
 
@@ -585,4 +758,11 @@ footer {
   opacity: 1 !important;
 }
 
+.scale0 {
+  overflow-x: hidden;
+  min-width: 0;
+  width: 0;
+  transform: translateX(200px);
+  border: 0 solid transparent;
+}
 /* have a nice day  */

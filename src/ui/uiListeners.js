@@ -1,4 +1,4 @@
-import getText, { text } from "../functions/getText";
+import getText, { getTextSocket, text } from "../functions/getText";
 import handleProfile, { handleMenu } from "../functions/handleHiding";
 import {
   getLocalData,
@@ -31,11 +31,19 @@ import {
   textOptions,
   leaderBoardContainer,
   nextBtn,
+  multiplayerBtn,
+  mpContainer,
+  createRoomBtn,
+  joinRoomForm,
+  copyRoomId,
+  roomId,
 } from "./uiElements";
 import saveStats from "../functions/saveStats";
 import { logout, signIn, signUp, updateUser } from "../firebase/auth";
 import { punctuationMode, smallCaseMode } from "../functions/userDefault";
+import { createRoom, joinRoom } from "../socket/roomHandling";
 import handlePopup from "../functions/handlePopup";
+import { multiplayerMode } from "../functions/userDefault";
 
 var totalWords;
 
@@ -300,7 +308,7 @@ textOptions.addEventListener("click", async (e) => {
 
 //handling next btn
 nextBtn.addEventListener("click", () => {
-  getText();
+  multiplayerMode ? getTextSocket() : getText();
 });
 
 let firstTime = true;
@@ -310,6 +318,43 @@ document.addEventListener("keypress", (e) => {
     firstTime && handlePopup("CapsLock", 2000);
   }
   firstTime = false;
+});
+
+//handle multiplayer
+multiplayerBtn.addEventListener("click", (e) => {
+  if (mpContainer.classList.contains("hide")) {
+    mpContainer.classList.remove("hide");
+    mpContainer.classList.remove("scale0");
+    mpContainer.classList.remove("fadeOut");
+  } else {
+    mpContainer.classList.add("scale0");
+    mpContainer.classList.add("fadeOut");
+    setTimeout(() => {
+      mpContainer.classList.add("hide");
+    }, 500);
+  }
+});
+
+//create room
+createRoomBtn.addEventListener("click", (e) => {
+  createRoom();
+});
+
+//join room
+joinRoomForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  if (!e.target.roomId.value || e.target.roomId.value == " ") {
+    return;
+  }
+  joinRoom(e.target.roomId.value);
+});
+
+//copy room id
+copyRoomId.addEventListener("click", () => {
+  navigator.clipboard.writeText(roomId.innerHTML).then(() => {
+    copyRoomId.innerText = "✅";
+    copyRoomId.classList.add("active");
+  });
 });
 
 export default setWords;

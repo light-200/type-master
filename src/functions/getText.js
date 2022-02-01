@@ -1,8 +1,10 @@
 import setWords, { spanWrap } from "../ui/uiListeners";
 import start from "./start";
-import { textContainer } from "../ui/uiElements";
+import { roomId, textContainer } from "../ui/uiElements";
 import { getLocalData, getUserData } from "../storage/localstorage";
 import handlePopup from "./handlePopup";
+import socket from "../socket/socket";
+import { isHost } from "./userDefault";
 
 var text;
 let callsCount = 0;
@@ -42,6 +44,17 @@ const getText = async () => {
   spanWrap(textContainer);
   start(text);
 };
+
+export async function getTextSocket() {
+  isHost && socket.emit("getText", roomId.innerText);
+}
+
+export async function setTextSocket(data) {
+  text = textContainer.innerText = data;
+  setWords();
+  spanWrap(textContainer);
+  start(text);
+}
 
 export default getText;
 export { text };

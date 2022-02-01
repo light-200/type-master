@@ -154,7 +154,8 @@
         <div class="icons">
           <a href="#" class="profileBtn">🙍‍♂️</a>
           <a href="#" class="settingsBtn">⚙️</a>
-          <a href="#leaderBoard" class="leaderBoardBtn">📊</a>
+          <a href="#" class="leaderBoardBtn">📊</a>
+          <a href="#" class="mpBtn">🏆</a>
         </div>
       </div>
 
@@ -163,6 +164,7 @@
           <div class="words">11/0</div>
           <div class="speed">0</div>
         </div>
+        <div class="playArea hide"></div>
 
         <div class="text">loading...</div>
         <div class="nextBtn">></div>
@@ -170,16 +172,38 @@
       </div>
 
       <div class="footer">
-        <a class="links" href="https://github.com/light-200/type-master">
-          github
-        </a>
-
+        <a class="links" href="https://github.com/light-200/type-master"
+          >github</a
+        >
         <div class="username"></div>
       </div>
+
+      <div class="leaderBoard hide fadeOut" id="leaderBoard">
+        <div class="content"></div>
+      </div>
     </div>
-    <div class="leaderBoard hide fadeOut" id="leaderBoard">
-      <div class="content"></div>
+    <div class="mpContainer hide scale0">
+      <div class="mpContainerHeader">Multiplayer Lobby</div>
+      <form class="joinRoom">
+        <span>
+          <input
+            type="text"
+            class="roomId"
+            name="roomId"
+            placeholder="room id"
+          />
+          <input type="submit" value="Join" class="btn" />
+        </span>
+        <p>or</p>
+        <div class="btn createRoom">Create Room</div>
+      </form>
+      <div class="roomHeader hide">
+        <span class="roomHeaderText">ID</span>
+        <span class="roomId">roomid</span>
+        <span class="copyRoomId">📋</span>
+      </div>
     </div>
+
     <script src="bundle.js"></script>
   </body>
 </html>

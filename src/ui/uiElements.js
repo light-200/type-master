@@ -76,3 +76,13 @@ export const nextBtn = document.querySelector(".nextBtn");
 
 //alert popup
 export const infoPopup = document.querySelector(".infoPopup");
+
+//multiplayer area
+export const multiplayerBtn = document.querySelector(".mpBtn");
+export const mpContainer = document.querySelector(".mpContainer");
+export const joinRoomForm = document.querySelector(".joinRoom");
+export const createRoomBtn = document.querySelector(".createRoom");
+export const playArea = document.querySelector(".playArea");
+export const roomHeader = document.querySelector(".roomHeader");
+export const copyRoomId = document.querySelector(".copyRoomId");
+export const roomId = document.querySelector("span.roomId");

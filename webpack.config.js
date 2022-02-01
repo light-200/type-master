@@ -7,6 +7,8 @@ module.exports = {
     path: path.resolve(__dirname, "docs"),
     filename: "bundle.js",
   },
+  devServer: {
+    static: "./docs",
+  },
   plugins: [new Dotenv()],
-  watch: true,
 };

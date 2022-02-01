@@ -15,12 +15,12 @@ import {
 } from "../storage/localstorage";
 import { handleStats } from "../ui/uiListeners";
 import handleProfile, { handleMenu } from "../functions/handleHiding";
-import { loader, signUpinfo, stats, username } from "../ui/uiElements";
+import { loader, username } from "../ui/uiElements";
 import { defaultTheme } from "../functions/userDefault";
 import { smallCaseMode, punctuationMode } from "../functions/userDefault";
 
 const auth = getAuth(app);
-// connectAuthEmulator(auth, 'http://localhost:9999');
+// connectAuthEmulator(auth, "http://localhost:9999");
 
 export const signIn = async ({ email, password }) => {
   try {

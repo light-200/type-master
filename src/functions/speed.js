@@ -1,11 +1,11 @@
-import getText from "./getText";
+import getText, { getTextSocket, setTextSocket } from "./getText";
 import {
   getUserData,
   setUserData,
   setLocalData,
 } from "../storage/localstorage";
 import { containerInfo, speedIndicator } from "../ui/uiElements";
-
+import { isHost, multiplayerMode } from "./userDefault";
 var speed;
 
 // this function is responsible for calculating the speed
@@ -26,16 +26,18 @@ const speedCalc = async (totalWords, seconds) => {
     setLocalData({ ...user, lastSpeed: speed });
   }
 
-  // add a function to change the text here
-  containerInfo.classList.toggle("hide");
-  containerInfo.classList.toggle("fadeOut");
-  setTimeout(() => {
-    getText();
+  if (!multiplayerMode && !isHost) {
+    // add a function to change the text here
+    containerInfo.classList.toggle("hide");
     containerInfo.classList.toggle("fadeOut");
     setTimeout(() => {
-      containerInfo.classList.toggle("hide");
+      getText();
+      containerInfo.classList.toggle("fadeOut");
+      setTimeout(() => {
+        containerInfo.classList.toggle("hide");
+      }, 500);
     }, 500);
-  }, 500);
+  }
 };
 
 function setSpeed(speed) {
