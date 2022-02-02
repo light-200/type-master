@@ -10,10 +10,9 @@ var speed;
 
 // this function is responsible for calculating the speed
 const speedCalc = async (totalWords, seconds) => {
-  var minutes = seconds.toPrecision(2) / 60;
-  // console.log( totalWords , " " , minutes.toPrecision(2))
+  var minutes = seconds / 60;
   let tempSpeed = totalWords / minutes;
-  speed = Math.floor(tempSpeed.toPrecision(3));
+  speed = Math.floor(tempSpeed);
   speedIndicator.innerText = speed;
 
   let user = await getUserData();
@@ -41,9 +40,7 @@ const speedCalc = async (totalWords, seconds) => {
 };
 
 function setSpeed(speed) {
-  // console.log(speed, speedIndicator)
   speed ? (speedIndicator.innerText = speed) : speed;
-  // console.log("set speed called with ", speed);
 }
 
 export default speedCalc;

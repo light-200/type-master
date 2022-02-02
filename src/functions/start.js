@@ -10,6 +10,9 @@ export default (text) => {
   let tempText = text;
   let index = 0;
   let typedWords = 0;
+  let typedChars = 0;
+  let totalChars = text.length;
+  let errorCount = 0;
   let start, end;
   let Words = document.querySelectorAll(".text>span");
   Words[index].classList.add("blink");
@@ -19,6 +22,7 @@ export default (text) => {
         start = new Date().getTime();
         firstCall = false;
       }
+      typedChars++;
 
       tempText = tempText.substr(1);
 
@@ -40,21 +44,23 @@ export default (text) => {
         let progress = Math.ceil((typedWords / totalWords) * 100);
         let seconds = new Date().getTime();
         seconds = (seconds - start) / 1000;
-        var minutes = seconds.toPrecision(2) / 60;
-        let tempSpeed = totalWords / minutes;
-        let speed = Math.floor(tempSpeed.toPrecision(3));
+        var minutes = seconds / 60;
+        let tempSpeed = typedChars / 5 / minutes;
+        let speed = Math.floor(tempSpeed);
         multiplayerMode && typing(progress, speed);
       }
 
       if (index == text.length - 1) {
         end = new Date().getTime();
-        speedCalc(totalWords, (end - start) / 1000);
+
+        speedCalc(totalChars / 5, (end - start) / 1000);
       }
 
       index++;
     } else {
       if (Words[index] != null) {
         Words[index].classList.add("wrongWord");
+        errorCount++;
       }
     }
   });
