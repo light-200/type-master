@@ -11,6 +11,7 @@ import { getTextSocket, setTextSocket } from "../functions/getText";
 import { renderPlayers } from "./roomHandling";
 
 const socket = io(process.env.SERVER_LINK || "http://localhost:3000");
+// const socket = io("http://localhost:3000"); // comment in production
 
 socket.on("connect", () => {
   console.log("connection established");

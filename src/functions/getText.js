@@ -1,4 +1,4 @@
-import setWords, { spanWrap } from "../ui/uiListeners";
+import setWords, { findTotalWords, spanWrap } from "../ui/uiListeners";
 import start from "./start";
 import { roomId, textContainer } from "../ui/uiElements";
 import { getLocalData, getUserData } from "../storage/localstorage";
@@ -40,6 +40,7 @@ const getText = async () => {
   }
 
   text = textContainer.innerText = data;
+  findTotalWords(text);
   setWords();
   spanWrap(textContainer);
   start(text);
@@ -51,6 +52,7 @@ export async function getTextSocket() {
 
 export async function setTextSocket(data) {
   text = textContainer.innerText = data;
+  findTotalWords(text);
   setWords();
   spanWrap(textContainer);
   start(text);

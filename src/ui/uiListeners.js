@@ -50,7 +50,7 @@ var totalWords;
 //sets total word value
 const words = document.querySelector(".words");
 
-const setWords = (typedWords = 0) => {
+export function findTotalWords(text) {
   let whitespace = / /g,
     result,
     indices = [];
@@ -58,6 +58,9 @@ const setWords = (typedWords = 0) => {
     indices.push(result.index);
   }
   totalWords = indices.length + 1;
+}
+
+const setWords = (typedWords = 0) => {
   words.innerText = `${totalWords}/${typedWords}`;
 };
 
