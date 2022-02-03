@@ -160,22 +160,26 @@
     <div class="infoPopup hide"></div>
     <div class="mainBody">
       <div class="nav">
-        <header><img src="./assets/text-logo.svg" /></header>
+        <header>
+          <svg>
+            <use xlink:href="./assets/text-logo.svg#text-logo" />
+          </svg>
+        </header>
         <div class="icons">
           <a href="#" class="profileBtn">
-            <span class="tooltipDown">user profile</span>
+            <span class="tooltip">user profile</span>
             <i class="fas fa-user"></i>
           </a>
           <a href="#" class="settingsBtn">
-            <span class="tooltipDown">settings</span>
+            <span class="tooltip">settings</span>
             <i class="fas fa-cog"></i>
           </a>
           <a href="#" class="leaderBoardBtn">
-            <span class="tooltipDown">leaderboard</span>
+            <span class="tooltip">leaderboard</span>
             <i class="fas fa-trophy"></i>
           </a>
           <a href="#" class="mpBtn">
-            <span class="tooltipDown">multiplayer lobby</span>
+            <span class="tooltip">multiplayer lobby</span>
             <i class="fas fa-users"></i>
           </a>
         </div>
@@ -195,6 +199,7 @@
 
       <div class="footer">
         <a class="links" href="https://github.com/light-200/type-master">
+          <span class="tooltip">report bugs</span>
           <i class="fab fa-github"></i>
         </a>
         <div class="username"></div>

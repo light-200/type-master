@@ -10,6 +10,7 @@ body {
   z-index: 0;
   overflow: hidden;
   position: relative;
+  word-spacing: 3px;
 }
 
 a {
@@ -60,12 +61,16 @@ span {
 }
 
 .nav > header {
-  color: var(--logo-color);
   font-size: var(--font-size-heading);
+  color: var(--logo-color);
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 50px;
+  display: grid;
+  place-content: center;
+}
+header svg {
+  height: 35px;
+  width: 150px;
 }
 
 .icons {
@@ -77,9 +82,11 @@ span {
   text-decoration: none;
   position: relative;
   padding: 0 0.5rem;
+  color: var(--logo-color);
+  font-size: var(--font-size-small);
 }
 
-.icons a:hover .tooltipDown {
+.icons a:hover .tooltip {
   visibility: visible;
 }
 
@@ -109,13 +116,19 @@ span {
   padding: 0.5rem;
 }
 
+.username {
+  color: var(--github-color);
+}
+
 .links {
   cursor: pointer;
   font-size: var(--font-size-normal);
+  color: var(--github-color);
+  position: relative;
 }
 
-.footer > .links {
-  color: var(--github-color);
+.links:hover .tooltip {
+  visibility: visible;
 }
 
 /* floating info */
@@ -319,7 +332,7 @@ span {
 
 /* tool tip  */
 
-.tooltipDown {
+.tooltip {
   font-size: var(--font-size-small);
   visibility: hidden;
   width: max-content;
@@ -332,29 +345,51 @@ span {
   top: 150%;
   right: 50%;
   transform: translate(50%);
-  z-index: 1;
+  z-index: 5;
 }
-.tooltipDown::before {
+
+.tooltip::before {
   content: "";
   visibility: inherit;
   position: absolute;
-  bottom: 100%;
+  bottom: 102%;
   right: 50%;
-  transform: translate(50%);
-  z-index: 1;
+  transform: translateX(50%);
+  z-index: -1;
   border: 5px solid;
   border-color: transparent;
   border-bottom-color: initial;
 }
 
-.mpBtn .tooltipDown {
+.mpBtn .tooltip {
   right: 0;
   transform: translateX(0);
 }
 
-.mpBtn .tooltipDown::before {
+.icons .tooltip {
+  margin-top: 0.3rem;
+}
+
+.mpBtn .tooltip::before {
   right: 5%;
   transform: translateX(0);
+}
+
+.links .tooltip {
+  top: unset;
+  bottom: 100%;
+  left: 0;
+  right: unset;
+  transform: translateX(0%);
+}
+
+.links .tooltip::before {
+  top: 100%;
+  border-bottom-color: transparent;
+  border-top-color: initial;
+  left: 0;
+  right: unset;
+  transform: translateX(100%);
 }
 
 .words,
@@ -363,7 +398,7 @@ span {
 }
 
 .words::after {
-  content: "Total Words/Typed Words";
+  content: "words count";
   font-size: var(--font-size-small);
   visibility: hidden;
   width: max-content;
@@ -396,7 +431,7 @@ span {
 }
 
 .speed::after {
-  content: "Words Per Minute";
+  content: "words per minute";
   font-size: var(--font-size-small);
   visibility: hidden;
   width: max-content;
