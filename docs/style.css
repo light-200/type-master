@@ -529,6 +529,7 @@ footer {
   border: solid 0.5px;
   border-color: invert;
   padding: 0;
+  overflow: hidden;
 }
 
 .windowTop {
@@ -685,14 +686,14 @@ footer {
   justify-content: center;
   align-items: center;
   font-size: smaller;
-  height: 200px;
+  height: 250px;
 }
 
 .loader {
-  background-image: url("https://media0.giphy.com/media/WVTW6vYXZCQWvUhm0N/giphy.gif?cid=790b76110673f2c92124ae1cd66d7411155b5e55ccf21ffe&rid=giphy.gif&ct=s");
+  background-image: url("./assets/loading.gif");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 60px;
+  background-size: 200px;
 }
 
 /* leaderboard */
