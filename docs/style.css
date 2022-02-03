@@ -68,9 +68,15 @@ span {
   align-items: center;
 }
 
+.icons {
+  display: flex;
+  gap: 0.5rem;
+}
+
 .nav > .icons > a {
   text-decoration: none;
   position: relative;
+  padding: 0 0.5rem;
 }
 
 .icons a:hover .tooltipDown {
@@ -105,7 +111,7 @@ span {
 
 .links {
   cursor: pointer;
-  font-size: var(--font-size-small);
+  font-size: var(--font-size-normal);
 }
 
 .footer > .links {
