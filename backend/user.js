@@ -18,7 +18,11 @@ const getUser = (id) => {
 };
 
 const setUser = (user) => {
-  users.set(user.id, user);
+  if (users.get(user.id).progress <= user.progress) {
+    users.set(user.id, user);
+  } else if (user.progress > 100 || user.progress < 0) {
+    return;
+  }
 };
 
 const getUsersInRoom = (room) => {
@@ -40,7 +44,7 @@ const resetUser = (room) => {
         progress: 0,
         speed: 0,
       };
-      setUser(tempUser);
+      users.set(user.id, tempUser);
       usersInRoom.push(tempUser);
     }
   });
