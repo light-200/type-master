@@ -10,8 +10,8 @@ import { isHost, multiplayerMode } from "../functions/userDefault";
 import { getTextSocket, setTextSocket } from "../functions/getText";
 import { renderPlayers } from "./roomHandling";
 
-const socket = io(process.env.SERVER_LINK || "http://localhost:3000");
-// const socket = io("http://localhost:3000"); // comment in production
+// const socket = io(process.env.SERVER_LINK || "http://localhost:3000");
+const socket = io("http://localhost:3000"); // comment in production
 
 socket.on("connect", () => {
   console.log("connection established");
@@ -47,17 +47,25 @@ socket.on("playerList", (playerList) => {
 });
 
 socket.on("newText", (data) => {
-  setTextSocket(data);
+  let count = 5;
+  textContainer.innerText = "...";
+  let showTimer = setInterval(() => {
+    handlePopup(`text in ${--count} seconds`, 500);
+    if (count == 0) clearInterval(showTimer);
+  }, 1000);
+  setTimeout(() => {
+    setTextSocket(data);
+  }, 6000);
 });
 
 socket.on("textTimer", () => {
   let count = 5;
   let showTimer = setInterval(() => {
     handlePopup(`text in ${count--} seconds`, 500);
+    if (count == 0) clearInterval(showTimer);
   }, 1000);
   setTimeout(() => {
     isHost && getTextSocket();
-    clearInterval(showTimer);
   }, 5000);
 });
 
