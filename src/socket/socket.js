@@ -37,7 +37,8 @@ socket.on("tooManyPlayers", () => {
   handlePopup("room is full 😞", 1000);
 });
 
-let you;
+let you, showTimer, newTextTimeout;
+
 socket.on("playerList", (playerList) => {
   let index = playerList.findIndex((user) => user.id == socket.id);
   if (index !== -1) {
@@ -47,26 +48,25 @@ socket.on("playerList", (playerList) => {
 });
 
 socket.on("newText", (data) => {
-  let count = 5;
+  cancleTimers();
+  let count = 3;
+  let signs = ["🍉", "🍊🍋", "🍈🍇🍑"];
   textContainer.innerText = "...";
-  let showTimer = setInterval(() => {
-    handlePopup(`text in ${--count} seconds`, 500);
+  showTimer = setInterval(() => {
+    handlePopup(`${signs[--count]}`, 500);
     if (count == 0) clearInterval(showTimer);
   }, 1000);
-  setTimeout(() => {
+  newTextTimeout = setTimeout(() => {
     setTextSocket(data);
-  }, 6000);
+  }, 4000);
 });
 
 socket.on("textTimer", () => {
-  let count = 5;
-  let showTimer = setInterval(() => {
-    handlePopup(`text in ${count--} seconds`, 500);
-    if (count == 0) clearInterval(showTimer);
-  }, 1000);
-  setTimeout(() => {
-    isHost && getTextSocket();
-  }, 5000);
+  newTextWithTimer(5, "new text in");
+});
+
+socket.on("raceEndTimer", () => {
+  newTextWithTimer(10, "race ends in");
 });
 
 export function typing(progress, speed) {
@@ -74,6 +74,26 @@ export function typing(progress, speed) {
   else {
     socket.emit("typing", { ...you, progress, speed: "😱" });
   }
+}
+
+export function raceFinished() {
+  socket.emit("finished", you);
+}
+
+export function cancleTimers() {
+  clearTimeout(newTextTimeout);
+  clearInterval(showTimer);
+}
+
+function newTextWithTimer(time, message) {
+  let count = time;
+  showTimer = setInterval(() => {
+    handlePopup(`${message} ${count--} seconds`, 500);
+    if (count <= 0) clearInterval(showTimer);
+  }, 1000);
+  newTextTimeout = setTimeout(() => {
+    isHost && getTextSocket();
+  }, time * 1000);
 }
 
 function closeMpArea() {

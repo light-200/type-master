@@ -10,16 +10,17 @@ import {
   resetUser,
   setUser,
 } from "./user.js";
+import { setFinishers } from "./race.js";
 const app = express();
 app.use(cors());
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
-  cors: {
-    origin: ["https://light-200.github.io"],
-  },
   // cors: {
-  //   origin: ["http://localhost:8080", "http://127.0.0.1:5500"], // comment in production
+  //   origin: ["https://light-200.github.io"],
   // },
+  cors: {
+    origin: ["http://localhost:8080", "http://127.0.0.1:5500"], // comment in production
+  },
 });
 
 io.on("connection", (socket) => {
@@ -51,6 +52,7 @@ io.on("connection", (socket) => {
     const playerList = getUsersInRoom(roomId);
     io.to(roomId).emit("playerList", playerList);
   }
+
   socket.on("getText", (room) => {
     getText(io, room);
     const playerList = resetUser(room);
@@ -93,6 +95,10 @@ io.on("connection", (socket) => {
       io.to(roomName).emit("textTimer");
     }
   }
+
+  socket.on("finished", (user) => {
+    setFinishers(user, io);
+  });
 
   socket.on("disconnect", () => {
     const user = removeUser(socket.id);

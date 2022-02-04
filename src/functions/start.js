@@ -1,4 +1,4 @@
-import { typing } from "../socket/socket";
+import socket, { raceFinished, typing } from "../socket/socket";
 import setWords, { totalWords } from "../ui/uiListeners";
 import speedCalc from "./speed";
 import { multiplayerMode } from "./userDefault";
@@ -54,6 +54,7 @@ export default (text) => {
         end = new Date().getTime();
 
         speedCalc(totalChars / 5, (end - start) / 1000);
+        raceFinished();
       }
 
       index++;
