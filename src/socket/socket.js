@@ -9,6 +9,7 @@ import {
 import { isHost, multiplayerMode } from "../functions/userDefault";
 import { getTextSocket, setTextSocket } from "../functions/getText";
 import { renderPlayers } from "./roomHandling";
+import { setStart } from "../functions/start";
 
 // const socket = io(process.env.SERVER_LINK || "http://localhost:3000");
 const socket = io("http://localhost:3000"); // comment in production
@@ -18,6 +19,7 @@ socket.on("connect", () => {
 });
 
 socket.on("disconnect", () => {
+  multiplayerMode = isHost = false;
   console.log("you are disconnected");
 });
 
@@ -58,11 +60,17 @@ socket.on("newText", (data) => {
   }, 1000);
   newTextTimeout = setTimeout(() => {
     setTextSocket(data);
+    isHost && socket.emit("raceStart", you.room);
   }, 4000);
 });
 
 socket.on("textTimer", () => {
   newTextWithTimer(5, "new text in");
+});
+
+socket.on("raceStart", () => {
+  console.log("race started");
+  setStart(new Date().getTime());
 });
 
 socket.on("raceEndTimer", () => {

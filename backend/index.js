@@ -96,6 +96,10 @@ io.on("connection", (socket) => {
     }
   }
 
+  socket.on("raceStart", (room) => {
+    io.to(room).emit("raceStart");
+  });
+
   socket.on("finished", (user) => {
     setFinishers(user, io);
   });

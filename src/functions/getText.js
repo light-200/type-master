@@ -3,7 +3,7 @@ import start from "./start";
 import { roomId, textContainer } from "../ui/uiElements";
 import { getLocalData, getUserData } from "../storage/localstorage";
 import handlePopup from "./handlePopup";
-import socket from "../socket/socket";
+import socket, { cancleTimers } from "../socket/socket";
 import { isHost } from "./userDefault";
 
 var text;
@@ -48,6 +48,7 @@ const getText = async () => {
 
 export async function getTextSocket() {
   isHost && socket.emit("getText", roomId.innerText);
+  cancleTimers();
 }
 
 export async function setTextSocket(data) {

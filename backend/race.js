@@ -9,10 +9,18 @@ export function setFinishers(user, io) {
 
   let totalUsers = getUsersInRoom(user.room);
 
-  if (players.length > totalUsers.length / 2) {
-    resetFinishers(user.room);
-    io.to(user.room).emit("raceEndTimer");
-    return;
+  if (totalUsers.length > 3) {
+    if (players.length >= totalUsers - 2) {
+      resetFinishers(user.room);
+      io.to(user.room).emit("raceEndTimer");
+      return;
+    }
+  } else {
+    if (players.length > totalUsers.length / 2) {
+      resetFinishers(user.room);
+      io.to(user.room).emit("raceEndTimer");
+      return;
+    }
   }
 
   finishers.set(user.room, players);
