@@ -18,6 +18,11 @@ a {
   color: var(--correct-word);
 }
 
+button {
+  border: none;
+  outline: none;
+}
+
 .mainBody {
   overflow: hidden;
   width: 100%;
@@ -321,11 +326,12 @@ header svg {
   place-content: center;
   width: 30px;
   height: 30px;
-  border: 2px solid;
   border-radius: 5px;
   cursor: pointer;
   user-select: none;
   opacity: 0.5;
+  background-color: var(--font-color);
+  color: var(--background-color);
   font-size: var(--font-size-small);
   position: relative;
 }
@@ -492,13 +498,18 @@ header svg {
   visibility: visible;
 }
 
-.nextBtn:hover {
+.nextBtn:hover,
+.nextBtn:focus,
+.nextBtn:focus-visible {
+  outline: none;
   opacity: 1;
 }
 
 .nextBtn:active {
+  filter: brightness(90%);
   transform: translate(-0.5px, 1px);
 }
+
 .nextBtn:active::before,
 .nextBtn:active::after {
   visibility: hidden;
