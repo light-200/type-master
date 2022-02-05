@@ -10,6 +10,7 @@ import {
   resetUser,
   setUser,
 } from "./user.js";
+import { setFinishers } from "./race.js";
 const app = express();
 app.use(cors());
 const httpServer = createServer(app);
@@ -51,6 +52,7 @@ io.on("connection", (socket) => {
     const playerList = getUsersInRoom(roomId);
     io.to(roomId).emit("playerList", playerList);
   }
+
   socket.on("getText", (room) => {
     getText(io, room);
     const playerList = resetUser(room);
@@ -93,6 +95,14 @@ io.on("connection", (socket) => {
       io.to(roomName).emit("textTimer");
     }
   }
+
+  socket.on("raceStart", (room) => {
+    io.to(room).emit("raceStart");
+  });
+
+  socket.on("finished", (user) => {
+    setFinishers(user, io);
+  });
 
   socket.on("disconnect", () => {
     const user = removeUser(socket.id);

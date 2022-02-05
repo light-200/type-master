@@ -9,6 +9,7 @@ import {
 import { isHost, multiplayerMode } from "../functions/userDefault";
 import { getTextSocket, setTextSocket } from "../functions/getText";
 import { renderPlayers } from "./roomHandling";
+import { setStart } from "../functions/start";
 
 const socket = io(process.env.SERVER_LINK || "http://localhost:3000");
 // const socket = io("http://localhost:3000"); // comment in production
@@ -18,6 +19,7 @@ socket.on("connect", () => {
 });
 
 socket.on("disconnect", () => {
+  multiplayerMode = isHost = false;
   console.log("you are disconnected");
 });
 
@@ -37,7 +39,8 @@ socket.on("tooManyPlayers", () => {
   handlePopup("room is full 😞", 1000);
 });
 
-let you;
+let you, showTimer, newTextTimeout;
+
 socket.on("playerList", (playerList) => {
   let index = playerList.findIndex((user) => user.id == socket.id);
   if (index !== -1) {
@@ -47,18 +50,31 @@ socket.on("playerList", (playerList) => {
 });
 
 socket.on("newText", (data) => {
-  setTextSocket(data);
+  cancleTimers();
+  let count = 3;
+  let signs = ["🍉", "🍊🍋", "🍈🍇🍑"];
+  textContainer.innerText = "...";
+  showTimer = setInterval(() => {
+    handlePopup(`${signs[--count]}`, 500);
+    if (count == 0) clearInterval(showTimer);
+  }, 1000);
+  newTextTimeout = setTimeout(() => {
+    setTextSocket(data);
+    isHost && socket.emit("raceStart", you.room);
+  }, 4000);
 });
 
 socket.on("textTimer", () => {
-  let count = 5;
-  let showTimer = setInterval(() => {
-    handlePopup(`text in ${count--} seconds`, 500);
-  }, 1000);
-  setTimeout(() => {
-    isHost && getTextSocket();
-    clearInterval(showTimer);
-  }, 5000);
+  newTextWithTimer(5, "new text in");
+});
+
+socket.on("raceStart", () => {
+  console.log("race started");
+  setStart(new Date().getTime());
+});
+
+socket.on("raceEndTimer", () => {
+  newTextWithTimer(10, "race ends in");
 });
 
 export function typing(progress, speed) {
@@ -66,6 +82,26 @@ export function typing(progress, speed) {
   else {
     socket.emit("typing", { ...you, progress, speed: "😱" });
   }
+}
+
+export function raceFinished() {
+  socket.emit("finished", you);
+}
+
+export function cancleTimers() {
+  clearTimeout(newTextTimeout);
+  clearInterval(showTimer);
+}
+
+function newTextWithTimer(time, message) {
+  let count = time;
+  showTimer = setInterval(() => {
+    handlePopup(`${message} ${count--} seconds`, 500);
+    if (count <= 0) clearInterval(showTimer);
+  }, 1000);
+  newTextTimeout = setTimeout(() => {
+    isHost && getTextSocket();
+  }, time * 1000);
 }
 
 function closeMpArea() {

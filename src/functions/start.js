@@ -1,8 +1,9 @@
-import { typing } from "../socket/socket";
+import socket, { raceFinished, typing } from "../socket/socket";
 import setWords, { totalWords } from "../ui/uiListeners";
 import speedCalc from "./speed";
 import { multiplayerMode } from "./userDefault";
 
+let start, end;
 // listents to the keyboard
 export default (text) => {
   let firstCall = true;
@@ -13,12 +14,13 @@ export default (text) => {
   let typedChars = 0;
   let totalChars = text.length;
   let errorCount = 0;
-  let start, end;
+
   let Words = document.querySelectorAll(".text>span");
   Words[index].classList.add("blink");
+
   document.addEventListener("keypress", (e) => {
     if (e.key === tempText[0]) {
-      if (firstCall) {
+      if (firstCall && !multiplayerMode) {
         start = new Date().getTime();
         firstCall = false;
       }
@@ -52,8 +54,9 @@ export default (text) => {
 
       if (index == text.length - 1) {
         end = new Date().getTime();
-
+        start = 0;
         speedCalc(totalChars / 5, (end - start) / 1000);
+        multiplayerMode && raceFinished();
       }
 
       index++;
@@ -65,3 +68,7 @@ export default (text) => {
     }
   });
 };
+
+export function setStart(time) {
+  start = time;
+}
