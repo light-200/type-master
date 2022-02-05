@@ -15,12 +15,12 @@ const app = express();
 app.use(cors());
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
-  // cors: {
-  //   origin: ["https://light-200.github.io"],
-  // },
   cors: {
-    origin: ["http://localhost:8080", "http://127.0.0.1:5500"], // comment in production
+    origin: ["https://light-200.github.io"],
   },
+  // cors: {
+  //   origin: ["http://localhost:8080", "http://127.0.0.1:5500"], // comment in production
+  // },
 });
 
 io.on("connection", (socket) => {

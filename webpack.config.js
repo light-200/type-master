@@ -11,4 +11,5 @@ module.exports = {
     static: "./docs",
   },
   plugins: [new Dotenv()],
+  watch: true,
 };
