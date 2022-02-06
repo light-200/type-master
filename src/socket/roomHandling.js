@@ -1,12 +1,12 @@
 import socket from "./socket";
 import { playArea } from "../ui/uiElements";
 import { getUserData } from "../storage/localstorage";
-import { isHost } from "../functions/userDefault";
+import { setIsHost } from "../functions/userDefault";
 
 export async function createRoom() {
   let user = await getUserData();
   socket.emit("createRoom", user ? user.userName : null, socket.id);
-  isHost = true;
+  setIsHost(true);
 }
 
 export function renderPlayers(playerList) {

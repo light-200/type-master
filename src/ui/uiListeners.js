@@ -40,7 +40,12 @@ import {
 } from "./uiElements";
 import saveStats from "../functions/saveStats";
 import { logout, signIn, signUp, updateUser } from "../firebase/auth";
-import { punctuationMode, smallCaseMode } from "../functions/userDefault";
+import {
+  punctuationMode,
+  setPunctuationMode,
+  setSmallCaseMode,
+  smallCaseMode,
+} from "../functions/userDefault";
 import { createRoom, joinRoom } from "../socket/roomHandling";
 import handlePopup from "../functions/handlePopup";
 import { multiplayerMode } from "../functions/userDefault";
@@ -280,10 +285,10 @@ textOptions.addEventListener("click", async (e) => {
   let user = await getUserData();
   if (e.target.classList.contains("smallCase")) {
     if (e.target.classList.contains("active")) {
-      smallCaseMode = false;
+      setSmallCaseMode(false);
       e.target.classList.remove("active");
     } else {
-      smallCaseMode = true;
+      setSmallCaseMode(true);
       e.target.classList.add("active");
     }
     if (user) {
@@ -294,10 +299,10 @@ textOptions.addEventListener("click", async (e) => {
     }
   } else if (e.target.classList.contains("punctuation")) {
     if (e.target.classList.contains("active")) {
-      punctuationMode = false;
+      setPunctuationMode(false);
       e.target.classList.remove("active");
     } else {
-      punctuationMode = true;
+      setPunctuationMode(true);
       e.target.classList.add("active");
     }
     if (user) {

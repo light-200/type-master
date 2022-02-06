@@ -6,7 +6,11 @@ import {
   roomHeader,
   textContainer,
 } from "../ui/uiElements";
-import { isHost, multiplayerMode } from "../functions/userDefault";
+import {
+  isHost,
+  setIsHost,
+  setMultiplayerMode,
+} from "../functions/userDefault";
 import { getTextSocket, setTextSocket } from "../functions/getText";
 import { renderPlayers } from "./roomHandling";
 import { setStart } from "../functions/start";
@@ -25,7 +29,8 @@ socket.on("connect", () => {
 });
 
 socket.on("disconnect", () => {
-  multiplayerMode = isHost = false;
+  setIsHost(false);
+  setMultiplayerMode(false);
   console.log("you are disconnected");
 });
 
@@ -33,7 +38,7 @@ socket.on("roomId", (roomId) => {
   joinRoomForm.classList.add("hide");
   roomHeader.classList.remove("hide");
   roomHeader.children[1].innerText = roomId;
-  multiplayerMode = true;
+  setMultiplayerMode(true);
   textContainer.innerText = "...";
   !isHost && closeMpArea();
 });
