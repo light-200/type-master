@@ -7,6 +7,7 @@ import {
   punctuationMode,
   smallCaseMode,
 } from "./functions/userDefault";
+import "@fortawesome/fontawesome-free/js/all";
 
 import { getLocalData, setLocalData } from "./storage/localstorage";
 

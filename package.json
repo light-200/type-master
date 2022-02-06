@@ -28,6 +28,7 @@
     "webpack-dev-server": "^4.7.3"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.4",
     "dom-to-image-more": "^2.9.5",
     "file-saver": "^2.0.5",
     "firebase": "^9.6.1",
