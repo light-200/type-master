@@ -11,8 +11,14 @@ import { getTextSocket, setTextSocket } from "../functions/getText";
 import { renderPlayers } from "./roomHandling";
 import { setStart } from "../functions/start";
 
-const socket = io(process.env.SERVER_LINK || "http://localhost:3000");
-// const socket = io("http://localhost:3000"); // comment in production
+var linkToSocket;
+if (process.env.DEVELOPMENT_MODE == "true") {
+  linkToSocket = "http://localhost:3000";
+} else {
+  linkToSocket = process.env.SERVER_LINK;
+}
+
+const socket = io(linkToSocket);
 
 socket.on("connect", () => {
   console.log("connection established");

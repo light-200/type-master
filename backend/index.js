@@ -11,16 +11,23 @@ import {
   setUser,
 } from "./user.js";
 import { setFinishers } from "./race.js";
+
+import dotenv from "dotenv";
+dotenv.config();
+
 const app = express();
 app.use(cors());
 const httpServer = createServer(app);
+let corsOrigin;
+
+process.env.DEVELOPMENT_MODE == "true"
+  ? (corsOrigin = ["http://localhost:8080", "http://127.0.0.1:5500"])
+  : (corsOrigin = ["https://light-200.github.io"]);
+
 const io = new Server(httpServer, {
   cors: {
-    origin: ["https://light-200.github.io"],
+    origin: corsOrigin,
   },
-  // cors: {
-  //   origin: ["http://localhost:8080", "http://127.0.0.1:5500"], // comment in production
-  // },
 });
 
 io.on("connection", (socket) => {

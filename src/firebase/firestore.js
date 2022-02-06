@@ -19,7 +19,8 @@ import {
 } from "../functions/handleLeaderBoard";
 
 const firestore = getFirestore(app);
-// connectFirestoreEmulator(firestore, "localhost", 8888);
+if (process.env.DEVELOPMENT_MODE == "true")
+  connectFirestoreEmulator(firestore, "localhost", 8888);
 
 export const getData = async () => {
   let auth = getAuth();

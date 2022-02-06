@@ -20,7 +20,8 @@ import { defaultTheme } from "../functions/userDefault";
 import { smallCaseMode, punctuationMode } from "../functions/userDefault";
 
 const auth = getAuth(app);
-// connectAuthEmulator(auth, "http://localhost:9999");
+if (process.env.DEVELOPMENT_MODE == "true")
+  connectAuthEmulator(auth, "http://localhost:9999");
 
 export const signIn = async ({ email, password }) => {
   try {
