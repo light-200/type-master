@@ -56,9 +56,7 @@ export default (text) => {
         end = new Date().getTime();
         speedCalc(totalChars / 5, (end - start) / 1000);
         multiplayerMode && raceFinished();
-        start = 0;
       }
-
       index++;
     } else {
       if (Words[index] != null) {
