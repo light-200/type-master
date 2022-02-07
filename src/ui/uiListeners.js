@@ -49,6 +49,7 @@ import {
 import { createRoom, joinRoom } from "../socket/roomHandling";
 import handlePopup from "../functions/handlePopup";
 import { multiplayerMode } from "../functions/userDefault";
+import { handleInput } from "../functions/start";
 
 var totalWords;
 
@@ -78,6 +79,9 @@ const spanWrap = (textContainer) => {
   let newText = newArr.join("");
   textContainer.innerHTML = newText;
 };
+
+//to listen to text input
+document.addEventListener("keypress", handleInput);
 
 // to show and hide profile window
 
