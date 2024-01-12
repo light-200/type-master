@@ -19,7 +19,7 @@ export function clearLeaderBoard() {
 export function prepareLeaderboard() {
   let leaderBoardHeader = document.createElement("li");
   leaderBoardHeader.classList.add("leaderBoardHeader");
-  leaderBoardHeader.innerText = "leaderboard";
+  leaderBoardHeader.innerText = "Leaderboard";
   let leaderBoardHeader2 = document.createElement("li");
   leaderBoardHeader2.classList.add("leaderBoardInfo");
   leaderBoardHeader2.innerHTML =
