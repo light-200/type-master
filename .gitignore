@@ -1,8 +1,0 @@
-node_modules
-.env
-Notes
-firebase-debug.log
-firestore-debug.log
-ui-debug.log
-docs/*.txt
-secrets
