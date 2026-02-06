@@ -506,6 +506,28 @@ header svg {
   white-space: nowrap;
   z-index: 2;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  opacity: 0.92;
+  transition: left 260ms ease, transform 260ms ease, opacity 160ms ease;
+  will-change: left, transform;
+}
+
+.player.is-new .playerName {
+  opacity: 0;
+}
+
+.player.is-new {
+  animation: playerAppear 200ms ease;
+}
+
+@keyframes playerAppear {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .player .playerProgress {

@@ -10,19 +10,50 @@ export async function createRoom() {
 }
 
 export function renderPlayers(playerList) {
-  clearPlayerArea();
-  if (!playerList) return;
-  playerList.forEach((player) => {
-    let template = `<div class="playerProgress"><div class="playerName">${player.name}</div></div>
-          <div class="playerSpeed">${player.speed}</div>`;
-    let newPlayer = document.createElement("span");
-    newPlayer.innerHTML = template;
-    newPlayer.children[0].firstChild.style.left = player.progress + "%";
-    newPlayer.children[0].firstChild.style.transform =
-      "translateX(-" + player.progress + "%)";
-    newPlayer.classList.add("player");
-    playArea.appendChild(newPlayer);
+  if (!playerList || playerList.length === 0) {
+    clearPlayerArea();
+    playArea.classList.add("hide");
+    return;
+  }
+
+  const existing = new Map();
+  Array.from(playArea.children).forEach((child) => {
+    if (child.dataset.playerKey) existing.set(child.dataset.playerKey, child);
   });
+
+  const seen = new Set();
+  playerList.forEach((player, index) => {
+    const keyBase = player.id || player.name || `player-${index}`;
+    const key = String(keyBase);
+    seen.add(key);
+
+    let row = existing.get(key);
+    if (!row) {
+      row = document.createElement("span");
+      row.classList.add("player", "is-new");
+      row.dataset.playerKey = key;
+      row.innerHTML =
+        '<div class="playerProgress"><div class="playerName"></div></div><div class="playerSpeed"></div>';
+      playArea.appendChild(row);
+      requestAnimationFrame(() => {
+        row.classList.remove("is-new");
+      });
+    }
+
+    const nameEl = row.querySelector(".playerName");
+    const speedEl = row.querySelector(".playerSpeed");
+    nameEl.textContent = player.name || "player";
+    speedEl.textContent = player.speed;
+
+    const progress = Number(player.progress) || 0;
+    nameEl.style.left = `${progress}%`;
+    nameEl.style.transform = `translateX(-${progress}%)`;
+  });
+
+  Array.from(playArea.children).forEach((child) => {
+    if (!seen.has(child.dataset.playerKey)) child.remove();
+  });
+
   playArea.classList.remove("hide");
 }
 
