@@ -131,24 +131,32 @@
     <div class="settings hide">
       <div class="windowTop">
         <div class="move" draggable="true">📌</div>
+        <div class="windowTitle">Settings</div>
         <div class="options">
           <div class="close">❌</div>
         </div>
       </div>
       <div class="routs">
         <div class="settingOptions">
-          <div class="textOptions">
-            <div class="punctuation active">Punctuation</div>
-            <div class="smallCase">Smallcase</div>
+          <div class="settingSection">
+            <div class="sectionTitle">Typing</div>
+            <div class="textOptions">
+              <div class="punctuation active">Punctuation</div>
+              <div class="smallCase">Smallcase</div>
+            </div>
+            <div class="sectionHint">Choose how text is generated.</div>
           </div>
-          <div class="themeOptions">
-            <h5>THEME</h5>
+          <div class="settingSection">
+            <div class="sectionTitle">Appearance</div>
+            <div class="themeOptions">
             <select name="themeSelector" class="themeSelector">
               <option value="dark" name="dark" class="themeDark">dark</option>
               <option value="light" name="light" class="themeLight">
                 light
               </option>
             </select>
+          </div>
+            <div class="sectionHint">Switch between dark and light themes.</div>
           </div>
         </div>
       </div>
