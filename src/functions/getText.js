@@ -10,7 +10,10 @@ var text;
 let callsCount = 0;
 
 const CONSTANTS = {
-  QUOTE_API_URL: process.env.QUOTE_API_URL || "https://api.quotable.io/random",
+  SERVER_URL: process.env.DEVELOPMENT_MODE === "true" 
+    ? "http://localhost:3000" 
+    : process.env.SERVER_LINK || "http://localhost:3000",
+  TEXT_API_ENDPOINT: "/api/text",
   LOGIN_REMINDER_CALLS: [5, 15],
   LOGIN_REMINDER_MESSAGE: "Login to save data 🙂",
   LOGIN_REMINDER_DURATION: 10000,
@@ -26,7 +29,7 @@ const getText = async () => {
     }
   }
 
-  const url = CONSTANTS.QUOTE_API_URL;
+  const url = `${CONSTANTS.SERVER_URL}${CONSTANTS.TEXT_API_ENDPOINT}`;
   let data = await fetch(url)
     .then((response) => response.json())
     .then((data) => {
