@@ -15,9 +15,14 @@ import { getTextSocket, setTextSocket } from "../functions/getText";
 import { renderPlayers } from "./roomHandling";
 import { setStart } from "../functions/start";
 
+const CONSTANTS = {
+  DEV_SERVER_URL: "http://localhost:3000",
+  IS_DEVELOPMENT: process.env.DEVELOPMENT_MODE === "true",
+};
+
 var linkToSocket;
-if (process.env.DEVELOPMENT_MODE == "true") {
-  linkToSocket = "http://localhost:3000";
+if (CONSTANTS.IS_DEVELOPMENT) {
+  linkToSocket = CONSTANTS.DEV_SERVER_URL;
 } else {
   linkToSocket = process.env.SERVER_LINK;
 }

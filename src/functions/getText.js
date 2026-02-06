@@ -9,16 +9,24 @@ import { isHost } from "./userDefault";
 var text;
 let callsCount = 0;
 
+const CONSTANTS = {
+  QUOTE_API_URL: process.env.QUOTE_API_URL || "https://api.quotable.io/random",
+  LOGIN_REMINDER_CALLS: [5, 15],
+  LOGIN_REMINDER_MESSAGE: "Login to save data 🙂",
+  LOGIN_REMINDER_DURATION: 10000,
+  NETWORK_ERROR_MESSAGE: "check your network connection",
+};
+
 const getText = async () => {
   const user = await getUserData();
   if (!user) {
     callsCount++;
-    if (callsCount == 5 || callsCount == 15) {
-      handlePopup("Login to save data 🙂", 10000);
+    if (CONSTANTS.LOGIN_REMINDER_CALLS.includes(callsCount)) {
+      handlePopup(CONSTANTS.LOGIN_REMINDER_MESSAGE, CONSTANTS.LOGIN_REMINDER_DURATION);
     }
   }
 
-  const url = "https://api.quotable.io/random";
+  const url = CONSTANTS.QUOTE_API_URL;
   let data = await fetch(url)
     .then((response) => response.json())
     .then((data) => {
@@ -26,7 +34,7 @@ const getText = async () => {
     })
     .catch((error) => {
       console.error(error.message);
-      textContainer.innerText = "check your network connection";
+      textContainer.innerText = CONSTANTS.NETWORK_ERROR_MESSAGE;
     });
 
   //for no punctuation mode
