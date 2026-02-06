@@ -1,19 +1,17 @@
-import axios from "axios";
-import dotenv from "dotenv";
-dotenv.config();
+import { generateRandomText } from "./controllers/textController.js";
 
 const CONSTANTS = {
-  QUOTE_API_URL: process.env.QUOTE_API_URL || "https://api.quotable.io/random",
   LOG_PREVIEW_LENGTH: 50,
+  DEFAULT_WORD_COUNT: 50,
 };
 
 export default async function getText(io, room) {
   try {
-    const res = await axios.get(CONSTANTS.QUOTE_API_URL);
+    const text = generateRandomText(CONSTANTS.DEFAULT_WORD_COUNT);
     console.log(
-      `[INFO] New text fetched for room ${room}: "${res.data.content.substring(0, CONSTANTS.LOG_PREVIEW_LENGTH)}..."`
+      `[INFO] New text fetched for room ${room}: "${text.substring(0, CONSTANTS.LOG_PREVIEW_LENGTH)}..."`
     );
-    io.to(room).emit("newText", res.data.content);
+    io.to(room).emit("newText", text);
   } catch (error) {
     console.error(`[ERROR] Failed to fetch text for room ${room}: ${error.message}`);
   }

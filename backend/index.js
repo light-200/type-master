@@ -3,6 +3,7 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import cors from "cors";
 import getText from "./getText.js";
+import { generateRandomText } from "./controllers/textController.js";
 import {
   addUser,
   getUsersInRoom,
@@ -25,6 +26,32 @@ console.log("[INFO] Initializing server...");
 process.env.DEVELOPMENT_MODE == "true"
   ? (corsOrigin = ["http://localhost:8080", "http://127.0.0.1:5500"])
   : (corsOrigin = [process.env.FRONTEND_ADDRESS]);
+
+
+app.get("/api/text", (req, res) => {
+  try {
+    const wordCount = req.query.words || 50;
+    const text = generateRandomText(wordCount);
+    res.json({ content: text });
+  } catch (error) {
+    console.error("[ERROR] Failed to generate text:", error.message);
+    res.status(500).json({ error: "Failed to generate text" });
+  }
+});
+
+// Health check endpoint
+app.get("/api/health", (req, res) => {
+  try {
+    res.json({
+      status: "ok",
+      uptime: process.uptime(),
+      timestamp: Date.now(),
+    });
+  } catch (error) {
+    console.error("[ERROR] Health check failed:", error.message);
+    res.status(500).json({ status: "error" });
+  }
+});
 
 const io = new Server(httpServer, {
   cors: {
