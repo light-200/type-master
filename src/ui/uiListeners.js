@@ -37,6 +37,7 @@ import {
   joinRoomForm,
   copyRoomId,
   roomId,
+  mpClose,
 } from "./uiElements";
 import saveStats from "../functions/saveStats";
 import { logout, signIn, signUp, updateUser } from "../firebase/auth";
@@ -332,8 +333,7 @@ document.addEventListener("keypress", (e) => {
   firstTime = false;
 });
 
-//handle multiplayer
-multiplayerBtn.addEventListener("click", (e) => {
+function toggleMpPanel() {
   if (mpContainer.classList.contains("hide")) {
     mpContainer.classList.remove("hide");
     mpContainer.classList.remove("scale0");
@@ -345,7 +345,18 @@ multiplayerBtn.addEventListener("click", (e) => {
       mpContainer.classList.add("hide");
     }, 500);
   }
+}
+
+//handle multiplayer
+multiplayerBtn.addEventListener("click", (e) => {
+  toggleMpPanel();
 });
+
+if (mpClose) {
+  mpClose.addEventListener("click", () => {
+    toggleMpPanel();
+  });
+}
 
 //create room
 createRoomBtn.addEventListener("click", (e) => {
