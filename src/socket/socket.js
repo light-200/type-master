@@ -12,7 +12,7 @@ import {
   setMultiplayerMode,
 } from "../functions/userDefault";
 import { getTextSocket, setTextSocket } from "../functions/getText";
-import { renderPlayers } from "./roomHandling";
+import { renderPlayers, resetWinnerState } from "./roomHandling";
 import { setStart } from "../functions/start";
 
 const CONSTANTS = {
@@ -67,6 +67,7 @@ socket.on("playerList", (playerList) => {
 
 socket.on("newText", (data) => {
   cancleTimers();
+  resetWinnerState();
   let count = 3;
   let signs = ["🍉", "🍊🍋", "🍈🍇🍑"];
   textContainer.innerText = "...";
@@ -86,6 +87,7 @@ socket.on("textTimer", () => {
 
 socket.on("raceStart", () => {
   console.log("race started");
+  resetWinnerState();
   setStart(new Date().getTime());
 });
 

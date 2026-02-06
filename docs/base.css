@@ -32,6 +32,7 @@
   --mp-panel-shadow: var(--surface-shadow);
   --mp-panel-glow: transparent;
   --mp-panel-accent: var(--correct-word);
+  --mp-panel-accent-contrast: #1a1400;
   --mp-panel-input-bg: var(--surface-color);
 }
 
@@ -61,6 +62,7 @@
   --mp-panel-shadow: var(--surface-shadow);
   --mp-panel-glow: transparent;
   --mp-panel-input-bg: var(--surface-color);
+  --mp-panel-accent-contrast: #f7efe0;
 }
 
 .dark {
@@ -89,6 +91,7 @@
   --mp-panel-shadow: var(--surface-shadow);
   --mp-panel-glow: transparent;
   --mp-panel-input-bg: var(--surface-color);
+  --mp-panel-accent-contrast: #1a1400;
 }
 
 @media only screen and (max-width: 500px) {

@@ -536,8 +536,8 @@ header svg {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: var(--mp-panel-accent);
-  color: var(--mp-panel-bg);
+  background: var(--button-bg-color);
+  color: #1a1400;
   display: grid;
   place-content: center;
   font-size: 0.7rem;
@@ -556,10 +556,11 @@ header svg {
 .lobbyPlayerName {
   font-size: 0.75rem;
   font-weight: 600;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 140px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  overflow: visible;
 }
 
 .lobbyPlayerTag {
@@ -598,8 +599,9 @@ header svg {
   font-size: var(--font-size-small);
   max-width: 200px;
   width: max-content;
-  display: flex;
+  display: inline-flex;
   align-items: center;
+  gap: 0.35rem;
   padding: 0 0.45rem;
   border-radius: 6px;
   background: var(--background-color);
@@ -615,6 +617,40 @@ header svg {
   opacity: 0.92;
   transition: left 260ms ease, transform 260ms ease, opacity 160ms ease;
   will-change: left, transform;
+}
+
+.playerNameText,
+.lobbyPlayerNameText {
+  display: inline-block;
+}
+
+.lobbyPlayerNameText {
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.playerCrown {
+  width: 18px;
+  height: 14px;
+  fill: var(--button-bg-color);
+  position: absolute;
+  top: -6px;
+  left: 6px;
+  transform-origin: 50% 100%;
+  transform: translate(0, -60%) rotate(-14deg) scale(0.92);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms ease, transform 160ms ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+}
+
+.player.is-winner .playerCrown,
+.lobbyPlayer.is-winner .playerCrown {
+  opacity: 1;
+  transform: translate(0, -92%) rotate(-14deg) scale(1.06);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.32));
 }
 
 .player.is-new .playerName {
