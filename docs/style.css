@@ -477,6 +477,112 @@ header svg {
   overflow-y: auto;
 }
 
+.lobbyPlayersWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.lobbyPlayersTitle {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mp-panel-muted);
+  padding-left: 0.25rem;
+}
+
+.lobbyPlayers {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 12px;
+  border: 1px solid var(--mp-panel-border);
+  background: var(--mp-panel-surface);
+  max-height: 40vh;
+  overflow-y: auto;
+}
+
+.lobbyPlayer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.55rem 0.6rem;
+  border-radius: 10px;
+  background: var(--mp-panel-bg);
+  border: 1px solid transparent;
+  transition: border-color 160ms ease, transform 160ms ease, opacity 160ms ease;
+}
+
+.lobbyPlayer.is-new {
+  opacity: 0;
+  transform: translateX(6px);
+}
+
+.lobbyPlayer.is-self {
+  border-color: var(--mp-panel-accent);
+  box-shadow: 0 0 0 1px var(--mp-panel-accent) inset;
+}
+
+.lobbyPlayerProfile {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+}
+
+.lobbyPlayerAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--mp-panel-accent);
+  color: var(--mp-panel-bg);
+  display: grid;
+  place-content: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.lobbyPlayerIdentity {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.lobbyPlayerName {
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+}
+
+.lobbyPlayerTag {
+  font-size: 0.6rem;
+  color: var(--mp-panel-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.lobbyPlayerStats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.1rem;
+  font-size: 0.65rem;
+  color: var(--mp-panel-muted);
+}
+
+.lobbyPlayerSpeed {
+  color: var(--font-color);
+  font-weight: 600;
+}
+
 .player {
   display: grid;
   grid-template-columns: 1fr 3ch;

@@ -87,3 +87,5 @@ export const roomHeader = document.querySelector(".roomHeader");
 export const copyRoomId = document.querySelector(".copyRoomId");
 export const roomId = document.querySelector("span.roomId");
 export const mpClose = document.querySelector(".mpClose");
+export const lobbyPlayersWrap = document.querySelector(".lobbyPlayersWrap");
+export const lobbyPlayers = document.querySelector(".lobbyPlayers");
