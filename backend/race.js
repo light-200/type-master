@@ -8,15 +8,18 @@ export function setFinishers(user, io) {
   else players = new Array(user);
 
   let totalUsers = getUsersInRoom(user.room);
+  console.log(`[INFO] Finisher count: ${players.length}/${totalUsers.length} in room ${user.room}`);
 
   if (totalUsers.length > 3) {
     if (players.length >= totalUsers - 2) {
+      console.log(`[INFO] Race ending in room ${user.room} - Majority finished`);
       resetFinishers(user.room);
       io.to(user.room).emit("raceEndTimer");
       return;
     }
   } else {
     if (players.length > totalUsers.length / 2) {
+      console.log(`[INFO] Race ending in room ${user.room} - Half or more finished`);
       resetFinishers(user.room);
       io.to(user.room).emit("raceEndTimer");
       return;

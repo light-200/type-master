@@ -20,6 +20,8 @@ app.use(cors());
 const httpServer = createServer(app);
 let corsOrigin;
 
+console.log("[INFO] Initializing server...");
+
 process.env.DEVELOPMENT_MODE == "true"
   ? (corsOrigin = ["http://localhost:8080", "http://127.0.0.1:5500"])
   : (corsOrigin = [process.env.FRONTEND_ADDRESS]);
@@ -30,11 +32,15 @@ const io = new Server(httpServer, {
   },
 });
 
+const PORT = process.env.PORT || 3000;
+
 io.on("connection", (socket) => {
+  console.log(`[INFO] New socket connection: ${socket.id}`);
   socket.on("createRoom", (userName, room) => createRoom(userName, room));
   socket.on("joinRoom", (userName, room) => joinRoom(userName, room));
 
   socket.on("typing", (user) => {
+    console.log(`[INFO] User ${user.name} typing in room ${user.room} - Progress: ${user.progress}%`);
     setUser(user);
     const playerList = getUsersInRoom(user.room);
     io.to(user.room).emit("playerList", playerList);
@@ -42,10 +48,12 @@ io.on("connection", (socket) => {
 
   function createRoom(userName, room) {
     if (!room) {
+      console.log("[INFO] Room creation failed: no room name provided");
       return;
     }
     let roomId = room.slice(0, 6);
     socket.join(roomId);
+    console.log(`[INFO] Room created: ${roomId} by user: ${userName || 'guest'}`);
     socket.emit("roomId", roomId);
     let tempUser = {
       id: socket.id,
@@ -61,6 +69,7 @@ io.on("connection", (socket) => {
   }
 
   socket.on("getText", (room) => {
+    console.log(`[INFO] Fetching new text for room: ${room}`);
     getText(io, room);
     const playerList = resetUser(room);
     io.to(room).emit("playerList", playerList);
@@ -79,12 +88,15 @@ io.on("connection", (socket) => {
     }
 
     if (numClients === 0) {
+      console.log(`[INFO] Join attempt failed: Unknown room code ${roomName}`);
       socket.emit("unknownCode");
       return;
     } else if (numClients > 7) {
+      console.log(`[INFO] Join attempt failed: Room ${roomName} is full (${numClients} players)`);
       socket.emit("tooManyPlayers");
       return;
     }
+    console.log(`[INFO] User ${userName || 'guest'} joined room: ${roomName} (${numClients + 1} total players)`);
     socket.join(roomName);
     socket.emit("roomId", roomName);
     let tempUser = {
@@ -104,17 +116,27 @@ io.on("connection", (socket) => {
   }
 
   socket.on("raceStart", (room) => {
+    console.log(`[INFO] Race started in room: ${room}`);
     io.to(room).emit("raceStart");
   });
 
   socket.on("finished", (user) => {
+    console.log(`[INFO] User ${user.name} finished race in room ${user.room} - Speed: ${user.speed} WPM`);
     setFinishers(user, io);
   });
 
   socket.on("disconnect", () => {
     const user = removeUser(socket.id);
-    user && io.to(user.room).emit("playerList", getUsersInRoom(user.room));
+    if (user) {
+      console.log(`[INFO] User ${user.name} disconnected from room: ${user.room}`);
+      io.to(user.room).emit("playerList", getUsersInRoom(user.room));
+    } else {
+      console.log(`[INFO] Socket ${socket.id} disconnected (user not found)`);
+    }
   });
 });
 
-httpServer.listen(process.env.PORT || 3000);
+httpServer.listen(PORT, () => {
+  console.log(`[INFO] Server running on port ${PORT}`);
+  console.log(`[INFO] CORS enabled for: ${JSON.stringify(corsOrigin)}`);
+});
