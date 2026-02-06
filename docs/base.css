@@ -36,24 +36,24 @@
 }
 
 .light {
-  --font-color: rgb(17, 17, 17);
-  --background-color: rgb(230, 216, 216);
-  --logo-color: rgba(0, 0, 0, 0.658);
-  --github-color: rgb(0, 0, 0);
+  --font-color: rgb(20, 20, 20);
+  --background-color: rgb(245, 242, 236);
+  --logo-color: rgba(24, 24, 24, 0.78);
+  --github-color: rgb(24, 24, 24);
   background-color: var(--background-color);
   color: var(--font-color);
-  --lb-header-bg-color: rgb(29, 29, 29);
-  --lb-header-color: rgb(255, 237, 234);
-  --lb-list-item-bg-color: var(--lb-header-color);
-  --lb-list-item-color: var(--lb-header-bg-color);
-  --correct-word: rgb(206, 158, 1);
-  --infoPopup-border-color: rgb(206, 158, 1);
-  --input-border-color: black;
-  --surface-color: rgba(0, 0, 0, 0.04);
-  --surface-border: rgba(0, 0, 0, 0.12);
-  --surface-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
-  --text-muted: rgba(0, 0, 0, 0.6);
-  --focus-ring: rgba(206, 158, 1, 0.35);
+  --lb-header-bg-color: rgb(26, 26, 26);
+  --lb-header-color: rgb(247, 243, 237);
+  --lb-list-item-bg-color: rgb(255, 255, 255);
+  --lb-list-item-color: rgb(26, 26, 26);
+  --correct-word: rgb(155, 109, 0);
+  --infoPopup-border-color: rgb(155, 109, 0);
+  --input-border-color: rgb(26, 26, 26);
+  --surface-color: rgba(255, 255, 255, 0.82);
+  --surface-border: rgba(0, 0, 0, 0.14);
+  --surface-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+  --text-muted: rgba(0, 0, 0, 0.68);
+  --focus-ring: rgba(155, 109, 0, 0.28);
   --mp-panel-bg: var(--background-color);
   --mp-panel-surface: var(--surface-color);
   --mp-panel-border: var(--surface-border);
