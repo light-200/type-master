@@ -6,12 +6,14 @@ import {
   defaultTheme,
   punctuationMode,
   smallCaseMode,
+  DEFAULT_WORD_COUNT,
+  normalizeWordCount,
 } from "./functions/userDefault";
 import "@fortawesome/fontawesome-free/js/all";
 
 import { getLocalData, setLocalData } from "./storage/localstorage";
 
-import { body, textOptions, themeSelector } from "./ui/uiElements";
+import { body, textOptions, themeSelector, wordCountSelector } from "./ui/uiElements";
 
 export default function userLoggedIn(isLoggedin) {
   return isLoggedin;
@@ -19,25 +21,34 @@ export default function userLoggedIn(isLoggedin) {
 
 window.onload = () => {
   if (getLocalData()) {
-    let theme = getLocalData().theme;
+    let localData = getLocalData();
+    let theme = localData.theme;
     if (theme != "dark") {
       body.classList.remove("dark");
       body.classList.add(theme);
     }
     // console.log(theme,themeSelector.options[theme])
     themeSelector.options[theme].selected = true;
-    getLocalData().punctuationMode
+    localData.punctuationMode
       ? textOptions.children[0].classList.add("active")
       : textOptions.children[0].classList.remove("active");
-    getLocalData().smallCaseMode
+    localData.smallCaseMode
       ? textOptions.children[1].classList.add("active")
       : textOptions.children[1].classList.remove("active");
-    setSpeed(getLocalData().lastSpeed);
+    if (wordCountSelector) {
+      const wordCount = normalizeWordCount(localData.wordCount);
+      wordCountSelector.value = String(wordCount);
+      if (localData.wordCount !== wordCount) {
+        setLocalData({ ...localData, wordCount });
+      }
+    }
+    setSpeed(localData.lastSpeed);
   } else {
     setLocalData({
       punctuationMode,
       smallCaseMode,
       theme: defaultTheme,
+      wordCount: DEFAULT_WORD_COUNT,
     });
   }
 };

@@ -21,6 +21,17 @@ app.use(cors());
 const httpServer = createServer(app);
 let corsOrigin;
 
+const ROOM_WORD_COUNT_OPTIONS = [10, 25, 50, 100];
+const DEFAULT_WORD_COUNT = 25;
+const roomSettings = new Map();
+
+function normalizeWordCount(value) {
+  const parsed = parseInt(value, 10);
+  return ROOM_WORD_COUNT_OPTIONS.includes(parsed)
+    ? parsed
+    : DEFAULT_WORD_COUNT;
+}
+
 console.log("[INFO] Initializing server...");
 
 process.env.DEVELOPMENT_MODE == "true"
@@ -35,7 +46,7 @@ process.env.DEVELOPMENT_MODE == "true"
 
 app.get("/api/text", (req, res) => {
   try {
-    const wordCount = req.query.words || 50;
+    const wordCount = req.query.words || DEFAULT_WORD_COUNT;
     const text = generateRandomText(wordCount);
     res.json({ content: text });
   } catch (error) {
@@ -68,7 +79,9 @@ const PORT = process.env.PORT || 3000;
 
 io.on("connection", (socket) => {
   console.log(`[INFO] New socket connection: ${socket.id}`);
-  socket.on("createRoom", (userName, room) => createRoom(userName, room));
+  socket.on("createRoom", (userName, room, settings) =>
+    createRoom(userName, room, settings)
+  );
   socket.on("joinRoom", (userName, room) => joinRoom(userName, room));
 
   socket.on("typing", (user) => {
@@ -78,13 +91,15 @@ io.on("connection", (socket) => {
     io.to(user.room).emit("playerList", playerList);
   });
 
-  function createRoom(userName, room) {
+  function createRoom(userName, room, settings) {
     if (!room) {
       console.log("[INFO] Room creation failed: no room name provided");
       return;
     }
     let roomId = room.slice(0, 6);
     socket.join(roomId);
+    const wordCount = normalizeWordCount(settings && settings.wordCount);
+    roomSettings.set(roomId, { wordCount });
     console.log(`[INFO] Room created: ${roomId} by user: ${userName || 'guest'}`);
     socket.emit("roomId", roomId);
     let tempUser = {
@@ -102,7 +117,9 @@ io.on("connection", (socket) => {
 
   socket.on("getText", (room) => {
     console.log(`[INFO] Fetching new text for room: ${room}`);
-    getText(io, room);
+    const settings = roomSettings.get(room);
+    const wordCount = normalizeWordCount(settings && settings.wordCount);
+    getText(io, room, wordCount);
     const playerList = resetUser(room);
     io.to(room).emit("playerList", playerList);
   });
@@ -161,7 +178,11 @@ io.on("connection", (socket) => {
     const user = removeUser(socket.id);
     if (user) {
       console.log(`[INFO] User ${user.name} disconnected from room: ${user.room}`);
-      io.to(user.room).emit("playerList", getUsersInRoom(user.room));
+      const remainingUsers = getUsersInRoom(user.room);
+      io.to(user.room).emit("playerList", remainingUsers);
+      if (remainingUsers.length === 0) {
+        roomSettings.delete(user.room);
+      }
     } else {
       console.log(`[INFO] Socket ${socket.id} disconnected (user not found)`);
     }

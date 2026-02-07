@@ -9,6 +9,7 @@ import {
 import {
   body,
   themeSelector,
+  wordCountSelector,
   signupForm,
   profileButton,
   profile,
@@ -46,6 +47,7 @@ import {
   setPunctuationMode,
   setSmallCaseMode,
   smallCaseMode,
+  normalizeWordCount,
 } from "../functions/userDefault";
 import { createRoom, joinRoom } from "../socket/roomHandling";
 import handlePopup from "../functions/handlePopup";
@@ -208,6 +210,21 @@ themeSelector.addEventListener("change", async (e) => {
     }
   }
 });
+
+// word count
+if (wordCountSelector) {
+  wordCountSelector.addEventListener("change", async (e) => {
+    let user = await getUserData();
+    const wordCount = normalizeWordCount(e.target.value);
+    e.target.value = String(wordCount);
+    if (user) {
+      setUserData({ ...user, wordCount });
+    } else {
+      user = getLocalData() || {};
+      setLocalData({ ...user, wordCount });
+    }
+  });
+}
 
 // save stats
 saveStatsBtn.addEventListener("click", () => {

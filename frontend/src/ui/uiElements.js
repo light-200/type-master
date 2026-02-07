@@ -30,6 +30,7 @@ export const settings = document.querySelector(".settings");
 // theme toggle
 
 export const themeSelector = document.querySelector(".themeSelector");
+export const wordCountSelector = document.querySelector(".wordCountSelector");
 
 // for handleprofile
 export const routs = document.querySelector(".profile>.routs");

@@ -1,7 +1,7 @@
 import socket from "./socket";
 import { lobbyPlayers, lobbyPlayersWrap, playArea } from "../ui/uiElements";
-import { getUserData } from "../storage/localstorage";
-import { setIsHost } from "../functions/userDefault";
+import { getLocalData, getUserData } from "../storage/localstorage";
+import { normalizeWordCount, setIsHost } from "../functions/userDefault";
 import handlePopup from "../functions/handlePopup";
 
 let winnerAnnounced = false;
@@ -18,7 +18,11 @@ const crownSvg =
 
 export async function createRoom() {
   let user = await getUserData();
-  socket.emit("createRoom", user ? user.userName : null, socket.id);
+  const localData = getLocalData() || {};
+  const wordCount = normalizeWordCount(localData.wordCount);
+  socket.emit("createRoom", user ? user.userName : null, socket.id, {
+    wordCount,
+  });
   setIsHost(true);
 }
 
