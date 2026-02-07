@@ -49,6 +49,7 @@ export const loginBtn = document.querySelector(".loginBtn");
 export const signinForm = document.querySelector(".profile>.routs>.signIn");
 export const updateBtn = document.querySelector(".updateBtn");
 export const updateForm = document.querySelector(".profile>.routs>.update");
+export const updateCancel = document.querySelector(".updateCancel");
 
 //logout
 export const logoutBtn = document.querySelector(".logoutBtn");
@@ -90,6 +91,7 @@ export const playersCount = document.querySelector(".playersCount");
 export const roomHeader = document.querySelector(".roomHeader");
 export const copyRoomId = document.querySelector(".copyRoomId");
 export const copyRoomLink = document.querySelector(".copyRoomLink");
+export const leaveRoomBtn = document.querySelector(".leaveRoomBtn");
 export const roomId = document.querySelector("span.roomId");
 export const mpClose = document.querySelector(".mpClose");
 export const lobbyPlayersWrap = document.querySelector(".lobbyPlayersWrap");

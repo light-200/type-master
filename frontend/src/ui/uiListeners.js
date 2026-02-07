@@ -26,6 +26,7 @@ import {
   updateBtn,
   signUpinfo,
   loader,
+  updateCancel,
   leaderBoardBtn,
   leaderBoard,
   updateForm,
@@ -40,6 +41,7 @@ import {
   copyRoomLink,
   roomId,
   mpClose,
+  leaveRoomBtn,
 } from "./uiElements";
 import saveStats from "../functions/saveStats";
 import { logout, signIn, signUp, updateUser } from "../firebase/auth";
@@ -51,6 +53,7 @@ import {
   normalizeWordCount,
 } from "../functions/userDefault";
 import { createRoom, joinRoom } from "../socket/roomHandling";
+import { leaveRoom } from "../socket/socket";
 import handlePopup from "../functions/handlePopup";
 import { multiplayerMode } from "../functions/userDefault";
 import { handleInput } from "../functions/start";
@@ -233,20 +236,29 @@ saveStatsBtn.addEventListener("click", () => {
 });
 
 //signupform and signIn form handler
-signupForm.addEventListener("submit", (e) => {
+signupForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  signUp({
+  handleProfile(loader);
+  const result = await signUp({
     email: e.target.email.value,
     username: e.target.username.value,
     password: e.target.password.value,
   });
-  handleProfile(loader);
+  if (!result || !result.ok) {
+    handleProfile(signupForm);
+  }
 });
 
-signinForm.addEventListener("submit", (e) => {
+signinForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  signIn({ email: e.target.email.value, password: e.target.password.value });
   handleProfile(loader);
+  const result = await signIn({
+    email: e.target.email.value,
+    password: e.target.password.value,
+  });
+  if (!result || !result.ok) {
+    handleProfile(signinForm);
+  }
 });
 
 // to show signup and login window
@@ -267,6 +279,12 @@ updateBtn.addEventListener("click", () => {
   // console.log('update btn clicked')
   handleProfile(updateForm);
 });
+
+if (updateCancel) {
+  updateCancel.addEventListener("click", () => {
+    handleProfile(stats);
+  });
+}
 
 updateForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -373,6 +391,12 @@ multiplayerBtn.addEventListener("click", (e) => {
 if (mpClose) {
   mpClose.addEventListener("click", () => {
     toggleMpPanel();
+  });
+}
+
+if (leaveRoomBtn) {
+  leaveRoomBtn.addEventListener("click", () => {
+    leaveRoom();
   });
 }
 

@@ -31,8 +31,10 @@ if (isDevelopment)
 export const signIn = async ({ email, password }) => {
   try {
     const userCred = await signInWithEmailAndPassword(auth, email, password);
+    return { ok: true, userCred };
   } catch (error) {
     alert(error.code);
+    return { ok: false, error };
   }
 };
 
@@ -59,8 +61,10 @@ export const signUp = async ({ email, password, username }) => {
       };
       setUserData(data);
     });
+    return { ok: true, userCred };
   } catch (error) {
     alert(error.code);
+    return { ok: false, error };
   }
 };
 
@@ -76,15 +80,30 @@ export const logout = () => {
 export const authState = () => {
   onAuthStateChanged(auth, async (user) => {
     if (user) {
-      user = await getUserData();
-      if (user && user.wordCount == null) {
-        const updatedUser = { ...user, wordCount: DEFAULT_WORD_COUNT };
+      let userData = await getUserData();
+      if (!userData) {
+        const displayName =
+          user.displayName ||
+          (user.email ? user.email.split("@")[0] : "player");
+        userData = {
+          uId: user.uid,
+          userName: displayName,
+          topSpeed: 0,
+          theme: defaultTheme,
+          punctuationMode,
+          smallCaseMode,
+          wordCount: DEFAULT_WORD_COUNT,
+          lastSpeed: 0,
+        };
+        setUserData(userData);
+      } else if (userData.wordCount == null) {
+        const updatedUser = { ...userData, wordCount: DEFAULT_WORD_COUNT };
         setUserData(updatedUser);
-        user = updatedUser;
+        userData = updatedUser;
       }
-      handleMenu(user);
-      handleStats(user);
-      username.innerText = user.userName;
+      handleMenu(userData);
+      handleStats(userData);
+      username.innerText = userData.userName || "";
     } else {
       handleMenu(user);
       handleStats(user);

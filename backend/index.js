@@ -12,7 +12,7 @@ import {
   resetUser,
   setUser,
 } from "./user.js";
-import { setFinishers } from "./race.js";
+import { getWinner, resetFinishers, resetWinner, setFinishers } from "./race.js";
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -111,12 +111,33 @@ io.on("connection", (socket) => {
     createRoom(userName, room, settings)
   );
   socket.on("joinRoom", (userName, room) => joinRoom(userName, room));
+  socket.on("leaveRoom", () => {
+    const room = Array.from(socket.rooms).find((id) => id !== socket.id);
+    removeUser(socket.id);
+    if (room) {
+      socket.leave(room);
+      const remainingUsers = getUsersInRoom(room);
+      io.to(room).emit("playerList", {
+        players: remainingUsers,
+        winnerId: getWinner(room),
+      });
+      if (remainingUsers.length === 0) {
+        roomSettings.delete(room);
+        resetWinner(room);
+      }
+      emitLobbyStats();
+    }
+    socket.emit("leftRoom");
+  });
 
   socket.on("typing", (user) => {
     console.log(`[INFO] User ${user.name} typing in room ${user.room} - Progress: ${user.progress}%`);
     setUser(user);
     const playerList = getUsersInRoom(user.room);
-    io.to(user.room).emit("playerList", playerList);
+    io.to(user.room).emit("playerList", {
+      players: playerList,
+      winnerId: getWinner(user.room),
+    });
   });
 
   function createRoom(userName, room, settings) {
@@ -141,7 +162,10 @@ io.on("connection", (socket) => {
 
     addUser(tempUser);
     const playerList = getUsersInRoom(roomId);
-    io.to(roomId).emit("playerList", playerList);
+    io.to(roomId).emit("playerList", {
+      players: playerList,
+      winnerId: getWinner(roomId),
+    });
     emitLobbyStats();
   }
 
@@ -149,8 +173,13 @@ io.on("connection", (socket) => {
     console.log(`[INFO] Fetching new text for room: ${room}`);
     const settings = roomSettings.get(room) || normalizeRoomSettings();
     getText(io, room, settings);
+    resetFinishers(room);
+    resetWinner(room);
     const playerList = resetUser(room);
-    io.to(room).emit("playerList", playerList);
+    io.to(room).emit("playerList", {
+      players: playerList,
+      winnerId: getWinner(room),
+    });
   });
 
   function joinRoom(userName, roomName) {
@@ -191,7 +220,10 @@ io.on("connection", (socket) => {
     };
     addUser(tempUser);
     const playerList = getUsersInRoom(roomName);
-    io.to(roomName).emit("playerList", playerList);
+    io.to(roomName).emit("playerList", {
+      players: playerList,
+      winnerId: getWinner(roomName),
+    });
     emitLobbyStats();
 
     if (numClients === 1) {
@@ -207,6 +239,11 @@ io.on("connection", (socket) => {
   socket.on("finished", (user) => {
     console.log(`[INFO] User ${user.name} finished race in room ${user.room} - Speed: ${user.speed} WPM`);
     setFinishers(user, io);
+    const playerList = getUsersInRoom(user.room);
+    io.to(user.room).emit("playerList", {
+      players: playerList,
+      winnerId: getWinner(user.room),
+    });
   });
 
   socket.on("disconnect", () => {
@@ -214,9 +251,13 @@ io.on("connection", (socket) => {
     if (user) {
       console.log(`[INFO] User ${user.name} disconnected from room: ${user.room}`);
       const remainingUsers = getUsersInRoom(user.room);
-      io.to(user.room).emit("playerList", remainingUsers);
+      io.to(user.room).emit("playerList", {
+        players: remainingUsers,
+        winnerId: getWinner(user.room),
+      });
       if (remainingUsers.length === 0) {
         roomSettings.delete(user.room);
+        resetWinner(user.room);
       }
       emitLobbyStats();
     } else {
