@@ -1,0 +1,103 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+:root {
+  --font-color: rgb(218, 216, 216);
+  --background-color: rgb(34, 34, 34);
+  --wrong-font-color: #ff324d;
+  --button-bg-color: rgb(255, 221, 70);
+  --font-size-normal: 20px;
+  --font-size-small: 15px;
+  --font-size-heading: 25px;
+  --user-name-limit: 20ch;
+  --wrong-word: rgb(255, 50, 77);
+  --input-border-color: white;
+  --surface-color: rgba(255, 255, 255, 0.04);
+  --surface-border: rgba(255, 255, 255, 0.12);
+  --surface-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  --text-muted: rgba(255, 255, 255, 0.6);
+  --focus-ring: rgba(255, 221, 70, 0.35);
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --mp-panel-bg: var(--background-color);
+  --mp-panel-surface: var(--surface-color);
+  --mp-panel-border: var(--surface-border);
+  --mp-panel-muted: var(--text-muted);
+  --mp-panel-shadow: var(--surface-shadow);
+  --mp-panel-glow: transparent;
+  --mp-panel-accent: var(--correct-word);
+  --mp-panel-accent-contrast: #1a1400;
+  --mp-panel-input-bg: var(--surface-color);
+}
+
+.light {
+  --font-color: rgb(20, 20, 20);
+  --background-color: rgb(245, 242, 236);
+  --logo-color: rgba(24, 24, 24, 0.78);
+  --github-color: rgb(24, 24, 24);
+  background-color: var(--background-color);
+  color: var(--font-color);
+  --lb-header-bg-color: rgb(26, 26, 26);
+  --lb-header-color: rgb(247, 243, 237);
+  --lb-list-item-bg-color: rgb(255, 255, 255);
+  --lb-list-item-color: rgb(26, 26, 26);
+  --correct-word: rgb(155, 109, 0);
+  --infoPopup-border-color: rgb(155, 109, 0);
+  --input-border-color: rgb(26, 26, 26);
+  --surface-color: rgba(255, 255, 255, 0.82);
+  --surface-border: rgba(0, 0, 0, 0.14);
+  --surface-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+  --text-muted: rgba(0, 0, 0, 0.68);
+  --focus-ring: rgba(155, 109, 0, 0.28);
+  --mp-panel-bg: var(--background-color);
+  --mp-panel-surface: var(--surface-color);
+  --mp-panel-border: var(--surface-border);
+  --mp-panel-muted: var(--text-muted);
+  --mp-panel-shadow: var(--surface-shadow);
+  --mp-panel-glow: transparent;
+  --mp-panel-input-bg: var(--surface-color);
+  --mp-panel-accent-contrast: #f7efe0;
+}
+
+.dark {
+  --font-color: rgb(218, 216, 216);
+  --background-color: rgb(34, 34, 34);
+  --correct-word: rgb(255, 213, 73);
+  --logo-color: rgba(255, 213, 73, 0.616);
+  --github-color: rgb(255, 213, 73);
+  --lb-header-bg-color: rgb(253, 253, 253);
+  --lb-header-color: rgb(24, 25, 26);
+  --lb-list-item-bg-color: var(--lb-header-color);
+  --lb-list-item-color: var(--lb-header-bg-color);
+  background-color: var(--background-color);
+  color: var(--font-color);
+  --infoPopup-border-color: rgb(206, 158, 1);
+  --input-border-color: white;
+  --surface-color: rgba(255, 255, 255, 0.04);
+  --surface-border: rgba(255, 255, 255, 0.12);
+  --surface-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  --text-muted: rgba(255, 255, 255, 0.6);
+  --focus-ring: rgba(255, 221, 70, 0.35);
+  --mp-panel-bg: var(--background-color);
+  --mp-panel-surface: var(--surface-color);
+  --mp-panel-border: var(--surface-border);
+  --mp-panel-muted: var(--text-muted);
+  --mp-panel-shadow: var(--surface-shadow);
+  --mp-panel-glow: transparent;
+  --mp-panel-input-bg: var(--surface-color);
+  --mp-panel-accent-contrast: #1a1400;
+}
+
+@media only screen and (max-width: 500px) {
+  :root {
+    --font-size-normal: 0.9rem;
+    --font-size-small: 0.7rem;
+    --font-size-heading: 1.5rem;
+  }
+}

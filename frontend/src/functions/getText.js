@@ -4,15 +4,18 @@ import { roomId, textContainer } from "../ui/uiElements";
 import { getLocalData, getUserData } from "../storage/localstorage";
 import handlePopup from "./handlePopup";
 import socket, { cancleTimers } from "../socket/socket";
-import { isHost } from "./userDefault";
+import { isHost, normalizeWordCount } from "./userDefault";
 
 var text;
 let callsCount = 0;
 
+const env = import.meta.env;
+const isDevelopment = env.VITE_DEVELOPMENT_MODE === "true";
+
 const CONSTANTS = {
-  SERVER_URL: process.env.DEVELOPMENT_MODE === "true" 
-    ? "http://localhost:3000" 
-    : process.env.SERVER_LINK || "http://localhost:3000",
+  SERVER_URL: isDevelopment
+    ? "http://localhost:3000"
+    : env.VITE_SERVER_LINK || "http://localhost:3000",
   TEXT_API_ENDPOINT: "/api/text",
   LOGIN_REMINDER_CALLS: [5, 15],
   LOGIN_REMINDER_MESSAGE: "Login to save data 🙂",
@@ -29,7 +32,9 @@ const getText = async () => {
     }
   }
 
-  const url = `${CONSTANTS.SERVER_URL}${CONSTANTS.TEXT_API_ENDPOINT}`;
+  const userPreferences = getLocalData() || {};
+  const wordCount = normalizeWordCount(userPreferences.wordCount);
+  const url = `${CONSTANTS.SERVER_URL}${CONSTANTS.TEXT_API_ENDPOINT}?words=${wordCount}`;
   let data = await fetch(url)
     .then((response) => response.json())
     .then((data) => {
@@ -41,12 +46,11 @@ const getText = async () => {
     });
 
   //for no punctuation mode
-  let userPreferences = getLocalData();
-  if (!userPreferences.punctuationMode) {
+  if (userPreferences && userPreferences.punctuationMode === false) {
     data = data.replace(/[^ \w]/g, "");
   }
 
-  if (userPreferences.smallCaseMode) {
+  if (userPreferences && userPreferences.smallCaseMode === true) {
     data = data.toLowerCase();
   }
 

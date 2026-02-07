@@ -16,11 +16,16 @@ import {
 import { handleStats } from "../ui/uiListeners";
 import handleProfile, { handleMenu } from "../functions/handleHiding";
 import { loader, username } from "../ui/uiElements";
-import { defaultTheme } from "../functions/userDefault";
-import { smallCaseMode, punctuationMode } from "../functions/userDefault";
+import {
+  DEFAULT_WORD_COUNT,
+  defaultTheme,
+  smallCaseMode,
+  punctuationMode,
+} from "../functions/userDefault";
 
 const auth = getAuth(app);
-if (process.env.DEVELOPMENT_MODE == "true")
+const isDevelopment = import.meta.env.VITE_DEVELOPMENT_MODE === "true";
+if (isDevelopment)
   connectAuthEmulator(auth, "http://localhost:9999");
 
 export const signIn = async ({ email, password }) => {
@@ -49,6 +54,7 @@ export const signUp = async ({ email, password, username }) => {
         theme: defaultTheme,
         punctuationMode,
         smallCaseMode,
+        wordCount: DEFAULT_WORD_COUNT,
         lastSpeed: 0,
       };
       setUserData(data);
@@ -71,6 +77,11 @@ export const authState = () => {
   onAuthStateChanged(auth, async (user) => {
     if (user) {
       user = await getUserData();
+      if (user && user.wordCount == null) {
+        const updatedUser = { ...user, wordCount: DEFAULT_WORD_COUNT };
+        setUserData(updatedUser);
+        user = updatedUser;
+      }
       handleMenu(user);
       handleStats(user);
       username.innerText = user.userName;

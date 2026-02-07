@@ -12,19 +12,20 @@ import {
   setMultiplayerMode,
 } from "../functions/userDefault";
 import { getTextSocket, setTextSocket } from "../functions/getText";
-import { renderPlayers } from "./roomHandling";
+import { renderPlayers, resetWinnerState } from "./roomHandling";
 import { setStart } from "../functions/start";
 
+const env = import.meta.env;
 const CONSTANTS = {
   DEV_SERVER_URL: "http://localhost:3000",
-  IS_DEVELOPMENT: process.env.DEVELOPMENT_MODE === "true",
+  IS_DEVELOPMENT: env.VITE_DEVELOPMENT_MODE === "true",
 };
 
 var linkToSocket;
 if (CONSTANTS.IS_DEVELOPMENT) {
   linkToSocket = CONSTANTS.DEV_SERVER_URL;
 } else {
-  linkToSocket = process.env.SERVER_LINK;
+  linkToSocket = env.VITE_SERVER_LINK;
 }
 
 const socket = io(linkToSocket);
@@ -67,6 +68,7 @@ socket.on("playerList", (playerList) => {
 
 socket.on("newText", (data) => {
   cancleTimers();
+  resetWinnerState();
   let count = 3;
   let signs = ["🍉", "🍊🍋", "🍈🍇🍑"];
   textContainer.innerText = "...";
@@ -86,6 +88,7 @@ socket.on("textTimer", () => {
 
 socket.on("raceStart", () => {
   console.log("race started");
+  resetWinnerState();
   setStart(new Date().getTime());
 });
 

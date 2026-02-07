@@ -4,7 +4,7 @@ This project is a typing practice web-app, that helps you improve your speed by 
 
 ## Tech stack
 
-- HTML, CSS, Javascript, firebase, socket.io
+- HTML, CSS, Javascript, firebase, socket.io, Vite
 
 ## How to contribute
 
@@ -20,10 +20,7 @@ This project is a typing practice web-app, that helps you improve your speed by 
 │   .firebaserc
 │   .gitignore
 │   firebase.json
-│   package-lock.json
-│   package.json
 │   README.md
-│   webpack.config.js
 │
 ├───.github
 │   └───workflows
@@ -37,30 +34,35 @@ This project is a typing practice web-app, that helps you improve your speed by 
 │       race.js
 │       user.js
 │
-├───docs
-│   │   base.css
-│   │   bundle.js
-│   │   index.html
-│   │   style.css
-│   │
-│   └───assets
-│           icon.svg
-│           loading.gif
-│           text-logo.svg
-│
-└───src
-    │   script.js
+└───frontend
+    │   .env
+    │   .env.example
+    │   index.html
+    │   package.json
+    │   vite.config.js
     │
-    ├───firebase
-    │       *.js
-    ├───functions
-    │       *.js
-    ├───socket
-    │       *.js
-    ├───storage
-    │       *.js
-    └───ui
-            *.js
+    ├───public
+    │   │   base.css
+    │   │   style.css
+    │   │
+    │   └───assets
+    │           icon.svg
+    │           loading.gif
+    │           text-logo.svg
+    │
+    └───src
+        │   script.js
+        │
+        ├───firebase
+        │       *.js
+        ├───functions
+        │       *.js
+        ├───socket
+        │       *.js
+        ├───storage
+        │       *.js
+        └───ui
+                *.js
 ```
 
 ## Discussions

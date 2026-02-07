@@ -1,14 +1,14 @@
 import { COMMON_WORDS } from "../data/words.js";
 
 const CONSTANTS = {
-  DEFAULT_WORD_COUNT: 50,
+  DEFAULT_WORD_COUNT: 25,
   MIN_WORD_COUNT: 1,
   MAX_WORD_COUNT: 200,
 };
 
 /**
  * Generate random text from common English words
- * @param {number} wordCount - Number of words to generate (default: 50)
+ * @param {number} wordCount - Number of words to generate (default: 25)
  * @returns {string} Random text with specified number of words
  */
 export function generateRandomText(wordCount = CONSTANTS.DEFAULT_WORD_COUNT) {

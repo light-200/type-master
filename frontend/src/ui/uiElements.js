@@ -30,6 +30,7 @@ export const settings = document.querySelector(".settings");
 // theme toggle
 
 export const themeSelector = document.querySelector(".themeSelector");
+export const wordCountSelector = document.querySelector(".wordCountSelector");
 
 // for handleprofile
 export const routs = document.querySelector(".profile>.routs");
@@ -86,3 +87,6 @@ export const playArea = document.querySelector(".playArea");
 export const roomHeader = document.querySelector(".roomHeader");
 export const copyRoomId = document.querySelector(".copyRoomId");
 export const roomId = document.querySelector("span.roomId");
+export const mpClose = document.querySelector(".mpClose");
+export const lobbyPlayersWrap = document.querySelector(".lobbyPlayersWrap");
+export const lobbyPlayers = document.querySelector(".lobbyPlayers");

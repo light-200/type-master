@@ -9,6 +9,7 @@ import {
 import {
   body,
   themeSelector,
+  wordCountSelector,
   signupForm,
   profileButton,
   profile,
@@ -37,6 +38,7 @@ import {
   joinRoomForm,
   copyRoomId,
   roomId,
+  mpClose,
 } from "./uiElements";
 import saveStats from "../functions/saveStats";
 import { logout, signIn, signUp, updateUser } from "../firebase/auth";
@@ -45,6 +47,7 @@ import {
   setPunctuationMode,
   setSmallCaseMode,
   smallCaseMode,
+  normalizeWordCount,
 } from "../functions/userDefault";
 import { createRoom, joinRoom } from "../socket/roomHandling";
 import handlePopup from "../functions/handlePopup";
@@ -208,6 +211,21 @@ themeSelector.addEventListener("change", async (e) => {
   }
 });
 
+// word count
+if (wordCountSelector) {
+  wordCountSelector.addEventListener("change", async (e) => {
+    let user = await getUserData();
+    const wordCount = normalizeWordCount(e.target.value);
+    e.target.value = String(wordCount);
+    if (user) {
+      setUserData({ ...user, wordCount });
+    } else {
+      user = getLocalData() || {};
+      setLocalData({ ...user, wordCount });
+    }
+  });
+}
+
 // save stats
 saveStatsBtn.addEventListener("click", () => {
   saveStats();
@@ -332,8 +350,7 @@ document.addEventListener("keypress", (e) => {
   firstTime = false;
 });
 
-//handle multiplayer
-multiplayerBtn.addEventListener("click", (e) => {
+function toggleMpPanel() {
   if (mpContainer.classList.contains("hide")) {
     mpContainer.classList.remove("hide");
     mpContainer.classList.remove("scale0");
@@ -345,7 +362,18 @@ multiplayerBtn.addEventListener("click", (e) => {
       mpContainer.classList.add("hide");
     }, 500);
   }
+}
+
+//handle multiplayer
+multiplayerBtn.addEventListener("click", (e) => {
+  toggleMpPanel();
 });
+
+if (mpClose) {
+  mpClose.addEventListener("click", () => {
+    toggleMpPanel();
+  });
+}
 
 //create room
 createRoomBtn.addEventListener("click", (e) => {
