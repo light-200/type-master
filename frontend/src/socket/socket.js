@@ -2,7 +2,10 @@ import { io } from "socket.io-client";
 import handlePopup from "../functions/handlePopup";
 import {
   joinRoomForm,
+  lobbyStats,
+  playersCount,
   mpContainer,
+  roomsCount,
   roomSettings,
   roomSettingsList,
   roomHeader,
@@ -44,6 +47,7 @@ socket.on("disconnect", () => {
 
 socket.on("roomId", (roomId) => {
   joinRoomForm.classList.add("hide");
+  if (lobbyStats) lobbyStats.classList.add("hide");
   roomHeader.classList.remove("hide");
   roomHeader.children[1].innerText = roomId;
   setMultiplayerMode(true);
@@ -53,6 +57,16 @@ socket.on("roomId", (roomId) => {
 
 socket.on("roomSettings", (settings) => {
   renderRoomSettings(settings);
+});
+
+socket.on("lobbyStats", (stats) => {
+  const rooms = Number(stats && stats.rooms) || 0;
+  const players = Number(stats && stats.players) || 0;
+  if (roomsCount) roomsCount.textContent = String(rooms);
+  if (playersCount) playersCount.textContent = String(players);
+  if (joinRoomForm && !joinRoomForm.classList.contains("hide") && lobbyStats) {
+    lobbyStats.classList.remove("hide");
+  }
 });
 
 socket.on("unknownCode", () => {

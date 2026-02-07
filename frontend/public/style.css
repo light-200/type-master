@@ -390,6 +390,34 @@ header svg {
   letter-spacing: normal;
 }
 
+.lobbyStats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--mp-panel-border);
+  border-radius: 12px;
+  background: var(--mp-panel-surface);
+}
+
+.lobbyStat {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--mp-panel-muted);
+}
+
+.lobbyStatValue {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--font-color);
+}
+
 .roomHeader {
   display: grid;
   grid-template-columns: auto 1fr auto;

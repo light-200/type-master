@@ -37,6 +37,8 @@ const getUsersInRoom = (room) => {
   return usersInRoom;
 };
 
+const getUserCount = () => users.size;
+
 const resetUser = (room) => {
   let usersInRoom = new Array();
   users.forEach((user) => {
@@ -55,4 +57,4 @@ const resetUser = (room) => {
   return usersInRoom;
 };
 
-export { addUser, removeUser, getUser, getUsersInRoom, setUser, resetUser };
+export { addUser, removeUser, getUser, getUsersInRoom, getUserCount, setUser, resetUser };

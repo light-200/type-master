@@ -6,6 +6,7 @@ import getText from "./getText.js";
 import { generateRandomText } from "./controllers/textController.js";
 import {
   addUser,
+  getUserCount,
   getUsersInRoom,
   removeUser,
   resetUser,
@@ -46,6 +47,13 @@ function normalizeRoomSettings(settings) {
         ? settings.smallCaseMode
         : DEFAULT_SMALL_CASE_MODE,
   };
+}
+
+function emitLobbyStats() {
+  io.emit("lobbyStats", {
+    rooms: roomSettings.size,
+    players: getUserCount(),
+  });
 }
 
 console.log("[INFO] Initializing server...");
@@ -95,6 +103,10 @@ const PORT = process.env.PORT || 3000;
 
 io.on("connection", (socket) => {
   console.log(`[INFO] New socket connection: ${socket.id}`);
+  socket.emit("lobbyStats", {
+    rooms: roomSettings.size,
+    players: getUserCount(),
+  });
   socket.on("createRoom", (userName, room, settings) =>
     createRoom(userName, room, settings)
   );
@@ -130,6 +142,7 @@ io.on("connection", (socket) => {
     addUser(tempUser);
     const playerList = getUsersInRoom(roomId);
     io.to(roomId).emit("playerList", playerList);
+    emitLobbyStats();
   }
 
   socket.on("getText", (room) => {
@@ -179,6 +192,7 @@ io.on("connection", (socket) => {
     addUser(tempUser);
     const playerList = getUsersInRoom(roomName);
     io.to(roomName).emit("playerList", playerList);
+    emitLobbyStats();
 
     if (numClients === 1) {
       io.to(roomName).emit("textTimer");
@@ -204,6 +218,7 @@ io.on("connection", (socket) => {
       if (remainingUsers.length === 0) {
         roomSettings.delete(user.room);
       }
+      emitLobbyStats();
     } else {
       console.log(`[INFO] Socket ${socket.id} disconnected (user not found)`);
     }
