@@ -36,7 +36,7 @@ export async function createRoom() {
   setIsHost(true);
 }
 
-export function renderPlayers(playerList) {
+export function renderPlayers(playerList, winnerId = null) {
   const list = Array.isArray(playerList) ? playerList : [];
   if (list.length === 0) {
     clearPlayerArea();
@@ -46,7 +46,7 @@ export function renderPlayers(playerList) {
     return;
   }
 
-  const winnerKey = getWinnerKey(list);
+  const winnerKey = getWinnerKey(list, winnerId);
   renderTrackPlayers(list, winnerKey);
   renderLobbyPlayers(list, winnerKey);
   announceWinnerIfAny(list, winnerKey);
@@ -77,14 +77,17 @@ function renderTrackPlayers(playerList, winnerKey) {
       }
       row.innerHTML =
         '<div class="playerProgress"><div class="playerName">' +
-        crownSvg +
         '<span class="playerNameText"></span></div></div><div class="playerSpeed"></div>';
       requestAnimationFrame(() => {
         row.classList.remove("is-new");
       });
     }
 
-    row.classList.toggle("is-winner", key === winnerKey);
+    if (key === winnerKey) {
+      row.classList.add("is-winner");
+    } else {
+      row.classList.remove("is-winner");
+    }
 
     const nameContainer = row.querySelector(".playerName");
     const nameEl = row.querySelector(".playerNameText");
@@ -99,6 +102,7 @@ function renderTrackPlayers(playerList, winnerKey) {
 
     const progress = Number(player.progress) || 0;
     if (nameContainer) {
+      syncCrown(nameContainer, key === winnerKey);
       nameContainer.style.left = `${progress}%`;
       nameContainer.style.transform = `translateX(-${progress}%)`;
     }
@@ -146,7 +150,7 @@ function renderLobbyPlayers(playerList, winnerKey) {
         <div class="lobbyPlayerProfile">
           <div class="lobbyPlayerAvatar"></div>
           <div class="lobbyPlayerIdentity">
-            <div class="lobbyPlayerName">${crownSvg}<span class="lobbyPlayerNameText"></span></div>
+            <div class="lobbyPlayerName"><span class="lobbyPlayerNameText"></span></div>
             <div class="lobbyPlayerTag"></div>
           </div>
         </div>
@@ -165,12 +169,20 @@ function renderLobbyPlayers(playerList, winnerKey) {
     const speed =
       player.speed === undefined || player.speed === null ? 0 : player.speed;
 
-    row.classList.toggle("is-winner", key === winnerKey);
+    if (key === winnerKey) {
+      row.classList.add("is-winner");
+    } else {
+      row.classList.remove("is-winner");
+    }
     const nameEl = row.querySelector(".lobbyPlayerNameText");
+    const nameContainer = row.querySelector(".lobbyPlayerName");
     if (nameEl) {
       nameEl.textContent = name;
     } else {
       row.querySelector(".lobbyPlayerName").textContent = name;
+    }
+    if (nameContainer) {
+      syncCrown(nameContainer, key === winnerKey);
     }
     row.querySelector(".lobbyPlayerAvatar").textContent = getInitials(name);
     row.querySelector(".lobbyPlayerTag").textContent = getPlayerTag(player, key);
@@ -199,8 +211,9 @@ function clearLobbyPlayers() {
 }
 
 function getPlayerKey(player, index) {
-  const keyBase = player.id || player.name || `player-${index}`;
-  return String(keyBase);
+  if (player && player.id) return String(player.id);
+  const namePart = player && player.name ? String(player.name) : "player";
+  return `${namePart}-${index}`;
 }
 
 function getPlayerName(player, index) {
@@ -221,6 +234,18 @@ function getPlayerTag(player, fallbackKey) {
   return `#${String(fallbackKey).slice(0, 4)}`;
 }
 
+function syncCrown(container, isWinner) {
+  if (!container) return;
+  const existing = container.querySelector(".playerCrown");
+  if (isWinner) {
+    if (!existing) {
+      container.insertAdjacentHTML("afterbegin", crownSvg);
+    }
+  } else if (existing) {
+    existing.remove();
+  }
+}
+
 function announceWinnerIfAny(playerList, winnerKey) {
   if (!winnerKey || winnerAnnounced) return;
 
@@ -237,12 +262,20 @@ function announceWinnerIfAny(playerList, winnerKey) {
   handlePopup(`${getPlayerName(winner, winnerIndex)} wins!`, 2500);
 }
 
-function getWinnerKey(playerList) {
-  const winnerIndex = playerList.findIndex(
+function getWinnerKey(playerList, winnerId) {
+  if (winnerId) {
+    const winnerIndex = playerList.findIndex(
+      (player) => player && player.id === winnerId
+    );
+    if (winnerIndex !== -1) {
+      return getPlayerKey(playerList[winnerIndex], winnerIndex);
+    }
+  }
+  const fallbackIndex = playerList.findIndex(
     (player) => (Number(player.progress) || 0) >= 100
   );
-  if (winnerIndex === -1) return null;
-  return getPlayerKey(playerList[winnerIndex], winnerIndex);
+  if (fallbackIndex === -1) return null;
+  return getPlayerKey(playerList[fallbackIndex], fallbackIndex);
 }
 
 export function resetWinnerState() {

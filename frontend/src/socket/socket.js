@@ -10,6 +10,8 @@ import {
   roomSettingsList,
   roomHeader,
   textContainer,
+  lobbyPlayersWrap,
+  roomId,
 } from "../ui/uiElements";
 import {
   isHost,
@@ -40,6 +42,7 @@ socket.on("connect", () => {
 });
 
 socket.on("disconnect", () => {
+  resetLobbyUI();
   setIsHost(false);
   setMultiplayerMode(false);
   console.log("you are disconnected");
@@ -75,15 +78,20 @@ socket.on("unknownCode", () => {
 socket.on("tooManyPlayers", () => {
   handlePopup("room is full 😞", 1000);
 });
+socket.on("leftRoom", () => {
+  resetLobbyUI();
+});
 
 let you, showTimer, newTextTimeout;
 
-socket.on("playerList", (playerList) => {
+socket.on("playerList", (payload) => {
+  const playerList = Array.isArray(payload) ? payload : payload.players || [];
+  const winnerId = Array.isArray(payload) ? null : payload.winnerId || null;
   let index = playerList.findIndex((user) => user.id == socket.id);
   if (index !== -1) {
     you = playerList[index];
   }
-  renderPlayers(playerList);
+  renderPlayers(playerList, winnerId);
 });
 
 socket.on("newText", (data) => {
@@ -151,6 +159,20 @@ function closeMpArea() {
   }, 500);
 }
 
+function resetLobbyUI() {
+  setIsHost(false);
+  setMultiplayerMode(false);
+  resetWinnerState();
+  renderPlayers([]);
+  if (joinRoomForm) joinRoomForm.classList.remove("hide");
+  if (lobbyStats) lobbyStats.classList.remove("hide");
+  if (roomHeader) roomHeader.classList.add("hide");
+  if (roomSettings) roomSettings.classList.add("hide");
+  if (roomSettingsList) roomSettingsList.innerHTML = "";
+  if (lobbyPlayersWrap) lobbyPlayersWrap.classList.add("hide");
+  if (roomId) roomId.textContent = "";
+}
+
 function renderRoomSettings(settings) {
   if (!roomSettings || !roomSettingsList) return;
   const chips = [];
@@ -175,6 +197,11 @@ function renderRoomSettings(settings) {
   } else {
     roomSettings.classList.add("hide");
   }
+}
+
+export function leaveRoom() {
+  resetLobbyUI();
+  socket.emit("leaveRoom");
 }
 
 export default socket;

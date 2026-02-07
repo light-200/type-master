@@ -503,6 +503,29 @@ header svg {
   color: var(--mp-panel-accent);
 }
 
+.leaveRoomBtn {
+  border-radius: 8px;
+  border: 1px solid var(--mp-panel-border);
+  background: var(--mp-panel-input-bg);
+  color: var(--font-color);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.65rem;
+  cursor: pointer;
+  opacity: 0.65;
+  transition: 150ms ease;
+}
+
+.leaveRoomBtn:hover {
+  opacity: 1;
+  border-color: var(--mp-panel-accent);
+}
+
+.leaveRoomBtn:active {
+  transform: translate(-0.5px, 1px);
+}
+
 .roomSettings {
   display: flex;
   flex-direction: column;
@@ -1177,12 +1200,14 @@ footer {
   height: 250px;
   background-color: inherit;
   color: inherit;
+  overflow: hidden;
 }
 
 .stats .bg {
   width: 100%;
   position: absolute;
   z-index: 0;
+  height: 100%;
 }
 
 .statsText {
