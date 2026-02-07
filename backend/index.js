@@ -24,7 +24,12 @@ let corsOrigin;
 console.log("[INFO] Initializing server...");
 
 process.env.DEVELOPMENT_MODE == "true"
-  ? (corsOrigin = ["http://localhost:8080", "http://127.0.0.1:5500"])
+  ? (corsOrigin = [
+      "http://localhost:5173",
+      "http://127.0.0.1:5173",
+      "http://localhost:8080",
+      "http://127.0.0.1:5500",
+    ])
   : (corsOrigin = [process.env.FRONTEND_ADDRESS]);
 
 

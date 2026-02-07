@@ -9,10 +9,13 @@ import { isHost } from "./userDefault";
 var text;
 let callsCount = 0;
 
+const env = import.meta.env;
+const isDevelopment = env.VITE_DEVELOPMENT_MODE === "true";
+
 const CONSTANTS = {
-  SERVER_URL: process.env.DEVELOPMENT_MODE === "true" 
-    ? "http://localhost:3000" 
-    : process.env.SERVER_LINK || "http://localhost:3000",
+  SERVER_URL: isDevelopment
+    ? "http://localhost:3000"
+    : env.VITE_SERVER_LINK || "http://localhost:3000",
   TEXT_API_ENDPOINT: "/api/text",
   LOGIN_REMINDER_CALLS: [5, 15],
   LOGIN_REMINDER_MESSAGE: "Login to save data 🙂",

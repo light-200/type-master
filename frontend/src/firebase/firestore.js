@@ -19,7 +19,8 @@ import {
 } from "../functions/handleLeaderBoard";
 
 const firestore = getFirestore(app);
-if (process.env.DEVELOPMENT_MODE == "true")
+const isDevelopment = import.meta.env.VITE_DEVELOPMENT_MODE === "true";
+if (isDevelopment)
   connectFirestoreEmulator(firestore, "localhost", 8888);
 
 export const getData = async () => {
