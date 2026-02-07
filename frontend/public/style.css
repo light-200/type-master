@@ -410,6 +410,12 @@ header svg {
   color: var(--mp-panel-muted);
 }
 
+.roomActions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
 .roomId {
   display: block;
   padding: 0.5rem 0.6rem;
@@ -426,7 +432,8 @@ header svg {
   letter-spacing: 0.08em;
 }
 
-.copyRoomId {
+.copyRoomId,
+.copyRoomLink {
   display: grid;
   place-content: center;
   width: fit-content;
@@ -444,23 +451,61 @@ header svg {
 }
 
 .copyRoomId:hover::after,
-.copyRoomId:hover::before {
+.copyRoomId:hover::before,
+.copyRoomLink:hover::after,
+.copyRoomLink:hover::before {
   visibility: visible;
 }
 
-.copyRoomId:hover {
+.copyRoomId:hover,
+.copyRoomLink:hover {
   opacity: 1;
   border-color: var(--mp-panel-accent);
 }
 
-.copyRoomId:active {
+.copyRoomId:active,
+.copyRoomLink:active {
   transform: translate(-0.5px, 1px);
 }
 
-.copyRoomId.active {
+.copyRoomId.active,
+.copyRoomLink.active {
   opacity: 1;
   border-color: var(--mp-panel-accent);
   color: var(--mp-panel-accent);
+}
+
+.roomSettings {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--mp-panel-border);
+  border-radius: 12px;
+  background: var(--mp-panel-surface);
+}
+
+.roomSettingsTitle {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mp-panel-muted);
+}
+
+.roomSettingsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.roomSettingChip {
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--mp-panel-border);
+  background: var(--mp-panel-bg);
+  font-size: 0.68rem;
+  letter-spacing: 0.02em;
+  color: var(--font-color);
 }
 
 .playArea {

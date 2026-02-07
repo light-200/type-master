@@ -20,8 +20,18 @@ export async function createRoom() {
   let user = await getUserData();
   const localData = getLocalData() || {};
   const wordCount = normalizeWordCount(localData.wordCount);
+  const punctuationMode =
+    typeof localData.punctuationMode === "boolean"
+      ? localData.punctuationMode
+      : true;
+  const smallCaseMode =
+    typeof localData.smallCaseMode === "boolean"
+      ? localData.smallCaseMode
+      : false;
   socket.emit("createRoom", user ? user.userName : null, socket.id, {
     wordCount,
+    punctuationMode,
+    smallCaseMode,
   });
   setIsHost(true);
 }

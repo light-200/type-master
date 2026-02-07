@@ -5,9 +5,16 @@ const CONSTANTS = {
   DEFAULT_WORD_COUNT: 25,
 };
 
-export default async function getText(io, room, wordCount) {
+export default async function getText(io, room, settings) {
   try {
-    const text = generateRandomText(wordCount || CONSTANTS.DEFAULT_WORD_COUNT);
+    const count = settings && settings.wordCount ? settings.wordCount : settings;
+    let text = generateRandomText(count || CONSTANTS.DEFAULT_WORD_COUNT);
+    if (settings && settings.punctuationMode === false) {
+      text = text.replace(/[^ \\w]/g, "");
+    }
+    if (settings && settings.smallCaseMode === true) {
+      text = text.toLowerCase();
+    }
     console.log(
       `[INFO] New text fetched for room ${room}: "${text.substring(0, CONSTANTS.LOG_PREVIEW_LENGTH)}..."`
     );

@@ -37,6 +37,7 @@ import {
   createRoomBtn,
   joinRoomForm,
   copyRoomId,
+  copyRoomLink,
   roomId,
   mpClose,
 } from "./uiElements";
@@ -396,6 +397,23 @@ copyRoomId.addEventListener("click", () => {
     copyRoomId.classList.add("active");
   });
 });
+
+if (copyRoomLink) {
+  copyRoomLink.addEventListener("click", () => {
+    const link = buildRoomShareLink(roomId.innerText);
+    navigator.clipboard.writeText(link).then(() => {
+      copyRoomLink.innerText = "✅";
+      copyRoomLink.classList.add("active");
+    });
+  });
+}
+
+function buildRoomShareLink(currentRoomId) {
+  const url = new URL(window.location.href);
+  url.searchParams.set("room", String(currentRoomId || "").trim());
+  url.hash = "";
+  return url.toString();
+}
 
 export default setWords;
 export { spanWrap, totalWords, handleStats };

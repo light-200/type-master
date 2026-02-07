@@ -3,6 +3,8 @@ import handlePopup from "../functions/handlePopup";
 import {
   joinRoomForm,
   mpContainer,
+  roomSettings,
+  roomSettingsList,
   roomHeader,
   textContainer,
 } from "../ui/uiElements";
@@ -47,6 +49,10 @@ socket.on("roomId", (roomId) => {
   setMultiplayerMode(true);
   textContainer.innerText = "...";
   !isHost && closeMpArea();
+});
+
+socket.on("roomSettings", (settings) => {
+  renderRoomSettings(settings);
 });
 
 socket.on("unknownCode", () => {
@@ -129,6 +135,32 @@ function closeMpArea() {
   setTimeout(() => {
     mpContainer.classList.add("hide");
   }, 500);
+}
+
+function renderRoomSettings(settings) {
+  if (!roomSettings || !roomSettingsList) return;
+  const chips = [];
+  if (settings && settings.wordCount) {
+    chips.push(`${settings.wordCount} words`);
+  }
+  if (settings && settings.punctuationMode !== undefined) {
+    chips.push(
+      settings.punctuationMode ? "Punctuation: on" : "Punctuation: off"
+    );
+  }
+  if (settings && settings.smallCaseMode !== undefined) {
+    chips.push(settings.smallCaseMode ? "Case: lowercase" : "Case: mixed");
+  }
+
+  roomSettingsList.innerHTML = chips
+    .map((chip) => `<span class="roomSettingChip">${chip}</span>`)
+    .join("");
+
+  if (chips.length > 0) {
+    roomSettings.classList.remove("hide");
+  } else {
+    roomSettings.classList.add("hide");
+  }
 }
 
 export default socket;

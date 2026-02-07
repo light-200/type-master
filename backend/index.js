@@ -23,6 +23,8 @@ let corsOrigin;
 
 const ROOM_WORD_COUNT_OPTIONS = [10, 25, 50, 100];
 const DEFAULT_WORD_COUNT = 25;
+const DEFAULT_PUNCTUATION_MODE = true;
+const DEFAULT_SMALL_CASE_MODE = false;
 const roomSettings = new Map();
 
 function normalizeWordCount(value) {
@@ -30,6 +32,20 @@ function normalizeWordCount(value) {
   return ROOM_WORD_COUNT_OPTIONS.includes(parsed)
     ? parsed
     : DEFAULT_WORD_COUNT;
+}
+
+function normalizeRoomSettings(settings) {
+  return {
+    wordCount: normalizeWordCount(settings && settings.wordCount),
+    punctuationMode:
+      settings && typeof settings.punctuationMode === "boolean"
+        ? settings.punctuationMode
+        : DEFAULT_PUNCTUATION_MODE,
+    smallCaseMode:
+      settings && typeof settings.smallCaseMode === "boolean"
+        ? settings.smallCaseMode
+        : DEFAULT_SMALL_CASE_MODE,
+  };
 }
 
 console.log("[INFO] Initializing server...");
@@ -98,10 +114,11 @@ io.on("connection", (socket) => {
     }
     let roomId = room.slice(0, 6);
     socket.join(roomId);
-    const wordCount = normalizeWordCount(settings && settings.wordCount);
-    roomSettings.set(roomId, { wordCount });
+    const normalizedSettings = normalizeRoomSettings(settings);
+    roomSettings.set(roomId, normalizedSettings);
     console.log(`[INFO] Room created: ${roomId} by user: ${userName || 'guest'}`);
     socket.emit("roomId", roomId);
+    io.to(roomId).emit("roomSettings", normalizedSettings);
     let tempUser = {
       id: socket.id,
       name: userName || `guest`,
@@ -117,9 +134,8 @@ io.on("connection", (socket) => {
 
   socket.on("getText", (room) => {
     console.log(`[INFO] Fetching new text for room: ${room}`);
-    const settings = roomSettings.get(room);
-    const wordCount = normalizeWordCount(settings && settings.wordCount);
-    getText(io, room, wordCount);
+    const settings = roomSettings.get(room) || normalizeRoomSettings();
+    getText(io, room, settings);
     const playerList = resetUser(room);
     io.to(room).emit("playerList", playerList);
   });
@@ -148,6 +164,11 @@ io.on("connection", (socket) => {
     console.log(`[INFO] User ${userName || 'guest'} joined room: ${roomName} (${numClients + 1} total players)`);
     socket.join(roomName);
     socket.emit("roomId", roomName);
+    const settings = roomSettings.get(roomName) || normalizeRoomSettings();
+    if (!roomSettings.has(roomName)) {
+      roomSettings.set(roomName, settings);
+    }
+    socket.emit("roomSettings", settings);
     let tempUser = {
       id: socket.id,
       name: userName || `guest${numClients}`,
